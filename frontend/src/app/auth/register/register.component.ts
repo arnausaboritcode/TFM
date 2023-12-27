@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { environment } from '../../../environments/environment';
+import { FormGroup, ValidatorFn } from '@angular/forms';
+import { Validators, FormBuilder } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -11,18 +14,43 @@ import { environment } from '../../../environments/environment';
 })
 
 export class RegisterComponent {
-  email: string = "";
-  password: string = "";
-  name: string = "";
-  passwordConfirmation: string = "";
-  constructor(private http: HttpClient, private router: Router) { }
+
+  registerForm: FormGroup = new FormGroup({});
+  submitted = false;
+
+  constructor(private http: HttpClient, private router: Router, private fb: FormBuilder) {
+    this.createForm();
+   }
+
+   matchPasswords(control: AbstractControl){
+    const password:string = control.get('password')?.value;
+    const confirmedPassword:string = control.get('confirmPassword')?.value;
+
+    if (password && confirmedPassword && password !== confirmedPassword){
+      control.get("confirmPassword")?.setErrors({ mismatch: true });
+    }
+    return null;
+  }
+
+   createForm() {
+    this.registerForm = this.fb.group ({
+      username: [null, [Validators.required]],
+      email: [null, [Validators.required, Validators.email]],
+      password: [null, [Validators.required, Validators.pattern]],
+      confirmPassword: [null, [Validators.required]]
+    },
+    {
+      validator: this.matchPasswords
+
+    });
+  }
 
   onSubmit() {
     const formData = new FormData();
-    formData.append('name', this.name);
-    formData.append('email', this.email);
-    formData.append('password', this.password);
-    formData.append('password_confirmation', this.passwordConfirmation);
+    formData.append('name', this.registerForm.value.username);
+    formData.append('email', this.registerForm.value.email);
+    formData.append('password', this.registerForm.value.password);
+    formData.append('password_confirmation', this.registerForm.value.confirmPassword);
 
     this.http.post(`${environment.api_url}/auth/register`, formData)
     .subscribe({
@@ -34,5 +62,7 @@ export class RegisterComponent {
       }
 
   });
+
+  this.submitted = true;
   }
 }
