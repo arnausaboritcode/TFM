@@ -56,6 +56,7 @@ export class RegisterComponent {
     .subscribe({
       next: (response: any) => {
           console.log(response.message);
+          this.router.navigate(['/login']);
       },
       error: (error) => {
           console.error(error);

@@ -1,3 +1,4 @@
+<!--
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
 <div class="border text-card-foreground max-w-lg mx-auto mt-20 p-10 bg-white rounded-xl shadow-md" data-v0-t="card">
   <div class="flex flex-col space-y-1.5 p-6">
@@ -128,3 +129,63 @@
 </div>
 
 </form>
+-->
+
+<section class="text-gray-600 font-helvetica">
+  <div class="container px-5 py-24 mx-auto flex flex-wrap items-center">
+    <div class="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
+      <h1 class="title-font font-medium text-3xl text-gray-900">Slow-carb next level shoindcgoitch ethical authentic, poko scenester</h1>
+      <p class="leading-relaxed mt-4">Poke slow-carb mixtape knausgaard, typewriter street art gentrify hammock starladder roathse. Craies vegan tousled etsy austin.</p>
+    </div>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
+      <h2 class="text-gray-900 text-lg font-medium title-font mb-5">Sign Up</h2>
+      <div class="relative mb-4">
+        <label for="username" class="leading-7 text-sm text-gray-600">Username</label>
+        <input type="text" id="username" name="username" placeholder="Username" formControlName="username" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+        <div class="mt-2" *ngIf="(registerForm.get('username')?.invalid && registerForm.get('username')?.dirty || registerForm.get('username')?.invalid && submitted)">
+          <div *ngIf="registerForm.get('username')?.errors?.['required']">
+            <small class="text-xs text-red-600">Username is required</small>
+          </div>
+        </div>
+      </div>
+      <div class="relative mb-4">
+        <label for="email" class="leading-7 text-sm text-gray-600">Email</label>
+        <input type="email" id="email" name="email" placeholder="Email" formControlName="email" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+        <div class="mt-2" *ngIf="(registerForm.get('email')?.invalid && registerForm.get('email')?.dirty || registerForm.get('email')?.invalid && submitted)">
+          <div *ngIf="registerForm.get('email')?.errors?.['required']">
+            <small class="text-xs text-red-600">Email is required</small>
+          </div>
+          <div *ngIf="registerForm.get('email')?.errors?.['email']">
+            <small class="text-xs text-red-600">Email address not well formed</small>
+          </div>
+        </div>
+      </div>
+      <div class="relative mb-4">
+        <label for="password" class="leading-7 text-sm text-gray-600">Password</label>
+        <input type="password" id="password" name="password" placeholder="Password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" formControlName="password" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+        <div class="mt-2" *ngIf="(registerForm.get('password')?.invalid && registerForm.get('password')?.dirty || registerForm.get('password')?.invalid && submitted)">
+          <div *ngIf="registerForm.get('password')?.errors?.['required']">
+            <small class="text-xs text-red-600">Password is required</small>
+          </div>
+          <div *ngIf="registerForm.get('password')?.errors?.['pattern']">
+            <small class="text-xs text-red-600">Password must have eight characters, at least one uppercase letter, one lowercase letter and one number</small>
+          </div>
+        </div>
+      </div>
+      <div class="relative mb-4">
+        <label for="confirm-password" class="leading-7 text-sm text-gray-600">Confirm Password</label>
+        <input type="password" id="confirm-password" name="confirmPassword" placeholder="Confirm Password" formControlName="confirmPassword" class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+        <div class="mt-2" *ngIf="(registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched || registerForm.get('confirmPassword')?.invalid && submitted)">
+          <div *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">
+            <small class="text-xs text-red-600">Password confirmation is required</small>
+          </div>
+          <div *ngIf="registerForm.get('confirmPassword')?.errors?.['mismatch']">
+            <small class="text-xs text-red-600">Passwords must match</small>
+          </div>
+        </div>
+      </div>
+      <button class="text-white bg-orange-500 border-0 py-2 px-8 focus:outline-none hover:bg-orange-600 rounded text-lg">Register</button>
+      <p class="text-xs text-gray-500 mt-3">Already have an account? <a class="text-orange-500 hover:underline" [routerLink]="['/login']" rel="ugc">Login</a></p>
+    </form>
+  </div>
+</section>

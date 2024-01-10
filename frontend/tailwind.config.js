@@ -4,8 +4,17 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        orange: {
+          500: '#fd7014',
+          600: '#ee5408',
+        },
+      },
+    },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-animatecss')
+  ],
 }
 

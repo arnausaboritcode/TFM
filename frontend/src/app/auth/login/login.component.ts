@@ -40,7 +40,7 @@ export class LoginComponent {
           console.log(response.message);
           //this.successOrFailureMessage = "User logged in succesfully...";
           // If login successful, navigate to dashboard page
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/home']);
       },
       error: (error) => {
           console.error(error);
