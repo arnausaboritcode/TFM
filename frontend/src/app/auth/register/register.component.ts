@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -6,6 +6,7 @@ import { environment } from '../../../environments/environment';
 import { FormGroup, ValidatorFn } from '@angular/forms';
 import { Validators, FormBuilder } from '@angular/forms';
 import { AbstractControl } from '@angular/forms';
+import { NavbarShowHideService } from '../../routes/services/navbar-show-hide.service';
 
 @Component({
   selector: 'app-register',
@@ -13,12 +14,12 @@ import { AbstractControl } from '@angular/forms';
   styleUrls: ['./register.component.scss']
 })
 
-export class RegisterComponent {
+export class RegisterComponent implements OnInit, OnDestroy {
 
   registerForm: FormGroup = new FormGroup({});
   submitted = false;
 
-  constructor(private http: HttpClient, private router: Router, private fb: FormBuilder) {
+  constructor(private http: HttpClient, private router: Router, private fb: FormBuilder, private navbarService:NavbarShowHideService) {
     this.createForm();
    }
 
@@ -65,5 +66,15 @@ export class RegisterComponent {
   });
 
   this.submitted = true;
+  }
+
+   //Navbar show hide
+
+  ngOnInit(): void {
+    this.navbarService.hide();
+  }
+
+  ngOnDestroy(): void {
+    this.navbarService.show();
   }
 }

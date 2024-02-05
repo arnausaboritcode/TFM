@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit, Pipe } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { environment } from '../../../environments/environment';
 import { FormGroup } from '@angular/forms';
 import { Validators, FormBuilder } from '@angular/forms';
+import { NavbarShowHideService } from '../../routes/services/navbar-show-hide.service';
+import { UserStoreService } from '../../routes/services/user-store.service';
+
 
 @Component({
   selector: 'app-login',
@@ -12,13 +15,13 @@ import { Validators, FormBuilder } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm: FormGroup = new FormGroup({});
   submitted = false;
   successOrFailureMessage :string = "";
 
-  constructor(private http: HttpClient, private router: Router, private fb: FormBuilder) {
+  constructor(private http: HttpClient, private router: Router, private fb: FormBuilder, private navbarService:NavbarShowHideService, private userStoreService: UserStoreService) {
     this.createForm();
    }
 
@@ -38,18 +41,29 @@ export class LoginComponent {
     .subscribe({
       next: (response: any) => {
           console.log(response.message);
-          //this.successOrFailureMessage = "User logged in succesfully...";
-          // If login successful, navigate to dashboard page
-          this.router.navigate(['/home']);
+          //Save token because of logout
+          this.userStoreService.setToken(response.token);
+          this.router.navigate(['/search']);
       },
       error: (error) => {
           console.error(error);
           if (this.loginForm.value.email && this.loginForm.value.password) {
-            this.successOrFailureMessage = "User not found or login failed.";
+            this.successOrFailureMessage = "User not found or login failed. Please try again.";
           }
       }
   });
 
   this.submitted = true;
   }
+
+  //Navbar show hide
+
+  ngOnInit(): void {
+    this.navbarService.hide();
+  }
+
+  ngOnDestroy(): void {
+    this.navbarService.show();
+  }
+
 }

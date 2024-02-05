@@ -1,0 +1,17 @@
+
+<ng-template #hideSkeleton>
+
+  <app-movie-banner></app-movie-banner>
+
+  <app-movie-carrousel [title]="'Playing on Cinema'" [movies]="nowPlayingMovies"></app-movie-carrousel>
+
+  <app-movie-carrousel [title]="'Popular'" [movies]="getPopularMovies"></app-movie-carrousel>
+
+  <app-movie-carrousel [title]="'Best by viewers'" [movies]="getTopRatedMovies"></app-movie-carrousel>
+
+  <app-movie-carrousel [title]="'Next Movies'" [movies]="getUpcomingMovies"></app-movie-carrousel>
+</ng-template>
+
+<app-skeleton *ngIf="skeleton else hideSkeleton"></app-skeleton>
+
+
