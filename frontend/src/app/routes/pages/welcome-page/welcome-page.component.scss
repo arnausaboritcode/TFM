@@ -1,0 +1,124 @@
+
+//FAQ section - Box questions animation
+
+.rotate {
+  transform: rotate(0);
+  transition: .25s transform ease;
+}
+
+details {
+  overflow: hidden;
+}
+
+details:not([open]) {
+  max-height: 70px;
+  /* transition: 0.5s height ease; */
+}
+
+details[open] {
+  max-height: 500px;
+  transition: 0.5s max-height ease;
+}
+
+details[open] > summary > .rotate {
+  transform: rotate(180deg);
+}
+
+
+//Content Section - Scale-up main titles animation
+@keyframes scale-up {
+	to { scale: 1.5; }
+}
+
+.customScrollAnimation {
+	view-timeline: --scroll;
+}
+
+h2 {
+	animation:
+		scale-up both ease-in-out;
+	animation-timeline: --scroll;
+	 animation-range:
+   0% 50%;
+}
+
+
+//Content Section - Translate subtitles and paragrafs animation
+@keyframes on-left {
+	to { transform:translateX(-250%); }
+}
+
+@keyframes translate-right {
+	to { transform:translateX(0); }
+}
+
+@keyframes translate-left {
+	to { transform:translateX(250%); }
+}
+
+@keyframes on-right {
+	to { transform:translateX(0); }
+}
+
+.leftToRightScrollAnimation {
+	animation:
+  on-left both ease-in-out, translate-right both ease-in-out;
+	animation-timeline: --scroll;
+	 animation-range:
+   0% 10%,
+   0% 50%;
+}
+
+.rightToLeftScrollAnimation{
+  animation:
+  translate-left both ease-in-out, on-right both ease-in-out;
+	animation-timeline: --scroll;
+	 animation-range:
+   0% 10%,
+   0% 50%;
+}
+
+@media (max-width: 1024px) {
+  .leftToRightScrollAnimation {
+    animation:
+    on-left both ease-in-out, translate-right both ease-in-out;
+    animation-timeline: --scroll;
+     animation-range:
+     0% 10%,
+     0% 30% !important;
+  }
+
+  .rightToLeftScrollAnimation {
+    animation:
+    translate-left both ease-in-out, on-right both ease-in-out;
+    animation-timeline: --scroll;
+     animation-range:
+     0% 10%,
+     0% 30% !important;
+  }
+}
+
+//Images onscroll
+@keyframes on-down {
+	to { transform:translateY(100%); }
+}
+
+@keyframes translate-up {
+	to { transform:translateY(0); }
+}
+
+.downToUpScrollAnimation {
+	animation:
+  on-down both ease-in-out, translate-up both ease-in-out;
+	animation-timeline: --scroll;
+	 animation-range:
+   0% 10%,
+   0% 50%;
+}
+
+//Scroll
+.show-scrollTop {
+  opacity: 1;
+  scale: 150%;
+  transition: all 0.3s ease-in-out;
+}

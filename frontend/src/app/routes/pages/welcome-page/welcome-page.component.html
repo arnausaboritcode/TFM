@@ -1,0 +1,497 @@
+<!-- Banner Section -->
+<div
+  *ngIf="movies && movies.length > 0"
+  [style.backgroundImage]="
+    'url(' +
+    'https://image.tmdb.org/t/p/original' +
+    movies[1].backdrop_path +
+    ')'
+  "
+  class="bg-cover bg-center bg-no-repeat w-full h-screen"
+>
+  <!-- Banner gradients -->
+  <div
+    class="absolute w-full h-full bg-gradient-to-r from-black via-transparent to-transparent"
+  ></div>
+  <div
+    class="absolute w-full h-full bg-gradient-to-l from-black via-transparent to-transparent"
+  ></div>
+  <div
+    class="absolute w-full h-full bg-gradient-to-t from-black via-transparent to-transparent"
+  ></div>
+  <!-- Bounced arrow -->
+  <a
+    class="absolute z-10 w-5 h-5 m-auto left-0 right-0 bottom-16 scale-150 cursor-pointer"
+    (click)="scroll(first)"
+    ><mat-icon class="animate-bounce text-white"
+      >keyboard_arrow_down</mat-icon
+    ></a
+  >
+  <!---->
+  <!-- Scroll to top arrow -->
+  <a
+    class="fixed opacity-0 z-50 w-5 h-5 right-12 bottom-20 cursor-pointer transition-all duration-500 ease-in-out group"
+    [ngClass]="{ 'show-scrollTop': windowScrolled }"
+    (click)="scrollToTop()"
+    ><div
+      class="md:w-9 md:h-9 w-6 h-6 rounded-full bg-darkBlue-400 flex items-center justify-center shadow-md"
+    >
+      <mat-icon
+        class="md:scale-90 scale-[0.65] text-white group-hover:-translate-y-1 transition-all duration-500 ease-in-out"
+        >keyboard_arrow_up</mat-icon
+      >
+    </div></a
+  >
+  <!---->
+  <div
+    class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,0%,0.4)] bg-fixed"
+  >
+    <div class="flex justify-center items-center w-full h-full p-[6vw]">
+      <div class="flex-col text-center lg:w-6/12 md:w-10/12 w-3/4">
+        <h1
+          class="lg:text-6xl md:text-5xl text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 mb-6"
+        >
+          Welcome to
+          <span class="text-salmon font-strange">PopCorn</span>
+        </h1>
+        <p
+          class="lg:text-lg md:text-lg text-sm text-darkBlue-300 leading-normal font-bold lg:mt-10 md:mt-10"
+        >
+          your new
+          <span class="text-salmon font-strange">favourite</span> streaming
+          platform
+        </p>
+
+        <div class="mt-10">
+          <div class="flex-col justify-center">
+            <div class="flex justify-center w-full">
+              <a
+                routerLink="/user/login"
+                class="relative inline-flex items-center justify-center px-6 py-3 overflow-hidden font-medium text-white transition duration-300 ease-out rounded-full shadow-md group"
+              >
+                <span
+                  class="absolute inset-0 flex items-center justify-center w-full h-full text-white duration-300 -translate-x-full bg-salmon group-hover:translate-x-0 ease"
+                >
+                  <mat-icon>person</mat-icon>
+                </span>
+                <span
+                  class="absolute flex items-center justify-center w-full h-full text-salmon bg-white font-bold transition-all duration-300 transform group-hover:translate-x-full ease"
+                  >Get started</span
+                >
+                <span class="relative invisible">Get started</span>
+              </a>
+            </div>
+
+            <div class="flex justify-center w-full">
+              <object
+                class="lg:w-52 md:w-44 w-20 lg:mt-20 md:mt-20 mt-10"
+                data="assets/images/logo.svg"
+                type="image/svg+xml"
+              ></object>
+            </div>
+            <p
+              class="md:text-[12px] text-[8px] text-darkBlue-300 leading-loose font-medium lg:mt-20 md:mt-20 mt-10"
+            >
+              *Content is provided by third-party services. There is a slight
+              possibility that some content may not be displayed as expected.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Find Section -->
+<div
+  #first
+  class="customScrollAnimation flex flex-col justify-center w-full h-full p-[6vw]"
+>
+  <h2
+    class="w-full h-full lg:text-[16rem] md:text-[9rem] text-center text-[6rem] font-extrabold text-salmon z-10 opacity-30 md:mb-10 mb-4 font-strange"
+  >
+    Find
+  </h2>
+
+  <div
+    class="flex lg:flex-row md:flex-col-reverse flex-col-reverse w-full lg:justify-between justify-center items-center"
+  >
+    <div class="flex lg:w-1/2 w-full justify-start items-center p-4">
+      <img
+        class="w-full downToUpScrollAnimation"
+        src="assets/images/find.webp"
+        alt="Movie search system"
+      />
+    </div>
+    <div class="flex lg:w-1/2 w-full flex-col p-4">
+      <h3
+        class="rightToLeftScrollAnimation text-salmon font-extrabold leading-relaxed lg:text-6xl md:text-4xl text-2xl"
+      >
+        Your favourite movie through our servers
+      </h3>
+      <p
+        class="leftToRightScrollAnimation lg:text-base md:text-base text-sm md:mt-10 mt-4 text-white md:!leading-loose leading-7"
+      >
+        Experience the power of
+        <span class="text-salmon font-bold">real-time search </span>on our
+        platform. Our advanced search system verifies instantly whether your
+        chosen movie is available on our server. Also, if your search term has a
+        typo or if you're unsure,
+        <span class="text-salmon font-bold"
+          >our system suggests alternatives</span
+        >
+        and presents the movie with the closest match in terms of characters.
+      </p>
+      <a
+        class="rightToLeftScrollAnimation px-4 py-2 bg-salmon text-darkBlue-500 md:text-base text-xs text-center font-bold w-fit rounded-full mt-5 transition-all duration-300 ease-in-out hover:text-salmon hover:bg-white"
+        href="https://developer.themoviedb.org/reference/intro/getting-started"
+        >Our server</a
+      >
+    </div>
+  </div>
+</div>
+
+<!-- Fuse Section -->
+<div
+  class="customScrollAnimation flex flex-col justify-center w-full h-full p-[6vw]"
+>
+  <h2
+    class="w-full h-full lg:text-[16rem] md:text-[9rem] text-center text-[6rem] font-extrabold text-blue-500 opacity-30 md:mb-10 mb-4 font-strange"
+  >
+    Fuse
+  </h2>
+
+  <div
+    class="flex flex-wrap w-full lg:justify-between justify-center items-center"
+  >
+    <div class="flex lg:w-1/2 w-full flex-col p-4">
+      <h3
+        class="leftToRightScrollAnimation text-blue-500 font-extrabold leading-9 lg:text-6xl md:text-4xl text-2xl"
+      >
+        Some genres to find your perfect match
+      </h3>
+      <p
+        class="rightToLeftScrollAnimation lg:text-base md:text-base text-sm md:mt-10 mt-4 text-white md:!leading-loose leading-7"
+      >
+        Discover the freedom to
+        <span class="text-blue-500 font-bold"
+          >combine multiple genres without limits</span
+        >
+        to create your unique movie mix. Mingle allows you to
+        <span class="text-blue-500 font-bold">explore diverse combinations</span
+        >, finding the perfect match that includes all the genres you desire.
+        Unlock a world of cinematic possibilities as you curate your
+        personalized movie blend, tailoring every viewing experience to your
+        individual taste and preferences.
+      </p>
+    </div>
+
+    <div class="flex lg:w-1/2 w-full justify-start items-center p-4 md:pt-10">
+      <img
+        class="w-full downToUpScrollAnimation"
+        src="assets/images/fuse.webp"
+        alt="Genre filters system"
+      />
+    </div>
+  </div>
+</div>
+
+<!-- Scan Section -->
+<div
+  class="customScrollAnimation relative flex flex-col justify-center w-full h-full p-[6vw] !pb-0"
+>
+  <h2
+    class="w-full h-full lg:text-[16rem] md:text-[9rem] text-center text-[6rem] font-extrabold text-yellow-500 opacity-30 md:mb-10 mb-4 font-strange"
+  >
+    Scan
+  </h2>
+
+  <div class="flex w-full justify-center items-center">
+    <div class="flex lg:w-1/2 w-full flex-col p-4">
+      <h3
+        class="rightToLeftScrollAnimation text-yellow-500 font-extrabold leading-9 lg:text-6xl md:text-4xl text-2xl"
+      >
+        All movies by different category lists
+      </h3>
+      <p
+        class="leftToRightScrollAnimation lg:text-base md:text-base text-sm md:mt-10 mt-4 text-white md:!leading-loose leading-7"
+      >
+        Uncover curated
+        <span class="text-yellow-500 font-bold">movie lists</span> designed for
+        your enjoyment, accessible through our
+        <span class="text-yellow-500 font-bold">intuitive carousels</span>.
+        Indulge in each movie experience, knowing that availability can vary.
+        Embrace the uncertainty and uncover hidden cinematic gems!
+      </p>
+    </div>
+  </div>
+</div>
+<div class="w-dvw pb-[6vw] mt-5">
+  <img
+    class="w-full downToUpScrollAnimation"
+    src="assets/images/scan.webp"
+    alt="Movie carrousel system"
+  />
+</div>
+
+<!-- View section -->
+<div
+  class="customScrollAnimation flex flex-col justify-center w-full h-full p-[6vw]"
+>
+  <h2
+    class="w-full h-full lg:text-[16rem] md:text-[9rem] text-center text-[6rem] font-extrabold text-green-500 z-10 opacity-30 md:mb-10 mb-4 font-strange"
+  >
+    View
+  </h2>
+
+  <div
+    class="flex lg:flex-row md:flex-col-reverse flex-col-reverse w-full lg:justify-between justify-center items-center"
+  >
+    <div class="flex lg:w-1/2 w-full justify-start items-center p-4">
+      <img
+        class="w-full downToUpScrollAnimation"
+        src="assets/images/view.webp"
+        alt="Movie information system"
+      />
+    </div>
+    <div class="flex lg:w-1/2 w-full flex-col p-4">
+      <h3
+        class="rightToLeftScrollAnimation text-green-500 font-extrabold leading-relaxed lg:text-6xl md:text-4xl text-2xl"
+      >
+        The most detailed movie information
+      </h3>
+      <p
+        class="leftToRightScrollAnimation lg:text-base md:text-base text-sm md:mt-10 mt-4 text-white md:!leading-loose leading-7"
+      >
+        Dive into the depths of your favorite movies with
+        <span class="text-green-500 font-bold">detailed information</span> at
+        your fingertips. Our detailed feature offers you the chance to uncover
+        everything about a film, including its
+        <span class="text-green-500 font-bold"
+          >genres, duration, and much more</span
+        >. Immerse yourself in the cinematic world like never before.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Mold Section -->
+<div
+  class="customScrollAnimation flex flex-col justify-center w-full h-full p-[6vw]"
+>
+  <h2
+    class="w-full h-full lg:text-[16rem] md:text-[9rem] text-center text-[6rem] font-extrabold text-red-500 opacity-30 md:mb-10 mb-4 font-strange"
+  >
+    Mold
+  </h2>
+
+  <div
+    class="flex flex-wrap w-full lg:justify-between justify-center items-center"
+  >
+    <div class="flex lg:w-1/2 w-full flex-col p-4">
+      <h3
+        class="leftToRightScrollAnimation text-red-500 font-extrabold leading-9 lg:text-6xl md:text-4xl text-2xl"
+      >
+        Your profile to store your favourite movies
+      </h3>
+      <p
+        class="rightToLeftScrollAnimation lg:text-base md:text-base text-sm md:mt-10 mt-4 text-white md:!leading-loose leading-7"
+      >
+        Manage your favorite movies effortlessly through your
+        <span class="text-red-500 font-bold">profile</span>. This feature allows
+        you to curate your personalized collection by
+        <span class="text-red-500 font-bold">adding and removing movies</span>
+        at your convenience. When you discover a movie you love, simply navigate
+        to its <span class="text-red-500 font-bold">detail page</span> and click
+        the <span class="text-red-500 font-bold">favourite button</span> to
+        instantly save it to your profile.
+      </p>
+    </div>
+
+    <div class="flex lg:w-1/2 w-full justify-start items-center p-4 md:pt-10">
+      <img
+        class="w-full downToUpScrollAnimation"
+        src="assets/images/mold.webp"
+        alt="Favourite system"
+      />
+    </div>
+  </div>
+</div>
+
+<!-- Coming soon section -->
+<div
+  class="customScrollAnimation flex flex-col justify-center w-full h-full p-[6vw]"
+>
+  <h2
+    class="w-full h-full lg:text-[6rem] md:text-[3rem] text-center text-[2rem] font-extrabold text-darkBlue-300 z-10 opacity-30 mb-6 font-strange"
+  >
+    soon...
+  </h2>
+
+  <div
+    class="flex flex-wrap w-full lg:justify-between justify-center items-center"
+  >
+    <div
+      class="downToUpScrollAnimation flex justify-center items-center text-center lg:w-1/2 w-full flex-col p-4 opacity-30"
+    >
+      <img class="w-6/12" src="assets/images/media.webp" alt="Play button" />
+      <h3
+        class="text-darkBlue-300 font-extrabold leading-9 lg:text-3xl md:text-2xl text-md"
+      >
+        Play media content
+      </h3>
+    </div>
+
+    <div
+      class="downToUpScrollAnimation flex justify-center items-center text-center lg:w-1/2 w-full flex-col p-4 opacity-30"
+    >
+      <img
+        class="w-6/12"
+        src="assets/images/review.webp"
+        alt="Review representation"
+      />
+      <h3
+        class="text-darkBlue-300 font-extrabold leading-9 lg:text-3xl md:text-2xl text-md"
+      >
+        Reviews system
+      </h3>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ Section -->
+<div class="flex flex-col justify-center w-full h-full p-[6vw]">
+  <h1
+    class="w-full h-full lg:text-6xl md:text-4xl text-3xl text-center font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 mb-6"
+  >
+    Frequently Asked Questions
+  </h1>
+
+  <!-- Questions -->
+  <div class="flex w-full justify-center flex-col mt-10">
+    <details class="flex items-center bg-darkBlue-400 rounded-2xl" name="FAQ">
+      <summary
+        class="flex justify-between items-center text-white font-bold text-sm leading-9 text-2xl cursor-pointer p-4"
+      >
+        What is PopCorn?
+        <mat-icon class="rotate text-salmon scale-125">expand_more</mat-icon>
+      </summary>
+      <p class="text-white md:text-sm text-xs p-4">
+        PopCorn is a web application that offers an online movie streaming
+        service, where users have access to the latest relevant cinematic titles
+        of the moment. Additionally, the platform features a user management
+        system that allows each individual to enjoy a unique and personalized
+        experience within the application.
+      </p>
+    </details>
+
+    <details
+      class="flex items-center bg-darkBlue-400 rounded-2xl mt-6"
+      name="FAQ"
+    >
+      <summary
+        class="flex justify-between items-center text-white font-bold text-sm leading-9 text-2xl cursor-pointer p-4"
+      >
+        Can I really watch movies in PopCorn?
+        <mat-icon class="rotate text-salmon scale-125">expand_more</mat-icon>
+      </summary>
+      <p class="text-white md:text-sm text-xs p-4">
+        At the moment, PopCorn does not have the feature to play its movie
+        content, although it will likely be implemented in the future.
+        Currently, the platform only provides an information and customization
+        service for its content.
+      </p>
+    </details>
+
+    <details
+      class="flex items-center bg-darkBlue-400 rounded-2xl mt-6"
+      name="FAQ"
+    >
+      <summary
+        class="flex justify-between items-center text-white font-bold text-sm leading-9 text-2xl p-4 cursor-pointer"
+      >
+        It is really a free platform?
+        <mat-icon class="rotate text-salmon scale-125">expand_more</mat-icon>
+      </summary>
+      <p class="text-white md:text-sm text-xs p-4">
+        Initially, PopCorn is presented as a completely free service accessible
+        to everyone. However, due to high demand and the presence of numerous
+        competitors in the market, the possibility of implementing a monthly
+        subscription system will be considered.
+      </p>
+    </details>
+
+    <details
+      class="flex items-center bg-darkBlue-400 rounded-2xl mt-6"
+      name="FAQ"
+    >
+      <summary
+        class="flex justify-between items-center text-white font-bold text-sm leading-9 text-2xl p-4 cursor-pointer"
+      >
+        Who are the potencial users of PopCorn?
+        <mat-icon class="rotate text-salmon scale-125">expand_more</mat-icon>
+      </summary>
+      <p class="text-white md:text-sm text-xs p-4">
+        PopCorn is an ideal application for users of any level of technological
+        skill, age, culture, or gender. Additionally, having a fully adaptable
+        interface, it can be satisfactorily represented on any device and size,
+        so it does not depend on the type of device the user is using.
+      </p>
+    </details>
+  </div>
+</div>
+
+<!-- Devices Section -->
+<div class="flex flex-col justify-center w-full h-full p-[6vw]">
+  <h1
+    class="w-full h-full lg:text-6xl md:text-4xl text-3xl text-center font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 mb-6"
+  >
+    Available on most devices
+  </h1>
+
+  <!-- Devices content -->
+  <div class="flex w-full justify-center flex-col md:mt-10">
+    <ul class="flex flex-wrap items-center lg:justify-between justify-center">
+      <li
+        class="flex flex-col justify-center items-center text-center md:p-6 p-3 lg:w-1/4 md:w-1/2 w-full"
+      >
+        <img class="w-52" src="assets/images/tvDevice.webp" alt="TV device" />
+        <h1 class="text-darkBlue-300 font-bold text-md">TV</h1>
+        <p class="text-darkBlue-300 text-xs italic mt-4">Soon</p>
+      </li>
+      <li
+        class="flex flex-col items-center justify-center text-center md:p-6 p-3 lg:w-1/4 md:w-1/2 w-full"
+      >
+        <img
+          class="w-44"
+          src="assets/images/laptopDevice.webp"
+          alt="Laptop device"
+        />
+        <h1 class="text-white font-bold text-md">Laptop</h1>
+        <p class="text-white text-sm mt-4">Chrome, Firefox and Safari</p>
+      </li>
+      <li
+        class="flex flex-col items-center justify-center text-center md:p-6 p-3 lg:w-1/4 md:w-1/2 w-full"
+      >
+        <img
+          class="w-36"
+          src="assets/images/tabletDevice.webp"
+          alt="Tablet device"
+        />
+        <h1 class="text-white font-bold text-md">Tablet / Mobile</h1>
+        <p class="text-white text-sm mt-4">Chrome, Firefox and Safari</p>
+      </li>
+      <li
+        class="flex flex-col items-center justify-center text-center md:p-6 p-3 lg:w-1/4 md:w-1/2 w-full"
+      >
+        <img
+          class="w-36"
+          src="assets/images/controllerDevice.webp"
+          alt="Controller device"
+        />
+        <h1 class="text-darkBlue-300 font-bold text-md">Console</h1>
+        <p class="text-darkBlue-300 text-xs italic mt-4">Soon</p>
+      </li>
+    </ul>
+  </div>
+</div>

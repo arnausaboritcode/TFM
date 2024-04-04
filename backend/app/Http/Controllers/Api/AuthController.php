@@ -100,6 +100,7 @@ class AuthController extends Controller
         }
     }
 
+    //logout User
     public function logoutUser(Request $request){
         $user = Auth::user();
 
@@ -109,6 +110,46 @@ class AuthController extends Controller
         } else {
             return response()->json(['message' => 'User not authenticated'], 401);
         }
+    }
+
+    //update User
+    public function updateUser(Request $request){
+
+    try {
+
+        $user = Auth::user();
+
+        if ($user) {
+
+            $user = auth()->user();
+
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => isset($request->password) ? Hash::make($request->password) : $user->password,
+            ]);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'User Updated Successfully',
+                'user' => $user
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validation error',
+                'errors' => $validateUser->errors()
+            ], 401);
+        }
+
+
+
+    } catch (\Throwable $th) {
+        return response()->json([
+            'status' => false,
+            'message' => $th->getMessage()
+        ], 500);
+    }
     }
 }
 
