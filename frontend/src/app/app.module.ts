@@ -1,8 +1,9 @@
-import { NgOptimizedImage } from '@angular/common'; //es standalone aixi que en teoria no shauria de ficar aqui. Aixo pasa pk no tenim components standalone.
+import { NgOptimizedImage } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {
   BrowserModule,
   provideClientHydration,
@@ -11,6 +12,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { register } from 'swiper/element/bundle';
 register();
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +25,7 @@ import { RegisterComponent } from './routes/auth/pages/register/register.compone
 import { LandingPageComponent } from './routes/pages/landing-page/landing-page.component';
 import { WelcomePageComponent } from './routes/pages/welcome-page/welcome-page.component';
 import { PopcornSpinnerComponent } from './shared/popcorn-spinner/popcorn-spinner.component';
+import { SnackbarComponent } from './shared/snackbar/snackbar.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 
 @NgModule({
@@ -37,6 +40,7 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
     WelcomePageComponent,
     SpinnerComponent,
     PopcornSpinnerComponent,
+    SnackbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +52,8 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
     RouterModule,
     InfiniteScrollModule,
     NgOptimizedImage,
+    BrowserAnimationsModule,
+    MatSnackBarModule,
   ],
   providers: [
     {

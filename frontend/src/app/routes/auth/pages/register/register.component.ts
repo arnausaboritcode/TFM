@@ -12,7 +12,7 @@ import {
 import { UserDTO } from '../../../../core/models/user.dto';
 import { AutoDestroyService } from '../../../../core/services/utils/auto-destroy.service';
 import { HeaderService } from '../../../services/header.service';
-import { NotificationService } from '../../../services/notification.service';
+import { SnackbarService } from '../../../services/snackbar.service';
 import { UserService } from '../../../services/user.service';
 
 @Component({
@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
     private headerService: HeaderService,
     private userService: UserService,
     private destroy$: AutoDestroyService,
-    private notificationService: NotificationService
+    private snackbarService: SnackbarService
   ) {
     this.registerUser = new UserDTO('', '', '', '');
     this.isValidForm = null;
@@ -92,10 +92,9 @@ export class RegisterComponent implements OnInit {
     return null;
   }
 
-  register() {
+  register(): void {
     this.isValidForm = false;
     let responseOK: boolean = false;
-    let errorResponse: any;
 
     if (this.registerForm.invalid) {
       return;
@@ -111,22 +110,14 @@ export class RegisterComponent implements OnInit {
       },
       error: (error) => {
         responseOK = false;
-        errorResponse = error.error;
         console.error(error);
-
-        this.notificationService.errorLog(errorResponse);
       },
       complete: () => {
-        this.notificationService
-          .managementToast(
-            'registerFeedback',
-            responseOK,
-            `Registered as ${this.registerUser.email}`,
-            errorResponse
-          )
-          .then(() => {
-            this.router.navigateByUrl('/user/login');
-          });
+        this.snackbarService.openSnackbar(
+          `Registered as ${this.registerUser.email}`,
+          'Success'
+        );
+        this.router.navigateByUrl('/user/login');
       },
     });
 
@@ -140,12 +131,11 @@ export class RegisterComponent implements OnInit {
       .subscribe((value) => (this.spinner = value));
   }
 
-  //Show/Hide Password toggles
-  toogleShowHidePassword(): void {
+  tooglePassword(): void {
     this.showPassword = !this.showPassword;
   }
 
-  toogleShowHidePasswordConfirmation(): void {
+  tooglePasswordConfirmation(): void {
     this.showPasswordConfirmation = !this.showPasswordConfirmation;
   }
 }

@@ -27,7 +27,6 @@
       >keyboard_arrow_down</mat-icon
     ></a
   >
-  <!---->
   <!-- Scroll to top arrow -->
   <a
     class="fixed opacity-0 z-50 w-5 h-5 right-12 bottom-20 cursor-pointer transition-all duration-500 ease-in-out group"
@@ -42,7 +41,7 @@
       >
     </div></a
   >
-  <!---->
+  <!-- Banner content -->
   <div
     class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,0%,0.4)] bg-fixed"
   >
@@ -119,7 +118,9 @@
     <div class="flex lg:w-1/2 w-full justify-start items-center p-4">
       <img
         class="w-full downToUpScrollAnimation"
-        src="assets/images/find.webp"
+        ngSrc="assets/images/find.webp"
+        width="1000"
+        height="500"
         alt="Movie search system"
       />
     </div>
@@ -189,7 +190,9 @@
     <div class="flex lg:w-1/2 w-full justify-start items-center p-4 md:pt-10">
       <img
         class="w-full downToUpScrollAnimation"
-        src="assets/images/fuse.webp"
+        ngSrc="assets/images/fuse.webp"
+        width="1000"
+        height="500"
         alt="Genre filters system"
       />
     </div>
@@ -229,7 +232,9 @@
 <div class="w-dvw pb-[6vw] mt-5">
   <img
     class="w-full downToUpScrollAnimation"
-    src="assets/images/scan.webp"
+    ngSrc="assets/images/scan.webp"
+    width="1920"
+    height="600"
     alt="Movie carrousel system"
   />
 </div>
@@ -250,7 +255,9 @@
     <div class="flex lg:w-1/2 w-full justify-start items-center p-4">
       <img
         class="w-full downToUpScrollAnimation"
-        src="assets/images/view.webp"
+        ngSrc="assets/images/view.webp"
+        width="1000"
+        height="500"
         alt="Movie information system"
       />
     </div>
@@ -311,7 +318,9 @@
     <div class="flex lg:w-1/2 w-full justify-start items-center p-4 md:pt-10">
       <img
         class="w-full downToUpScrollAnimation"
-        src="assets/images/mold.webp"
+        ngSrc="assets/images/mold.webp"
+        width="1000"
+        height="500"
         alt="Favourite system"
       />
     </div>
@@ -334,7 +343,13 @@
     <div
       class="downToUpScrollAnimation flex justify-center items-center text-center lg:w-1/2 w-full flex-col p-4 opacity-30"
     >
-      <img class="w-6/12" src="assets/images/media.webp" alt="Play button" />
+      <img
+        class="w-2/12"
+        ngSrc="assets/images/media.webp"
+        width="200"
+        height="200"
+        alt="Play button"
+      />
       <h3
         class="text-darkBlue-300 font-extrabold leading-9 lg:text-3xl md:text-2xl text-md"
       >
@@ -346,8 +361,10 @@
       class="downToUpScrollAnimation flex justify-center items-center text-center lg:w-1/2 w-full flex-col p-4 opacity-30"
     >
       <img
-        class="w-6/12"
-        src="assets/images/review.webp"
+        class="w-2/12"
+        ngSrc="assets/images/review.webp"
+        width="200"
+        height="200"
         alt="Review representation"
       />
       <h3
@@ -367,7 +384,6 @@
     Frequently Asked Questions
   </h1>
 
-  <!-- Questions -->
   <div class="flex w-full justify-center flex-col mt-10">
     <details class="flex items-center bg-darkBlue-400 rounded-2xl" name="FAQ">
       <summary
@@ -449,13 +465,18 @@
     Available on most devices
   </h1>
 
-  <!-- Devices content -->
   <div class="flex w-full justify-center flex-col md:mt-10">
     <ul class="flex flex-wrap items-center lg:justify-between justify-center">
       <li
         class="flex flex-col justify-center items-center text-center md:p-6 p-3 lg:w-1/4 md:w-1/2 w-full"
       >
-        <img class="w-52" src="assets/images/tvDevice.webp" alt="TV device" />
+        <img
+          class="w-52"
+          ngSrc="assets/images/tvDevice.webp"
+          width="500"
+          height="500"
+          alt="TV device"
+        />
         <h1 class="text-darkBlue-300 font-bold text-md">TV</h1>
         <p class="text-darkBlue-300 text-xs italic mt-4">Soon</p>
       </li>
@@ -464,7 +485,9 @@
       >
         <img
           class="w-44"
-          src="assets/images/laptopDevice.webp"
+          ngSrc="assets/images/laptopDevice.webp"
+          width="500"
+          height="500"
           alt="Laptop device"
         />
         <h1 class="text-white font-bold text-md">Laptop</h1>
@@ -475,7 +498,9 @@
       >
         <img
           class="w-36"
-          src="assets/images/tabletDevice.webp"
+          ngSrc="assets/images/tabletDevice.webp"
+          width="500"
+          height="500"
           alt="Tablet device"
         />
         <h1 class="text-white font-bold text-md">Tablet / Mobile</h1>
@@ -486,7 +511,9 @@
       >
         <img
           class="w-36"
-          src="assets/images/controllerDevice.webp"
+          ngSrc="assets/images/controllerDevice.webp"
+          width="500"
+          height="500"
           alt="Controller device"
         />
         <h1 class="text-darkBlue-300 font-bold text-md">Console</h1>

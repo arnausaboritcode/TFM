@@ -1,10 +1,6 @@
 <section
   class="text-white bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-darkBlue-400 to-darkBlue-500"
 >
-  <!-- Response Feedback -->
-
-  <p id="registerFeedback"></p>
-
   <!-- Go Back Button -->
   <a
     routerLink="/user/login"
@@ -18,7 +14,7 @@
       >
     </div></a
   >
-  <!--  -->
+  <!-- Form -->
   <div class="h-screen w-screen p-5 flex flex-col justify-center items-center">
     <object
       class="md:w-36 w-24 m-4"
@@ -105,26 +101,26 @@
           formControlName="password"
           class="w-full bg-darkBlue-400 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 md:text-sm text-xs outline-none text-white py-1 px-3 !leading-8 transition-colors duration-200 ease-in-out"
         />
-        <!-- Show/Hide password -->
+
         <div
           *ngIf="password.value"
           class="absolute top-[7px] right-0 pr-3 flex items-center text-sm leading-5"
         >
           <mat-icon
             class="h-6 text-darkBlue-300 opacity-60 cursor-pointer"
-            (click)="toogleShowHidePassword()"
+            (click)="tooglePassword()"
             [ngClass]="{ '!hidden': showPassword, '!block': !showPassword }"
             >visibility</mat-icon
           >
 
           <mat-icon
             class="h-6 text-darkBlue-300 opacity-60 cursor-pointer"
-            (click)="toogleShowHidePassword()"
+            (click)="tooglePassword()"
             [ngClass]="{ '!block': showPassword, '!hidden': !showPassword }"
             >visibility_off</mat-icon
           >
         </div>
-        <!---->
+
         <div
           class="mt-2"
           *ngIf="
@@ -154,14 +150,14 @@
           formControlName="confirmPassword"
           class="w-full bg-darkBlue-400 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 md:text-sm text-xs outline-none text-white py-1 px-3 !leading-8 transition-colors duration-200 ease-in-out"
         />
-        <!-- Show/Hide password -->
+
         <div
           *ngIf="this.confirmPassword.value"
           class="absolute top-[7px] right-0 pr-3 flex items-center text-sm leading-5"
         >
           <mat-icon
             class="h-6 text-darkBlue-300 opacity-60 cursor-pointer"
-            (click)="toogleShowHidePasswordConfirmation()"
+            (click)="tooglePasswordConfirmation()"
             [ngClass]="{
               '!hidden': showPasswordConfirmation,
               '!block': !showPasswordConfirmation
@@ -171,7 +167,7 @@
 
           <mat-icon
             class="h-6 text-darkBlue-300 opacity-60 cursor-pointer"
-            (click)="toogleShowHidePasswordConfirmation()"
+            (click)="tooglePasswordConfirmation()"
             [ngClass]="{
               '!block': showPasswordConfirmation,
               '!hidden': !showPasswordConfirmation
@@ -179,7 +175,7 @@
             >visibility_off</mat-icon
           >
         </div>
-        <!---->
+
         <div
           class="mt-2"
           *ngIf="
@@ -206,7 +202,7 @@
           *ngIf="!spinner"
           class="font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 group-hover:text-salmon"
           >Register</span
-        ><app-spinner *ngIf="spinner" class="scale-[0.5]"></app-spinner>
+        ><app-spinner *ngIf="spinner" class="scale-[0.2]"></app-spinner>
       </button>
       <p class="md:text-sm text-xs text-darkBlue-300 mt-6">
         Already have an account?

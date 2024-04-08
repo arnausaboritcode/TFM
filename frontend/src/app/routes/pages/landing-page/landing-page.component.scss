@@ -14,3 +14,9 @@ input[type="search"]:focus::-webkit-search-cancel-button {
   pointer-events: all;
 }
 
+//Toast global style
+::ng-deep .mat-mdc-snack-bar-container.custom-snackbar {
+  --mdc-snackbar-container-color: #1e1e32;
+  --mdc-snackbar-container-shape: 14px;
+
+}

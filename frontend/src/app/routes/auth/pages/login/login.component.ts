@@ -13,7 +13,7 @@ import { AutoDestroyService } from '../../../../core/services/utils/auto-destroy
 import { AuthService } from '../../../services/auth.service';
 import { HeaderService } from '../../../services/header.service';
 import { LocalStorageService } from '../../../services/local-storage.service';
-import { NotificationService } from '../../../services/notification.service';
+import { SnackbarService } from '../../../services/snackbar.service';
 
 @Component({
   selector: 'app-login',
@@ -32,8 +32,6 @@ export class LoginComponent implements OnInit {
 
   spinner: boolean;
 
-  windowScrolled: boolean;
-
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -41,7 +39,7 @@ export class LoginComponent implements OnInit {
     private LocalStorageService: LocalStorageService,
     private authService: AuthService,
     private destroy$: AutoDestroyService,
-    private notificationService: NotificationService
+    private snackbarService: SnackbarService
   ) {
     this.loginUser = new AuthDTO('', '', false);
     this.isValidForm = null;
@@ -62,17 +60,15 @@ export class LoginComponent implements OnInit {
 
     this.showPassword = false;
     this.spinner = false;
-    this.windowScrolled = false;
   }
 
   ngOnInit(): void {
     this.headerService.hide();
   }
 
-  login() {
+  login(): void {
     this.isValidForm = false;
     let responseOK: boolean = false;
-    let errorResponse: any;
 
     if (this.loginForm.invalid) {
       return;
@@ -86,22 +82,15 @@ export class LoginComponent implements OnInit {
       .pipe(
         finalize(() => {
           if (responseOK) {
-            this.notificationService
-              .managementToast(
-                'loginFeedback',
-                responseOK,
-                `Authenticated as ${this.loginUser.email}`,
-                errorResponse
-              )
-              .then(() => {
-                this.router.navigateByUrl('/movies/search');
-              });
+            this.snackbarService.openSnackbar(
+              `Authenticated as ${this.loginUser.email}`,
+              'Success'
+            );
+            this.router.navigateByUrl('/movies/search');
           } else {
-            this.notificationService.managementToast(
-              'loginFeedback',
-              responseOK,
+            this.snackbarService.openSnackbar(
               'User not found or login failed',
-              errorResponse
+              'Error'
             );
           }
         })
@@ -118,10 +107,7 @@ export class LoginComponent implements OnInit {
         },
         error: (error) => {
           responseOK = false;
-          errorResponse = error.error;
           console.error(error);
-
-          this.notificationService.errorLog(errorResponse);
         },
       });
 
@@ -137,8 +123,7 @@ export class LoginComponent implements OnInit {
       });
   }
 
-  //Show/Hide Password toggle
-  toogleShowHidePassword(): void {
+  tooglePassword(): void {
     this.showPassword = !this.showPassword;
   }
 }
