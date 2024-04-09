@@ -8,15 +8,24 @@ import { LandingPageComponent } from './routes/pages/landing-page/landing-page.c
 import { WelcomePageComponent } from './routes/pages/welcome-page/welcome-page.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'movies/search', pathMatch: 'full' },
-  { path: 'welcome', component: WelcomePageComponent },
+  { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+  {
+    path: 'welcome',
+    component: WelcomePageComponent,
+    title: 'PopCorn - Welcome',
+  },
   {
     path: 'movies/search',
     component: LandingPageComponent,
     canActivate: [AuthGuard],
+    title: 'PopCorn - Home',
   },
-  { path: 'user/login', component: LoginComponent },
-  { path: 'user/register', component: RegisterComponent },
+  { path: 'user/login', component: LoginComponent, title: 'PopCorn - Login' },
+  {
+    path: 'user/register',
+    component: RegisterComponent,
+    title: 'PopCorn - Register',
+  },
 ];
 
 @NgModule({
