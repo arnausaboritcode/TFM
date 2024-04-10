@@ -24,6 +24,13 @@ details[open] > summary > .rotate {
   transform: rotate(180deg);
 }
 
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
 
 //Content Section - Scale-up main titles animation
 @keyframes scale-up {

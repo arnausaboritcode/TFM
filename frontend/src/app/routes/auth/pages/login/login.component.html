@@ -4,20 +4,18 @@
   <!-- Go Back Button -->
   <a
     routerLink="/welcome"
-    class="fixed z-50 w-5 h-5 left-12 top-20 cursor-pointer transition-all duration-500 ease-in-out scale-150 group"
-    ><div
-      class="md:w-9 md:h-9 w-6 h-6 rounded-full bg-darkBlue-400 flex items-center justify-center shadow-md"
-    >
-      <mat-icon
-        class="md:scale-90 scale-[0.65] text-white group-hover:-translate-x-1 transition-all duration-500 ease-in-out"
-        >keyboard_arrow_left</mat-icon
-      >
-    </div></a
+    class="absolute md:left-12 md:top-20 left-10 top-11 w-fit flex items-center justify-center md:px-5 md:py-2 pr-3 py-1 md:text-sm text-xs text-white transition-all duration-500 ease-in-out bg-darkBlue-400 rounded-lg gap-x-2 shadow-md group"
   >
+    <mat-icon
+      class="md:scale-90 scale-[0.65] text-white lg:group-hover:-translate-x-2 transition-all duration-500 ease-in-out"
+      >keyboard_arrow_left</mat-icon
+    >
+    <span>Back</span>
+  </a>
   <!-- Form -->
   <div class="h-screen w-screen p-5 flex flex-col justify-center items-center">
     <object
-      class="md:w-36 w-24 m-4"
+      class="md:w-36 w-20 m-4"
       data="assets/images/logo.svg"
       type="image/svg+xml"
     ></object>

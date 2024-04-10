@@ -36,7 +36,7 @@
       class="md:w-9 md:h-9 w-6 h-6 rounded-full bg-darkBlue-400 flex items-center justify-center shadow-md"
     >
       <mat-icon
-        class="md:scale-90 scale-[0.65] text-white group-hover:-translate-y-1 transition-all duration-500 ease-in-out"
+        class="md:scale-90 scale-[0.65] text-white lg:group-hover:-translate-y-2 transition-all duration-500 ease-in-out"
         >keyboard_arrow_up</mat-icon
       >
     </div></a
@@ -54,7 +54,7 @@
           <span class="text-salmon font-strange">PopCorn</span>
         </h1>
         <p
-          class="lg:text-lg md:text-lg text-sm text-darkBlue-300 leading-normal font-bold lg:mt-10 md:mt-10"
+          class="lg:text-lg md:text-lg text-sm text-white leading-normal font-bold lg:mt-10 md:mt-10"
         >
           your new
           <span class="text-salmon font-strange">favourite</span> streaming
@@ -74,7 +74,7 @@
                   <mat-icon>person</mat-icon>
                 </span>
                 <span
-                  class="absolute flex items-center justify-center w-full h-full text-salmon bg-white font-bold transition-all duration-300 transform group-hover:translate-x-full ease"
+                  class="absolute flex items-center justify-center w-full h-full text-salmon bg-white font-bold transition-all duration-300 transform lg:group-hover:translate-x-full ease"
                   >Get started</span
                 >
                 <span class="relative invisible">Get started</span>
@@ -387,17 +387,18 @@
   <div class="flex w-full justify-center flex-col mt-10">
     <details class="flex items-center bg-darkBlue-400 rounded-2xl" name="FAQ">
       <summary
-        class="flex justify-between items-center text-white font-bold text-sm leading-9 text-2xl cursor-pointer p-4"
+        class="flex justify-between items-center text-white font-bold md:text-base text-sm !leading-9 cursor-pointer p-4"
       >
-        What is PopCorn?
+        What is PopCorn really?
         <mat-icon class="rotate text-salmon scale-125">expand_more</mat-icon>
       </summary>
-      <p class="text-white md:text-sm text-xs p-4">
-        PopCorn is a web application that offers an online movie streaming
-        service, where users have access to the latest relevant cinematic titles
-        of the moment. Additionally, the platform features a user management
-        system that allows each individual to enjoy a unique and personalized
-        experience within the application.
+      <p class="text-white md:text-base text-sm p-4">
+        PopCorn is a web application that presents itself as an online streaming
+        service for movies. However, in its beginnings, PopCorn does not allow
+        direct playback of its audiovisual content. Instead, its goal is to
+        provide an intuitive interface for presenting, organizing, and filtering
+        information regarding cinematographic content in an effective and
+        satisfactory manner for users.
       </p>
     </details>
 
@@ -406,30 +407,12 @@
       name="FAQ"
     >
       <summary
-        class="flex justify-between items-center text-white font-bold text-sm leading-9 text-2xl cursor-pointer p-4"
-      >
-        Can I really watch movies in PopCorn?
-        <mat-icon class="rotate text-salmon scale-125">expand_more</mat-icon>
-      </summary>
-      <p class="text-white md:text-sm text-xs p-4">
-        At the moment, PopCorn does not have the feature to play its movie
-        content, although it will likely be implemented in the future.
-        Currently, the platform only provides an information and customization
-        service for its content.
-      </p>
-    </details>
-
-    <details
-      class="flex items-center bg-darkBlue-400 rounded-2xl mt-6"
-      name="FAQ"
-    >
-      <summary
-        class="flex justify-between items-center text-white font-bold text-sm leading-9 text-2xl p-4 cursor-pointer"
+        class="flex justify-between items-center text-white font-bold md:text-base text-sm !leading-9 p-4 cursor-pointer"
       >
         It is really a free platform?
         <mat-icon class="rotate text-salmon scale-125">expand_more</mat-icon>
       </summary>
-      <p class="text-white md:text-sm text-xs p-4">
+      <p class="text-white md:text-base text-sm p-4">
         Initially, PopCorn is presented as a completely free service accessible
         to everyone. However, due to high demand and the presence of numerous
         competitors in the market, the possibility of implementing a monthly
@@ -442,12 +425,12 @@
       name="FAQ"
     >
       <summary
-        class="flex justify-between items-center text-white font-bold text-sm leading-9 text-2xl p-4 cursor-pointer"
+        class="flex justify-between items-center text-white font-bold md:text-base text-sm !leading-9 p-4 cursor-pointer"
       >
         Who are the potencial users of PopCorn?
         <mat-icon class="rotate text-salmon scale-125">expand_more</mat-icon>
       </summary>
-      <p class="text-white md:text-sm text-xs p-4">
+      <p class="text-white md:text-base text-sm p-4">
         PopCorn is an ideal application for users of any level of technological
         skill, age, culture, or gender. Additionally, having a fully adaptable
         interface, it can be satisfactorily represented on any device and size,
