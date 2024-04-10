@@ -23,7 +23,7 @@
   <a
     class="absolute z-10 w-5 h-5 m-auto left-0 right-0 bottom-16 scale-150 cursor-pointer"
     (click)="scroll(first)"
-    ><mat-icon class="animate-bounce text-white"
+    ><mat-icon class="md:scale-125 scale-[0.8] animate-bounce text-white"
       >keyboard_arrow_down</mat-icon
     ></a
   >
@@ -36,7 +36,7 @@
       class="md:w-9 md:h-9 w-6 h-6 rounded-full bg-darkBlue-400 flex items-center justify-center shadow-md"
     >
       <mat-icon
-        class="md:scale-90 scale-[0.65] text-white lg:group-hover:-translate-y-2 transition-all duration-500 ease-in-out"
+        class="md:scale-90 scale-[0.65] text-white lg:group-hover:-translate-y-1 transition-all duration-500 ease-in-out"
         >keyboard_arrow_up</mat-icon
       >
     </div></a
@@ -54,7 +54,7 @@
           <span class="text-salmon font-strange">PopCorn</span>
         </h1>
         <p
-          class="lg:text-lg md:text-lg text-sm text-white leading-normal font-bold lg:mt-10 md:mt-10"
+          class="md:text-lg text-sm text-white leading-normal font-bold md:mt-10"
         >
           your new
           <span class="text-salmon font-strange">favourite</span> streaming
@@ -83,13 +83,13 @@
 
             <div class="flex justify-center w-full">
               <object
-                class="lg:w-52 md:w-44 w-20 lg:mt-20 md:mt-20 mt-10"
+                class="lg:w-52 md:w-44 w-20 md:mt-20 mt-10"
                 data="assets/images/logo.svg"
                 type="image/svg+xml"
               ></object>
             </div>
             <p
-              class="md:text-[12px] text-[8px] text-darkBlue-300 leading-loose font-medium lg:mt-20 md:mt-20 mt-10"
+              class="md:text-[12px] text-[8px] text-darkBlue-300 leading-loose font-medium md:mt-20 mt-10"
             >
               *Content is provided by third-party services. There is a slight
               possibility that some content may not be displayed as expected.
@@ -131,7 +131,7 @@
         Your favourite movie through our servers
       </h3>
       <p
-        class="leftToRightScrollAnimation lg:text-base md:text-base text-sm md:mt-10 mt-4 text-white md:!leading-loose leading-7"
+        class="leftToRightScrollAnimation md:text-base text-sm md:mt-10 mt-4 text-white md:!leading-loose leading-7"
       >
         Experience the power of
         <span class="text-salmon font-bold">real-time search </span>on our
@@ -172,7 +172,7 @@
         Some genres to find your perfect match
       </h3>
       <p
-        class="rightToLeftScrollAnimation lg:text-base md:text-base text-sm md:mt-10 mt-4 text-white md:!leading-loose leading-7"
+        class="rightToLeftScrollAnimation md:text-base text-sm md:mt-10 mt-4 text-white md:!leading-loose leading-7"
       >
         Discover the freedom to
         <span class="text-blue-500 font-bold"
@@ -217,7 +217,7 @@
         All movies by different category lists
       </h3>
       <p
-        class="leftToRightScrollAnimation lg:text-base md:text-base text-sm md:mt-10 mt-4 text-white md:!leading-loose leading-7"
+        class="leftToRightScrollAnimation md:text-base text-sm md:mt-10 mt-4 text-white md:!leading-loose leading-7"
       >
         Uncover curated
         <span class="text-yellow-500 font-bold">movie lists</span> designed for
@@ -268,7 +268,7 @@
         The most detailed movie information
       </h3>
       <p
-        class="leftToRightScrollAnimation lg:text-base md:text-base text-sm md:mt-10 mt-4 text-white md:!leading-loose leading-7"
+        class="leftToRightScrollAnimation md:text-base text-sm md:mt-10 mt-4 text-white md:!leading-loose leading-7"
       >
         Dive into the depths of your favorite movies with
         <span class="text-green-500 font-bold">detailed information</span> at
@@ -302,7 +302,7 @@
         Your profile to store your favourite movies
       </h3>
       <p
-        class="rightToLeftScrollAnimation lg:text-base md:text-base text-sm md:mt-10 mt-4 text-white md:!leading-loose leading-7"
+        class="rightToLeftScrollAnimation md:text-base text-sm md:mt-10 mt-4 text-white md:!leading-loose leading-7"
       >
         Manage your favorite movies effortlessly through your
         <span class="text-red-500 font-bold">profile</span>. This feature allows
@@ -392,7 +392,7 @@
         What is PopCorn really?
         <mat-icon class="rotate text-salmon scale-125">expand_more</mat-icon>
       </summary>
-      <p class="text-white md:text-base text-sm p-4">
+      <p class="text-white md:text-base text-sm leading-7 p-4">
         PopCorn is a web application that presents itself as an online streaming
         service for movies. However, in its beginnings, PopCorn does not allow
         direct playback of its audiovisual content. Instead, its goal is to
@@ -412,7 +412,7 @@
         It is really a free platform?
         <mat-icon class="rotate text-salmon scale-125">expand_more</mat-icon>
       </summary>
-      <p class="text-white md:text-base text-sm p-4">
+      <p class="text-white md:text-base text-sm leading-7 p-4">
         Initially, PopCorn is presented as a completely free service accessible
         to everyone. However, due to high demand and the presence of numerous
         competitors in the market, the possibility of implementing a monthly
@@ -430,7 +430,7 @@
         Who are the potencial users of PopCorn?
         <mat-icon class="rotate text-salmon scale-125">expand_more</mat-icon>
       </summary>
-      <p class="text-white md:text-base text-sm p-4">
+      <p class="text-white md:text-base text-sm leading-7 p-4">
         PopCorn is an ideal application for users of any level of technological
         skill, age, culture, or gender. Additionally, having a fully adaptable
         interface, it can be satisfactorily represented on any device and size,
@@ -448,33 +448,35 @@
     Available on most devices
   </h1>
 
-  <div class="flex w-full justify-center flex-col md:mt-10">
+  <div class="flex w-full justify-center flex-col">
     <ul class="flex flex-wrap items-center lg:justify-between justify-center">
       <li
         class="flex flex-col justify-center items-center text-center md:p-6 p-3 lg:w-1/4 md:w-1/2 w-full"
       >
         <img
-          class="w-52"
+          class="w-36"
           ngSrc="assets/images/tvDevice.webp"
           width="500"
           height="500"
           alt="TV device"
         />
-        <h1 class="text-darkBlue-300 font-bold text-md">TV</h1>
-        <p class="text-darkBlue-300 text-xs italic mt-4">Soon</p>
+        <h1 class="text-darkBlue-300 font-bold md:text-base text-sm">TV</h1>
+        <p class="text-darkBlue-300 md:text-sm text-xs italic mt-4">Soon</p>
       </li>
       <li
         class="flex flex-col items-center justify-center text-center md:p-6 p-3 lg:w-1/4 md:w-1/2 w-full"
       >
         <img
-          class="w-44"
+          class="w-36"
           ngSrc="assets/images/laptopDevice.webp"
           width="500"
           height="500"
           alt="Laptop device"
         />
-        <h1 class="text-white font-bold text-md">Laptop</h1>
-        <p class="text-white text-sm mt-4">Chrome, Firefox and Safari</p>
+        <h1 class="text-white font-bold md:text-base text-sm">Laptop</h1>
+        <p class="text-white md:text-sm text-xs mt-4">
+          Chrome, Firefox and Safari
+        </p>
       </li>
       <li
         class="flex flex-col items-center justify-center text-center md:p-6 p-3 lg:w-1/4 md:w-1/2 w-full"
@@ -486,8 +488,12 @@
           height="500"
           alt="Tablet device"
         />
-        <h1 class="text-white font-bold text-md">Tablet / Mobile</h1>
-        <p class="text-white text-sm mt-4">Chrome, Firefox and Safari</p>
+        <h1 class="text-white font-bold md:text-base text-sm">
+          Tablet / Mobile
+        </h1>
+        <p class="text-white md:text-sm text-xs mt-4">
+          Chrome, Firefox and Safari
+        </p>
       </li>
       <li
         class="flex flex-col items-center justify-center text-center md:p-6 p-3 lg:w-1/4 md:w-1/2 w-full"
@@ -499,8 +505,10 @@
           height="500"
           alt="Controller device"
         />
-        <h1 class="text-darkBlue-300 font-bold text-md">Console</h1>
-        <p class="text-darkBlue-300 text-xs italic mt-4">Soon</p>
+        <h1 class="text-darkBlue-300 font-bold md:text-base text-sm">
+          Console
+        </h1>
+        <p class="text-darkBlue-300 md:text-sm text-xs italic mt-4">Soon</p>
       </li>
     </ul>
   </div>

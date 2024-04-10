@@ -1,4 +1,4 @@
-<app-main-layout *ngIf="!isLoading; else showSkeleton"></app-main-layout>
-<ng-template #showSkeleton
+<app-main-layout *ngIf="!isLoading; else showSpinner"></app-main-layout>
+<ng-template #showSpinner
   ><app-popcorn-spinner></app-popcorn-spinner
 ></ng-template>

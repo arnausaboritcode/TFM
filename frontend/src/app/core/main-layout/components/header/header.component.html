@@ -1,8 +1,8 @@
 <nav
   *ngIf="showNav"
-  class="w-full flex items-center py-5 px-6 fixed top-0 z-20 bg-darkBlue-500 border-b-[2px] border-darkBlue-400"
+  class="w-full flex items-center py-5 px-6 fixed top-0 z-50 bg-darkBlue-500 border-b-[2px] border-darkBlue-400"
 >
-  <div class="w-full flex justify-between items-center mx-auto">
+  <div class="w-full flex justify-between items-center">
     <a
       class="flex items-center p-3 rounded-full hover:bg-darkBlue-400 transform transition ease-in-out duration-200"
       [ngClass]="{ 'hover:scale-125': !isActive('/movies/search') }"
@@ -12,32 +12,34 @@
       <img
         src="assets/images/logo.svg"
         alt="/assets/logo-51ca2b56.png"
-        class="w-18 h-9 object-contain"
+        class="w-18 h-9"
       />
     </a>
 
     <!-- Menu md and lg screens -->
-    <ul class="list-none hidden lg:flex flex-row items-center gap-6">
+    <ul class="list-none hidden lg:flex items-center gap-6">
       <li
-        class="text-[#AAA6C3] hover:text-white hover:bg-darkBlue-400 py-2 rounded-lg text-md font-medium cursor-pointer transform transition ease-in-out duration-200"
+        class="text-darkBlue-300 hover:text-white hover:bg-darkBlue-400 py-2 rounded-lg text-md font-medium cursor-pointer transform transition ease-in-out duration-200"
         [ngClass]="{ 'hover:scale-110': !isActive('/movies/lists') }"
       >
         <a
           class="py-3 px-5 rounded-lg"
           routerLink="/movies/lists"
           routerLinkActive="bg-darkBlue-400 text-white"
-          >All Movies</a
+          >Lists</a
         >
       </li>
       <li
-        class="text-dark-500 py-3 px-3 rounded-full text-md font-medium transform transition ease-in-out duration-200 group/dropdown hover:bg-darkBlue-400"
+        class="text-darkBlue-300 py-3 px-3 rounded-full text-base font-medium transform transition ease-in-out duration-200 group/dropdown hover:bg-darkBlue-400"
       >
         <span class="rounded-md shadow-sm">
           <button
             type="button"
-            class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full"
+            class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-white rounded-full"
           >
-            <span class="font-medium text-gray-600">{{ userNameLetter }}</span>
+            <span class="font-medium text-darkBlue-500">{{
+              userNameLetter
+            }}</span>
           </button>
         </span>
 
@@ -56,14 +58,14 @@
 
             <div class="py-1">
               <a
-                class="flex w-full px-4 py-2 text-sm leading-5 text-left hover:bg-gray-300 group/navitem"
+                class="flex w-full px-4 py-2 text-sm leading-5 text-left hover:bg-darkBlue-300 group/navitem"
                 routerLink="/user/profile"
                 routerLinkActive="text-salmon font-bold"
                 >Profile</a
               >
               <span
                 tabindex="-1"
-                class="flex justify-between w-full px-4 py-2 text-sm leading-5 text-left text-gray-700 cursor-not-allowed opacity-50"
+                class="flex justify-between w-full px-4 py-2 text-sm leading-5 text-left text-darkBlue-300 cursor-not-allowed opacity-50"
                 aria-disabled="true"
                 >Change user (soon)</span
               >
@@ -72,11 +74,11 @@
             <div class="py-1">
               <button
                 type="button"
-                class="flex w-full px-4 py-2 text-sm leading-5 text-left cursor-pointer hover:bg-gray-300 group/navitem"
+                class="flex justify-center items-center w-full h-12 px-4 py-2 text-sm leading-5 text-left cursor-pointer hover:bg-darkBlue-300 group/navitem"
                 (click)="logout()"
               >
                 <span *ngIf="!spinner">Sign out</span
-                ><app-spinner *ngIf="spinner" class="scale-50"></app-spinner>
+                ><app-spinner *ngIf="spinner" class="scale-[0.2]"></app-spinner>
               </button>
             </div>
           </div>
@@ -113,19 +115,15 @@
           <mat-icon class="scale-150 text-white">close</mat-icon>
         </button>
         <ul class="flex flex-col justify-center items-start p-5 mt-28">
-          <li
-            class="p-2 w-full flex items-center justify-between hover:text-gray-900"
-          >
+          <li class="p-2 w-full flex items-center justify-between">
             <a
               routerLink="/movies/lists"
               routerLinkActive="!text-salmon"
               class="ml-2 font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 text-2xl"
-              >All Movies</a
+              >Lists</a
             ><mat-icon class="text-salmon">arrow_forward_ios</mat-icon>
           </li>
-          <li
-            class="p-2 w-full flex items-center justify-between hover:text-gray-900"
-          >
+          <li class="p-2 w-full flex items-center justify-between">
             <a
               routerLink="/user/profile"
               routerLinkActive="!text-salmon"
@@ -134,7 +132,7 @@
             ><mat-icon class="text-salmon">arrow_forward_ios</mat-icon>
           </li>
 
-          <p class="p-2 mt-12 text-lg text-darkBlue-300">
+          <p class="p-2 mt-12 text-lg text-white">
             <span class="font-extrabold"
               >Welcome <span class="text-salmon">{{ userData.name }}</span
               >!</span
@@ -148,14 +146,15 @@
             <span class="font-bold">catalog</span>. Enjoy your experience!
           </p>
 
-          <li
-            class="p-2 w-full flex items-center justify-between hover:text-gray-900"
-          >
+          <li class="p-2 w-full flex items-center justify-between">
             <a
               (click)="logout()"
-              class="ml-2 font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 text-2xl"
+              class="ml-2 h-12 flex items-center justify-center font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 text-2xl"
               ><span *ngIf="!spinner">Sign out</span
-              ><app-spinner *ngIf="spinner" class="scale-[0.3]"></app-spinner
+              ><app-spinner
+                *ngIf="spinner"
+                class="scale-[0.2] bg-white p-2 rounded-full"
+              ></app-spinner
             ></a>
           </li>
         </ul>
@@ -170,7 +169,7 @@
               class="text-gray-500 text-darkBlue-300 hover:text-salmon"
             >
               <svg
-                class="w-5 h-5 hover:scale-150 transform transition duration-300"
+                class="w-5 h-5 lg:hover:scale-150 transform transition duration-300"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
@@ -189,15 +188,14 @@
               class="text-darkBlue-300 hover:text-salmon"
             >
               <svg
-                class="w-5 h-5 hover:scale-150 transform transition duration-300"
+                class="w-5 h-5 lg:hover:scale-150 transform transition duration-300"
                 fill="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
               >
                 <path
                   fill-rule="evenodd"
-                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.
-                            338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+                  d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
                   clip-rule="evenodd"
                 ></path>
               </svg>
@@ -209,7 +207,7 @@
               class="text-gray-500 text-darkBlue-300 hover:text-salmon"
             >
               <svg
-                class="w-5 h-5 hover:scale-150 transform transition duration-300"
+                class="w-5 h-5 lg:hover:scale-150 transform transition duration-300"
                 fill="currentColor"
                 viewBox="0 0 16 16"
                 aria-hidden="true"

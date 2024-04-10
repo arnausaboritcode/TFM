@@ -20,6 +20,11 @@ details[open] {
   transition: 0.5s max-height ease;
 }
 
+details[open] > summary {
+  color: #ff903c;
+}
+
+
 details[open] > summary > .rotate {
   transform: rotate(180deg);
 }

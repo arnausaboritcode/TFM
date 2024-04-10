@@ -71,17 +71,6 @@ export class HeaderComponent implements OnInit {
           });
       });
 
-    //Spinner
-    this.userService.spinner$
-      .pipe(
-        takeUntil(this.destroy$),
-        startWith(this.spinner),
-        distinctUntilChanged()
-      )
-      .subscribe((value) => {
-        this.spinner = value;
-      });
-
     //Detect route change for hiding responsive menu on change route
     this.router.events.pipe(takeUntil(this.destroy$)).subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -101,6 +90,17 @@ export class HeaderComponent implements OnInit {
         console.error(error);
       },
     });
+
+    //Spinner
+    this.authService.spinner$
+      .pipe(
+        takeUntil(this.destroy$),
+        startWith(this.spinner),
+        distinctUntilChanged()
+      )
+      .subscribe((value) => {
+        this.spinner = value;
+      });
   }
 
   isActive(route: string): boolean {
