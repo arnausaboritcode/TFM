@@ -13,7 +13,7 @@ import { AutoDestroyService } from '../../../../core/services/utils/auto-destroy
 import { AuthService } from '../../../services/auth.service';
 import { HeaderService } from '../../../services/header.service';
 import { LocalStorageService } from '../../../services/local-storage.service';
-import { SnackbarService } from '../../../services/snackbar.service';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
     private LocalStorageService: LocalStorageService,
     private authService: AuthService,
     private destroy$: AutoDestroyService,
-    private snackbarService: SnackbarService
+    private notificationService: NotificationService
   ) {
     this.loginUser = new AuthDTO('', '', false);
     this.isValidForm = null;
@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit {
   login(): void {
     this.isValidForm = false;
     let responseOK: boolean = false;
+    let errorResponse: any;
 
     if (this.loginForm.invalid) {
       return;
@@ -82,15 +83,13 @@ export class LoginComponent implements OnInit {
       .pipe(
         finalize(() => {
           if (responseOK) {
-            this.snackbarService.openSnackbar(
-              `Authenticated as ${this.loginUser.email}`,
-              'Success'
+            this.notificationService.showSuccess(
+              `<p class="text-xs">Authenticated as ${this.loginUser.email}</p>`
             );
             this.router.navigateByUrl('/movies/search');
           } else {
-            this.snackbarService.openSnackbar(
-              'User not found or login failed',
-              'Error'
+            this.notificationService.showError(
+              '<p class="text-xs">User not found or login failed</p>'
             );
           }
         })

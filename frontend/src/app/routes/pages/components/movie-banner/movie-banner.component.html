@@ -1,0 +1,83 @@
+<section
+  class="p-3 overflow-hidden relative mt-20 w-full h-[calc(100vw_/_2.5)] min-h-60"
+>
+  <!-- Banner carrousel -->
+  <swiper-container
+    #swiperRef
+    pagination="false"
+    init="false"
+    class="w-full h-full"
+  >
+    <swiper-slide *ngFor="let movie of movies; let isFirst = first">
+      <a
+        class="opacity-100 hover:opacity-80 transition-all duration-200"
+        routerLink="/movies/{{ movie.id }}"
+      >
+        <div class="w-full h-full relative">
+          <!-- Banner image acting like a background image. Is not a bg image because of loading lazy -->
+          <img
+            *ngIf="isFirst; else noPriority"
+            class="object-cover object-top"
+            ngSrc="{{ movie.backdrop_path | imageUrl : 'original' }}"
+            fill="true"
+            alt="Movie backdrop image"
+            priority
+          />
+          <ng-template #noPriority>
+            <img
+              class="object-cover object-top"
+              ngSrc="{{ movie.backdrop_path | imageUrl : 'original' }}"
+              fill="true"
+              alt="Movie backdrop image"
+            />
+          </ng-template>
+          <!-- Banner gradients -->
+          <div
+            class="absolute w-full h-full bg-gradient-to-r from-black via-transparent to-transparent"
+          ></div>
+          <div
+            class="absolute w-full h-full bg-gradient-to-l from-black via-transparent to-transparent"
+          ></div>
+          <div
+            class="absolute w-full h-full bg-gradient-to-t from-black via-transparent to-transparent"
+          ></div>
+
+          <!-- Banner text content -->
+          <div
+            class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,0%,0.4)] bg-fixed"
+          >
+            <div class="flex flex-col w-full h-full">
+              <!-- Banner movie content -->
+              <div class="flex justify-center items-end w-full h-full">
+                <div
+                  class="flex flex-col justify-center items-center w-full mb-20"
+                >
+                  <h1
+                    class="md:text-4xl text-lg font-strange text-white font-extrabold leading-tight mb-2"
+                  >
+                    {{ movie.title }}
+                  </h1>
+                  <p
+                    class="md:text-lg text-sm text-white font-extrabold leading-tight mb-2"
+                  >
+                    {{ movie.release_date | date : "dd MMM YYYY" }}
+                  </p>
+                  <div class="flex items-center">
+                    <p
+                      class="bg-salmon py-1 px-2 rounded-lg text-xs text-darkBlue-500 font-bold mr-2"
+                    >
+                      {{ movie.vote_average | number : "1.0-1" }}
+                    </p>
+                    <p class="text-xs text-white">
+                      | {{ movie.vote_count }} reviews
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </swiper-slide>
+  </swiper-container>
+</section>

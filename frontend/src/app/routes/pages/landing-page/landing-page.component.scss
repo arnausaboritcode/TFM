@@ -1,1 +1,25 @@
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  height: 1em;
+  width: 1em;
+  border-radius: 50em;
+  background-image: url("../../../../assets/icons/circle-xmark-solid.svg");
+  cursor: pointer;
+  background-size: contain;
+  opacity: 0;
+  pointer-events: none;
+}
+
+input[type="search"]:focus::-webkit-search-cancel-button {
+  opacity: .3;
+  pointer-events: all;
+}
+
+//Scroll
+.show-scrollTop {
+  opacity: 1;
+  scale: 80%;
+  transition: all 0.3s ease-in-out;
+}
+
 

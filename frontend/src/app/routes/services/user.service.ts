@@ -14,7 +14,7 @@ export class UserService {
   private spinner: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
-  public spinner$: Observable<boolean> = this.spinner.asObservable();
+  spinner$: Observable<boolean> = this.spinner.asObservable();
 
   constructor(
     private http: HttpClient,

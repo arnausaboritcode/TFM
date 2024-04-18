@@ -2,18 +2,16 @@ import { NgOptimizedImage } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {
   BrowserModule,
   provideClientHydration,
 } from '@angular/platform-browser';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { register } from 'swiper/element/bundle';
-register();
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ToastrModule } from 'ngx-toastr';
+import { register } from 'swiper/element/bundle';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { authInterceptor } from './core/interceptors/auth.interceptor';
@@ -22,11 +20,23 @@ import { HeaderComponent } from './core/main-layout/components/header/header.com
 import { MainLayoutComponent } from './core/main-layout/main-layout.component';
 import { LoginComponent } from './routes/auth/pages/login/login.component';
 import { RegisterComponent } from './routes/auth/pages/register/register.component';
+import { GenreCarrouselComponent } from './routes/pages/components/genre-carrousel/genre-carrousel.component';
+import { MovieBannerComponent } from './routes/pages/components/movie-banner/movie-banner.component';
+import { MovieCarrouselCardComponent } from './routes/pages/components/movie-carrousel-card/movie-carrousel-card.component';
+import { MovieCarrouselComponent } from './routes/pages/components/movie-carrousel/movie-carrousel.component';
+import { MovieListsSkeletonComponent } from './routes/pages/components/movie-lists-skeleton/movie-lists-skeleton.component';
 import { LandingPageComponent } from './routes/pages/landing-page/landing-page.component';
+import { MovieListsPageComponent } from './routes/pages/movie-lists-page/movie-lists-page.component';
 import { WelcomePageComponent } from './routes/pages/welcome-page/welcome-page.component';
-import { PopcornSpinnerComponent } from './shared/popcorn-spinner/popcorn-spinner.component';
-import { SnackbarComponent } from './shared/snackbar/snackbar.component';
-import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { PopcornSpinnerComponent } from './shared/components/popcorn-spinner/popcorn-spinner.component';
+import { ResultsCardComponent } from './shared/components/results-card/results-card.component';
+import { ResultsListComponent } from './shared/components/results-list/results-list.component';
+import { ResultsSkeletonComponent } from './shared/components/results-skeleton/results-skeleton.component';
+import { SpinnerComponent } from './shared/components/spinner/spinner.component';
+import { GenresLimitPipe } from './shared/pipes/genres-limit.pipe';
+import { ImageUrlPipe } from './shared/pipes/image-url.pipe';
+import { GenreCarrouselCardComponent } from './routes/pages/components/genre-carrousel-card/genre-carrousel-card.component';
+register();
 
 @NgModule({
   declarations: [
@@ -40,7 +50,18 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
     WelcomePageComponent,
     SpinnerComponent,
     PopcornSpinnerComponent,
-    SnackbarComponent,
+    ResultsSkeletonComponent,
+    ResultsListComponent,
+    ResultsCardComponent,
+    ImageUrlPipe,
+    GenresLimitPipe,
+    MovieListsPageComponent,
+    MovieCarrouselComponent,
+    MovieCarrouselCardComponent,
+    MovieBannerComponent,
+    GenreCarrouselComponent,
+    MovieListsSkeletonComponent,
+    GenreCarrouselCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,12 +69,12 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
     FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    MatIconModule,
     RouterModule,
     InfiniteScrollModule,
     NgOptimizedImage,
     BrowserAnimationsModule,
-    MatSnackBarModule,
+    FontAwesomeModule,
+    ToastrModule.forRoot(),
   ],
   providers: [
     {

@@ -1,0 +1,32 @@
+<div *ngIf="!skeleton; else showSkeleton">
+  <app-movie-banner [movies]="getPopularMovies"></app-movie-banner>
+
+  <app-movie-carrousel
+    [title]="'Playing on Cinema'"
+    [movies]="nowPlayingMovies"
+  ></app-movie-carrousel>
+
+  <app-genre-carrousel
+    [title]="'Categories'"
+    [genres]="getGenres"
+  ></app-genre-carrousel>
+
+  <app-movie-carrousel
+    [title]="'Popular'"
+    [movies]="getPopularMovies"
+  ></app-movie-carrousel>
+
+  <app-movie-carrousel
+    [title]="'Best by viewers'"
+    [movies]="getTopRatedMovies"
+  ></app-movie-carrousel>
+
+  <app-movie-carrousel
+    [title]="'Next Movies'"
+    [movies]="getUpcomingMovies"
+  ></app-movie-carrousel>
+</div>
+
+<ng-template #showSkeleton
+  ><app-movie-lists-skeleton></app-movie-lists-skeleton
+></ng-template>

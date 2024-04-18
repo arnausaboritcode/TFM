@@ -1,0 +1,23 @@
+<a routerLink="/movies/{{ movie.id }}">
+  <div class="w-full">
+    <img
+      class="w-full rounded-xl hover:border-solid hover:border-2 hover:border-white"
+      ngSrc="{{ movie.poster_path | imageUrl : 'w185' }}"
+      width="185"
+      height="278"
+      alt="Movie poster image"
+    />
+    <div class="w-full mt-4">
+      <p class="text-sm text-white font-bold">{{ movie.title }}</p>
+      <p
+        *ngIf="genresNames && genresNames.length > 0"
+        class="text-xs text-gray-400 font-bold"
+      >
+        {{ genresNames | genresLimit : 2 }}
+      </p>
+      <p class="text-xs text-white font-bold">
+        {{ movie.release_date | date : "yyyy" }}
+      </p>
+    </div>
+  </div>
+</a>

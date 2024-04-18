@@ -1,0 +1,18 @@
+<div class="w-full mt-14 mb-20">
+  <p
+    class="absolute font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 lg:text-2xl md:text-xl text-base mb-3 md:ml-14 ml-7"
+  >
+    {{ title
+    }}<i
+      class="fa-solid fa-chevron-right md:text-lg text-base text-salmon md:ml-3 ml-2"
+    ></i>
+  </p>
+  <swiper-container #swiperRef navigation="true" pagination="true" init="false">
+    <swiper-slide
+      *ngFor="let movie of movies"
+      class="transition-all ease-in-out duration-200 cursor-pointer hover:scale-125 hover:z-10 hover:delay-[350ms] mt-12 mb-12 md:first:ml-14 first:ml-7"
+    >
+      <app-movie-carrousel-card [movie]="movie"></app-movie-carrousel-card>
+    </swiper-slide>
+  </swiper-container>
+</div>

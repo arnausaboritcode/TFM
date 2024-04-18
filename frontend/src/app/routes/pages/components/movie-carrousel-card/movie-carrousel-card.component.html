@@ -1,0 +1,13 @@
+<a routerLink="/movies/{{ movie.id }}">
+  <div
+    class="w-full rounded-xl overflow-hidden hover:border-solid hover:border-2 hover:border-white"
+  >
+    <img
+      class="w-56"
+      ngSrc="{{ movie.poster_path | imageUrl : 'w342' }}"
+      width="342"
+      height="513"
+      alt="Movie poster image"
+    />
+  </div>
+</a>

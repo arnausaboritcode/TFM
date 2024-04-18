@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { delay, distinctUntilChanged, startWith, takeUntil } from 'rxjs';
-import { Movie } from '../../../core/models/movie';
+import { MovieDTO } from '../../../core/models/movie.dto';
 import { AutoDestroyService } from '../../../core/services/utils/auto-destroy.service';
 import { HeaderService } from '../../services/header.service';
 import { MoviesService } from '../../services/movies.service';
@@ -11,7 +11,7 @@ import { MoviesService } from '../../services/movies.service';
   styleUrl: './welcome-page.component.scss',
 })
 export class WelcomePageComponent implements OnInit {
-  movies: Movie[];
+  movies: MovieDTO[];
   skeleton: boolean;
   windowScrolled: boolean;
 

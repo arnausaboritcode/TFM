@@ -1,3 +1,121 @@
-<div class="flex justify-center items-center text-center w-screen h-screen">
-  <p class="text-3xl font-bold text-darkBlue-300">Landing page</p>
+<div
+  class="absolute -z-10 bg-tech-banner-1 bg-cover bg-center bg-no-repeat w-full h-screen"
+></div>
+<div class="text-center mx-auto pt-44 px-10 text-white">
+  <div
+    class="animatecss animatecss-backInDown md:text-3xl text-xl font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200"
+  >
+    Looking for a particular
+    <span
+      class="text-salmon md:text-3xl text-xl inline-flex flex-col h-[calc(theme(fontSize.xl)*theme(lineHeight.tight))] md:h-[calc(theme(fontSize.3xl)*theme(lineHeight.tight))] overflow-hidden"
+    >
+      <ul
+        class="block text-left animate-text-slide leading-tight font-strange [&_li]:block"
+      >
+        <li>Movie</li>
+        <li>Show</li>
+        <li>Scene</li>
+        <li>Actor</li>
+        <li>Genre</li>
+        <li aria-hidden="true">Movie</li>
+      </ul></span
+    >?
+  </div>
+
+  <!-- Input search -->
+  <div class="max-w-md mx-auto mt-14 animatecss animatecss-fadeIn">
+    <div
+      class="border-2 border-solid border-darkBlue-400 flex items-center w-full h-12 bg-darkBlue-400 rounded-2xl focus-within:shadow-lg overflow-hidden animatecss focus-within:animatecss-rubberBand focus-within:border-darkBlue-300 transition-all duration-500 hover:border-darkBlue-300 hover:shadow-[0_0_118px_0px_rgba(255,255,255,0.4)] focus-within:shadow-[0_0_118px_0px_rgba(255,255,255,0.4)]"
+    >
+      <div class="grid place-items-center h-full w-12">
+        <i class="fa-solid fa-magnifying-glass text-salmon text-lg"></i>
+      </div>
+      <input
+        class="h-full w-full outline-none text-sm text-white pr-2 bg-darkBlue-400"
+        type="search"
+        id="search"
+        placeholder="Search movies..."
+        [(ngModel)]="query"
+        (input)="subscribeToInputChanges()"
+      />
+    </div>
+
+    <!-- Did you mean 'xxxx'? -->
+    <div
+      *ngIf="
+        results &&
+        query.trim().length !== 0 &&
+        closestMatchedQuery.length !== 0 &&
+        query.toLowerCase() !== closestMatchedQuery.toLowerCase()
+      "
+      class="mt-6"
+    >
+      <div class="flex items-center justify-center w-full">
+        <i
+          class="fa-solid fa-circle-question text-darkBlue-300 text-sm mr-2"
+        ></i>
+        <span class="text-darkBlue-300 text-xs font-medium"
+          >Did you mean
+          <a
+            (click)="changeInputQuery()"
+            class="text-salmon font-bold cursor-pointer hover:underline hover:underline-offset-4 hover:decoration-salmon italic"
+            >"{{ closestMatchedQuery }}"</a
+          >
+          ?</span
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Movies list section -->
+<div
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="onScroll()"
+>
+  <app-results-skeleton *ngIf="skeleton"></app-results-skeleton>
+
+  <!--   Search results text  -->
+  <div
+    id="searchResults"
+    *ngIf="results && totalResults"
+    class="w-full flex justify-center mt-20"
+  >
+    <div class="flex justify-center items-center text-darkBlue-300 font-bold">
+      <i class="fa-solid fa-magnifying-glass text-base mr-2"></i>
+      <p class="text-sm font-bold">SEARCH RESULTS ({{ totalResults }})</p>
+    </div>
+  </div>
+
+  <!-- Search results text fixed on scroll -->
+  <div
+    *ngIf="results && totalResults"
+    class="w-full opacity-0 z-50 fixed top-28 cursor-pointer flex justify-center transition-all duration-300 ease-in-out"
+    [ngClass]="{ 'show-scrollTop': windowScrolled }"
+    (click)="scrollToTop()"
+  >
+    <a
+      class="flex justify-center items-center text-darkBlue-300 font-bold p-4 bg-darkBlue-400 rounded-full"
+    >
+      <i class="fa-solid fa-magnifying-glass text-sm mr-2"></i>
+      <p class="text-sm font-bold">
+        {{ results.length }} / {{ totalResults }} results
+      </p>
+      <i class="fa-solid fa-chevron-up text-sm ml-2"></i>
+    </a>
+  </div>
+
+  <!-- Result list -->
+  <app-results-list [results]="results"></app-results-list>
+
+  <div
+    *ngIf="this.results.length === 0 && query.trim().length !== 0"
+    class="flex justify-center items-center pb-20"
+  >
+    <i class="fa-solid fa-face-frown text-darkBlue-300 text-base mr-2"></i>
+
+    <span class="text-darkBlue-300 text-sm font-medium">Not found</span>
+  </div>
 </div>

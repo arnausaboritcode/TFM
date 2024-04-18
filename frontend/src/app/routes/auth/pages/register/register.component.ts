@@ -12,7 +12,7 @@ import {
 import { UserDTO } from '../../../../core/models/user.dto';
 import { AutoDestroyService } from '../../../../core/services/utils/auto-destroy.service';
 import { HeaderService } from '../../../services/header.service';
-import { SnackbarService } from '../../../services/snackbar.service';
+import { NotificationService } from '../../../services/notification.service';
 import { UserService } from '../../../services/user.service';
 
 @Component({
@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
     private headerService: HeaderService,
     private userService: UserService,
     private destroy$: AutoDestroyService,
-    private snackbarService: SnackbarService
+    private notificationService: NotificationService
   ) {
     this.registerUser = new UserDTO('', '', '', '');
     this.isValidForm = null;
@@ -95,6 +95,7 @@ export class RegisterComponent implements OnInit {
   register(): void {
     this.isValidForm = false;
     let responseOK: boolean = false;
+    let errorResponse: any;
 
     if (this.registerForm.invalid) {
       return;
@@ -113,9 +114,8 @@ export class RegisterComponent implements OnInit {
         console.error(error);
       },
       complete: () => {
-        this.snackbarService.openSnackbar(
-          `Registered as ${this.registerUser.email}`,
-          'Success'
+        this.notificationService.showSuccess(
+          `<p class="text-xs">Registered as ${this.registerUser.email}</p>`
         );
         this.router.navigateByUrl('/user/login');
       },
