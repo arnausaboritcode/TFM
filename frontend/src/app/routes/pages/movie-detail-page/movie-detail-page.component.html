@@ -1,0 +1,195 @@
+<div
+  class="absolute -z-10 bg-tech-banner-2 bg-cover bg-center bg-no-repeat w-full h-screen"
+></div>
+<section
+  class="w-full lg:h-screen h-fit lg:mt-24 mt-60"
+  *ngIf="!skeleton; else showSkeleton"
+>
+  <!-- Go Back Button -->
+  <a
+    (click)="goBack()"
+    class="absolute cursor-pointer left-12 top-40 w-fit flex items-center justify-center px-5 py-2 md:text-sm text-xs text-white transition-all duration-500 ease-in-out bg-darkBlue-400 rounded-lg gap-x-2 shadow-md group"
+  >
+    <i
+      class="fa-solid fa-chevron-left mr-2 md:text-base text-sm text-white lg:group-hover:-translate-x-2 transition-all duration-500 ease-in-out"
+    ></i>
+    <span>Back</span>
+  </a>
+
+  <!--  Movie detailed content -->
+  <div class="container lg:py-24 mx-auto">
+    <div class="lg:w-4/5 lg:px-0 px-6 mx-auto flex flex-wrap">
+      <!--  Movie image in lg screens -->
+      <div
+        class="hidden lg:block lg:w-1/3 w-full lg:h-auto h-64 overflow-hidden inline-block rounded-lg"
+      >
+        <img
+          alt="Movie poster image"
+          class="object-cover object-center rounded hover:scale-110 transition transform duration-500"
+          ngSrc="{{ movieDetails.poster_path | imageUrl : 'w500' }}"
+          width="500"
+          height="750"
+          priority
+        />
+      </div>
+      <!--  Movie image in md and sm screens -->
+      <div
+        class="lg:hidden w-full lg:h-auto h-64 overflow-hidden inline-block rounded-lg"
+      >
+        <img
+          alt="Movie backdrop image"
+          class="object-cover object-center rounded"
+          ngSrc="{{ movieDetails.backdrop_path | imageUrl : 'w780' }}"
+          width="780"
+          height="439"
+          priority
+        />
+      </div>
+
+      <!--  Movie text content-->
+      <div class="lg:w-1/2 w-full lg:pl-10 lg:mt-0 mt-6">
+        <!-- date and time -->
+        <h2 class="text-sm text-darkBlue-300 tracking-widest mb-4">
+          <span>{{ movieDetails.release_date | date : "yyyy" }}</span> ·
+          <span>{{ movieDetails.runtime }} min</span>
+        </h2>
+        <!-- genres -->
+        <h2 class="text-sm text-darkBlue-300 tracking-widest">
+          <span *ngFor="let genre of movieDetails.genres; let last = last"
+            ><a
+              [routerLink]="['/movies/genres', genre.id]"
+              class="hover:underline hover:underline-offset-8 hover:decoration-salmon hover:text-salmon"
+              >{{ genre.name }}</a
+            ><span *ngIf="!last"> · </span></span
+          >
+        </h2>
+        <!-- title -->
+        <h1
+          class="text-3xl font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 mb-4 mt-2"
+        >
+          {{ movieDetails.title }}
+        </h1>
+        <!-- reviews -->
+        <div class="flex mb-4">
+          <span class="flex items-center text-salmon scale-90">
+            <div class="flex items-center">
+              <p class="text-white mr-3">
+                {{ movieDetails.vote_average | number : "1.0-1" }}
+              </p>
+              <ng-container *ngFor="let i of [1, 2, 3, 4, 5]">
+                <i
+                  *ngIf="i <= movieDetails.vote_average / 2; else emptyStar"
+                  class="fa-solid fa-star"
+                ></i>
+                <ng-template #emptyStar
+                  ><i class="fa-regular fa-star"></i
+                ></ng-template>
+              </ng-container>
+            </div>
+
+            <span class="text-darkBlue-300 ml-3"
+              >{{ movieDetails.vote_count }} reviews</span
+            >
+          </span>
+          <span
+            class="flex items-center ml-3 pl-3 py-2 border-l-2 border-darkBlue-300 space-x-2s"
+          >
+            <object
+              data="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg"
+              type="image/svg+xml"
+              class="w-10"
+            ></object>
+
+            <object
+              data="assets/icons/logo.svg"
+              type="image/svg+xml"
+              class="w-8 ml-2"
+            ></object>
+          </span>
+        </div>
+
+        <!-- description -->
+        <div class="leading-relaxed text-darkBlue-300 mt-14">
+          {{
+            showMoreToggle
+              ? movieDetails.overview
+              : (movieDetails.overview | descriptionLimit : 170)
+          }}
+          <a
+            class="cursor-pointer text-xs text-salmon font-bold"
+            *ngIf="!showMoreToggle && movieDetails.overview.length > 170"
+            (click)="onShow()"
+            >...more</a
+          >
+        </div>
+
+        <!-- play and favourite buttons -->
+        <div
+          class="flex mt-14 items-center justify-between pb-5 border-b-2 border-gray-100 mb-5"
+        >
+          <!-- play -->
+          <button
+            class="flex justify-center items-center p-4 bg-salmon text-black rounded-full w-28"
+          >
+            <i class="fa-solid fa-video-slash text-xl"></i>
+          </button>
+
+          <!-- favourite -->
+
+          <div class="flex justify-center items-center">
+            <button
+              class="rounded-full p-4 bg-white flex items-center justify-center w-16"
+            >
+              <i class="fa-solid fa-heart-circle-plus text-xl text-salmon"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- extra information -->
+        <div class="flex flex-col">
+          <!-- companies -->
+          <h1
+            *ngIf="movieDetails.production_companies.length > 0"
+            class="text-sm tracking-widest text-white mb-6 leading-9"
+          >
+            <i class="fa-solid fa-sack-dollar text-salmon text-lg mr-4"></i>
+            <span
+              class="text-darkBlue-300"
+              *ngFor="
+                let production of movieDetails.production_companies;
+                let last = last
+              "
+              >{{ production.name }}<span *ngIf="!last"> · </span></span
+            >
+          </h1>
+          <!-- languages -->
+          <h1
+            *ngIf="movieDetails.spoken_languages.length > 0"
+            class="text-sm text-white tracking-widest leading-9"
+          >
+            <i class="fa-solid fa-language text-salmon text-lg mr-4"></i
+            ><span
+              class="text-darkBlue-300"
+              *ngFor="
+                let language of movieDetails.spoken_languages;
+                let last = last
+              "
+              >{{ language.english_name }}<span *ngIf="!last"> · </span></span
+            >
+          </h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Similar carrousel -->
+<app-movie-carrousel
+  *ngIf="similarMovies && similarMovies.length > 0"
+  [title]="'Similar Movies'"
+  [movies]="similarMovies"
+></app-movie-carrousel>
+
+<ng-template #showSkeleton
+  ><app-movie-detail-skeleton></app-movie-detail-skeleton
+></ng-template>

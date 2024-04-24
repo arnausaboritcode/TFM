@@ -1,0 +1,170 @@
+<div
+  class="absolute -z-10 bg-tech-banner-3 bg-cover bg-center bg-no-repeat w-full h-screen"
+></div>
+<div
+  class="animatecss animatecss-fadeIn container w-screen md:w-[900px] mx-auto pt-44 px-24"
+>
+  <p
+    class="md:text-6xl text-[10vw] font-extrabold leading-[70px] text-salmon text-center"
+  >
+    <span class="inline-block animatecss animatecss-bounceInDown font-strange"
+      ><span> & </span></span
+    ><span
+      class="text-3xl font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200"
+    >
+      movies</span
+    >
+  </p>
+  <div class="my-10 text-xs text-darkBlue-300 flex leading-5">
+    <mat-icon class="mr-2 text-sm pr-2">info</mat-icon>
+    <p class="font-medium">
+      In this section, you are able to search for movies by genre and also
+      combine multiple genres. As is explained below, you can change your base
+      genre through the right select and combine it through the left one. Play
+      this "Genre Game" while searching your movies and enjoy!
+    </p>
+  </div>
+  <div class="flex flex-wrap justify-center text-center mt-10">
+    <!--  <form class="md:w-1/2 justify-center" [formGroup]="genresForm">
+      <p class="font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 text-sm">Wanna combine multiple genres?</p>
+
+      <select id="genres" class="appearance-none mt-2 w-fit mb-6 text-xs text-darkBlue-300 font-extrabold rounded-lg bg-darkBlue-400 cursor-pointer py-2 px-4" formControlName="genres">
+        <option value="default" selected disabled>Add genres</option>
+        <option *ngFor="let genre of genres | keyvalue">{{genre.value}}</option>
+      </select>
+      <mat-icon class="absolute right-2 top-1/2 rotate text-salmon">expand_more</mat-icon>
+
+
+    </form> -->
+    <!--    <form class="md:w-1/2" [formGroup]="changeGenreForm">
+      <p class="font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 text-sm">Wanna change your base genre?</p>
+      <select id="genres" class="mt-2 round w-fit text-darkBlue-300 font-extrabold py-2 px-4 mb-6 text-xs text-darkBlue-300 font-bold rounded-lg bg-darkBlue-400 cursor-pointer" formControlName="genres">
+        <option value="default" selected disabled>Change genre</option>
+        <option *ngFor="let genre of genres | keyvalue">{{genre.value}}</option>
+      </select>
+    </form> -->
+  </div>
+
+  <!--  <p *ngIf="genresNames && genresNames.length > 1" class="flex items-center justify-center text-gray-400 mt-10">
+    <a class="text-sm font-medium flex items-center cursor-pointer bg-darkBlue-400 px-4 py-2 rounded-full hover:scale-110 transform transition duration-300 border-2 border-salmon" (click)="clearGenres()"><span class="text-salmon font-bold flex items-center"><mat-icon class="mr-2 scale-90">clear</mat-icon></span> Clear added genres</a>
+  </p> -->
+
+  <!-- Filters selects -->
+  <form [formGroup]="filtersForm" class="mt-14">
+    <div
+      class="flex flex-col w-full justify-center items-center p-10 border-[2px] border-darkBlue-400 rounded-xl"
+    >
+      <div class="flex justify-center items-center text-darkBlue-300 font-bold">
+        <i class="fa-solid fa-filter text-base mr-2"></i>
+        <p class="text-sm font-bold">FILTERS</p>
+      </div>
+
+      <div class="w-full flex flex-wrap justify-between items-center p-5">
+        <select
+          class="block w-fit py-2 px-4 mb-6 text-xs text-darkBlue-300 font-bold rounded-lg bg-darkBlue-400 cursor-pointer"
+          formControlName="genres"
+        >
+          <option
+            class="text-sm font-medium text-white"
+            selected
+            value="default"
+          >
+            Add genres
+          </option>
+
+          <option
+            *ngFor="let genre of genreNames; trackBy: trackById"
+            [value]="genre.id"
+          >
+            {{ genre.name }}
+          </option>
+        </select>
+
+        <select
+          class="block w-fit py-2 px-4 mb-6 text-xs text-darkBlue-300 font-bold rounded-lg bg-darkBlue-400 cursor-pointer"
+          formControlName="year"
+        >
+          <option
+            class="text-sm font-medium text-white"
+            selected
+            value="default"
+          >
+            Year
+          </option>
+
+          <optgroup label="2020-2024" class="border-b-2">
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2021">2021</option>
+            <option value="2020">2020</option>
+          </optgroup>
+        </select>
+
+        <select
+          class="block w-fit py-2 px-4 mb-6 text-xs text-darkBlue-300 font-bold rounded-lg bg-darkBlue-400 cursor-pointer"
+          formControlName="runtime"
+        >
+          <option selected value="default">Duration</option>
+
+          <option value="200">200 min</option>
+          <option value="160">160 min</option>
+          <option value="130">130 min</option>
+          <option value="100">100 min</option>
+          <option value="60">60 min</option>
+        </select>
+
+        <select
+          class="block w-fit py-2 px-4 mb-6 text-xs text-darkBlue-300 font-bold rounded-lg bg-darkBlue-400 cursor-pointer"
+          formControlName="language"
+        >
+          <option selected value="default">Language</option>
+
+          <option value="en">English</option>
+          <option value="pt">Portuguese</option>
+          <option value="es">Spanish</option>
+          <option value="hi">Hindi</option>
+        </select>
+
+        <select
+          class="block w-fit py-2 px-4 mb-6 text-xs text-darkBlue-300 font-bold rounded-lg bg-darkBlue-400 cursor-pointer"
+          formControlName="vote_average"
+        >
+          <option selected value="default">Puntuation</option>
+          <option value="8">8</option>
+          <option value="7">7</option>
+          <option value="6">6</option>
+        </select>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div
+  *ngIf="genreMovies && genreMovies?.length !== 0"
+  class="flex items-center justify-center mt-20"
+>
+  <div class="flex justify-center items-center text-darkBlue-300 font-bold">
+    <i class="fa-solid fa-filter text-base mr-2"></i>
+    <p class="text-sm font-bold">FILTER RESULTS ({{ totalResults }})</p>
+  </div>
+</div>
+
+<!-- Movie results list-->
+<app-results-list
+  *ngIf="!skeleton; else showSkeleton"
+  [results]="genreMovies"
+></app-results-list>
+<ng-template #showSkeleton
+  ><app-search-list-skeleton></app-search-list-skeleton
+></ng-template>
+
+<div
+  *ngIf="genreMovies && genreMovies?.length === 0"
+  class="flex justify-center items-center pb-20"
+>
+  <i class="fa-solid fa-face-frown text-darkBlue-300 text-base mr-2"></i>
+  <span class="text-darkBlue-300 text-sm font-medium"
+    >No movies matched with this filters</span
+  >
+</div>

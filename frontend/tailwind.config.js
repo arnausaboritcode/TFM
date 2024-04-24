@@ -17,6 +17,8 @@ module.exports = {
       },
       backgroundImage: {
         "tech-banner-1": "url('assets/images/tech-banner-1.webp')",
+        "tech-banner-2": "url('assets/images/tech-banner-2.webp')",
+        "tech-banner-3": "url('assets/images/tech-banner-3.webp')",
       },
       animation: {
         "text-slide":

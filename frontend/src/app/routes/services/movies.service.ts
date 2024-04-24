@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, delay, finalize } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
+import { FiltersDTO } from '../../core/models/filters.dto';
 import { GenresDTO } from '../../core/models/genres.dto';
 import { SearchResultDTO } from '../../core/models/movie.dto';
 
@@ -69,10 +70,13 @@ export class MoviesService {
 
   //Discover movies - movies by genre and filters
 
-  getDiscoverMovies(genreIds: string[]): Observable<SearchResultDTO> {
+  getDiscoverMovies(filters?: FiltersDTO): Observable<SearchResultDTO> {
+    const params = new HttpParams({
+      fromObject: { ...filters },
+    });
     return this.http
       .get<SearchResultDTO>(
-        `${environment.BASE_API_URL}discover/movie?with_genres=${genreIds}`
+        `${environment.BASE_API_URL}discover/movie?${params}`
       )
       .pipe(
         delay(500),

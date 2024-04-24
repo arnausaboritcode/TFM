@@ -36,6 +36,10 @@ import { SpinnerComponent } from './shared/components/spinner/spinner.component'
 import { GenresLimitPipe } from './shared/pipes/genres-limit.pipe';
 import { ImageUrlPipe } from './shared/pipes/image-url.pipe';
 import { GenreCarrouselCardComponent } from './routes/pages/components/genre-carrousel-card/genre-carrousel-card.component';
+import { MovieDetailPageComponent } from './routes/pages/movie-detail-page/movie-detail-page.component';
+import { DescriptionLimitPipe } from './shared/pipes/description-limit.pipe';
+import { MovieDetailSkeletonComponent } from './routes/pages/components/movie-detail-skeleton/movie-detail-skeleton.component';
+import { GenrePageComponent } from './routes/pages/genre-page/genre-page.component';
 register();
 
 @NgModule({
@@ -62,6 +66,10 @@ register();
     GenreCarrouselComponent,
     MovieListsSkeletonComponent,
     GenreCarrouselCardComponent,
+    MovieDetailPageComponent,
+    DescriptionLimitPipe,
+    MovieDetailSkeletonComponent,
+    GenrePageComponent,
   ],
   imports: [
     BrowserModule,

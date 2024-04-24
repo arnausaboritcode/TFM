@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { distinctUntilChanged, finalize, startWith, takeUntil } from 'rxjs';
 
+import { Location } from '@angular/common';
 import {
   FormBuilder,
   FormControl,
@@ -39,7 +40,8 @@ export class LoginComponent implements OnInit {
     private LocalStorageService: LocalStorageService,
     private authService: AuthService,
     private destroy$: AutoDestroyService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private location: Location
   ) {
     this.loginUser = new AuthDTO('', '', false);
     this.isValidForm = null;
@@ -122,7 +124,13 @@ export class LoginComponent implements OnInit {
       });
   }
 
+  /* Show/Hide password visibility */
   tooglePassword(): void {
     this.showPassword = !this.showPassword;
+  }
+
+  /* Go back to previous page on back button */
+  goBack(): void {
+    this.location.back();
   }
 }

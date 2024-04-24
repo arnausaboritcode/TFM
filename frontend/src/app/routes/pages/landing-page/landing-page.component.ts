@@ -1,12 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  share,
-  startWith,
-  switchMap,
-  takeUntil,
-} from 'rxjs';
+import { distinctUntilChanged, startWith, switchMap, takeUntil } from 'rxjs';
 import { MovieDTO } from '../../../core/models/movie.dto';
 import { AutoDestroyService } from '../../../core/services/utils/auto-destroy.service';
 import { HeaderService } from '../../services/header.service';
@@ -36,13 +29,16 @@ export class LandingPageComponent implements OnInit {
     private destroy$: AutoDestroyService
   ) {
     this.results = [];
-    this.query = '';
     this.closestMatchedQuery = '';
+    this.query = '';
     this.skeleton = false;
     this.page = 1;
     this.totalPages = 10;
     this.totalResults = 0;
     this.windowScrolled = false;
+
+    // Reset search results on route change
+    this.subscribeToInputChanges();
   }
 
   ngOnInit(): void {
@@ -53,16 +49,12 @@ export class LandingPageComponent implements OnInit {
     this.movieSearchService.searchTerms$
       .pipe(
         takeUntil(this.destroy$),
-        startWith(this.query),
-        debounceTime(500),
         distinctUntilChanged(),
         switchMap((query: string) =>
           this.movieSearchService.searchMovies(query)
-        ),
-        share()
+        )
       )
       .subscribe((data) => {
-        console.log(data);
         this.results = data.results;
         this.totalResults = data.total_results;
         this.totalPages = data.total_pages;
@@ -93,7 +85,7 @@ export class LandingPageComponent implements OnInit {
     }
   }
 
-  //Notify that query has changed
+  //Notify that query has changed and assigning query params on route
   subscribeToInputChanges(): void {
     this.movieSearchService.setQueryString(this.query);
   }

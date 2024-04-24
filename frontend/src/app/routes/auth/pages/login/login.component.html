@@ -3,8 +3,8 @@
 >
   <!-- Go Back Button -->
   <a
-    routerLink="/welcome"
-    class="absolute md:left-12 md:top-20 left-10 top-11 w-fit flex items-center justify-center px-5 py-2 md:text-sm text-xs text-white transition-all duration-500 ease-in-out bg-darkBlue-400 rounded-lg gap-x-2 shadow-md group"
+    (click)="goBack()"
+    class="absolute cursor-pointer md:left-12 md:top-20 left-10 top-11 w-fit flex items-center justify-center px-5 py-2 md:text-sm text-xs text-white transition-all duration-500 ease-in-out bg-darkBlue-400 rounded-lg gap-x-2 shadow-md group"
   >
     <i
       class="fa-solid fa-chevron-left mr-2 md:text-base text-sm text-white lg:group-hover:-translate-x-2 transition-all duration-500 ease-in-out"

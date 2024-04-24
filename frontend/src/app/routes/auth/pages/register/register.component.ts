@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { distinctUntilChanged, startWith, takeUntil } from 'rxjs';
 
+import { Location } from '@angular/common';
 import {
   AbstractControl,
   FormBuilder,
@@ -40,7 +41,8 @@ export class RegisterComponent implements OnInit {
     private headerService: HeaderService,
     private userService: UserService,
     private destroy$: AutoDestroyService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private location: Location
   ) {
     this.registerUser = new UserDTO('', '', '', '');
     this.isValidForm = null;
@@ -131,11 +133,17 @@ export class RegisterComponent implements OnInit {
       .subscribe((value) => (this.spinner = value));
   }
 
+  /* Show/Hide passwords visibility */
   tooglePassword(): void {
     this.showPassword = !this.showPassword;
   }
 
   tooglePasswordConfirmation(): void {
     this.showPasswordConfirmation = !this.showPasswordConfirmation;
+  }
+
+  /* Go back to previous page on back button */
+  goBack(): void {
+    this.location.back();
   }
 }
