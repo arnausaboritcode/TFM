@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { distinctUntilChanged, startWith, switchMap, takeUntil } from 'rxjs';
+import {
+  distinctUntilChanged,
+  startWith,
+  switchMap,
+  takeUntil,
+  tap,
+} from 'rxjs';
 import { MovieDTO } from '../../../core/models/movie.dto';
 import { AutoDestroyService } from '../../../core/services/utils/auto-destroy.service';
 import { HeaderService } from '../../services/header.service';
@@ -50,6 +56,7 @@ export class LandingPageComponent implements OnInit {
       .pipe(
         takeUntil(this.destroy$),
         distinctUntilChanged(),
+        tap(() => (this.results = [])),
         switchMap((query: string) =>
           this.movieSearchService.searchMovies(query)
         )
@@ -58,6 +65,7 @@ export class LandingPageComponent implements OnInit {
         this.results = data.results;
         this.totalResults = data.total_results;
         this.totalPages = data.total_pages;
+        this.page = 1;
         this.getClosestMatchedQuery(this.results);
       });
 

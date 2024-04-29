@@ -75,12 +75,10 @@
   [infiniteScrollThrottle]="50"
   (scrolled)="onScroll()"
 >
-  <app-results-skeleton *ngIf="skeleton"></app-results-skeleton>
-
   <!--   Search results text  -->
   <div
     id="searchResults"
-    *ngIf="results && totalResults"
+    *ngIf="results.length >= 1 && totalResults"
     class="w-full flex justify-center mt-20"
   >
     <div class="flex justify-center items-center text-darkBlue-300 font-bold">
@@ -109,6 +107,8 @@
 
   <!-- Result list -->
   <app-results-list [results]="results"></app-results-list>
+
+  <app-results-skeleton *ngIf="skeleton"></app-results-skeleton>
 
   <div
     *ngIf="this.results.length === 0 && query.trim().length !== 0"

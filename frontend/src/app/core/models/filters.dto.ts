@@ -22,7 +22,7 @@ export interface FiltersDTO {
   with_cast?: string;
   with_companies?: string;
   with_crew?: string;
-  with_genres?: string[];
+  with_genres?: string;
   with_keywords?: string;
   with_origin_country?: string;
   with_original_language?: string;

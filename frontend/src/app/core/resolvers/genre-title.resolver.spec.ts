@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { ResolveFn } from '@angular/router';
 
-import { customtitleResolver } from './customtitle.resolver';
+import { genreTitleResolver } from './genre-title.resolver';
 
-describe('customtitleResolver', () => {
+describe('genreTitleResolver', () => {
   const executeResolver: ResolveFn<boolean> = (...resolverParameters) => 
-      TestBed.runInInjectionContext(() => customtitleResolver(...resolverParameters));
+      TestBed.runInInjectionContext(() => genreTitleResolver(...resolverParameters));
 
   beforeEach(() => {
     TestBed.configureTestingModule({});

@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from './core/guards/auth.guard';
-import { customtitleResolver } from './core/resolvers/customtitle.resolver';
+import { genreTitleResolver } from './core/resolvers/genre-title.resolver';
+import { movieTitleResolver } from './core/resolvers/movie-title.resolver';
 import { LoginComponent } from './routes/auth/pages/login/login.component';
 import { RegisterComponent } from './routes/auth/pages/register/register.component';
 import { GenrePageComponent } from './routes/pages/genre-page/genre-page.component';
@@ -40,13 +41,13 @@ const routes: Routes = [
     path: 'movies/:id',
     component: MovieDetailPageComponent,
     canActivate: [AuthGuard],
-    title: customtitleResolver,
+    title: movieTitleResolver,
   },
   {
     path: 'movies/genres/:id',
     component: GenrePageComponent,
     canActivate: [AuthGuard],
-    title: 'PopCorn - Genre name',
+    title: genreTitleResolver,
   },
 ];
 

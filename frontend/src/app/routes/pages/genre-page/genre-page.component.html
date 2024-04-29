@@ -1,79 +1,55 @@
 <div
   class="absolute -z-10 bg-tech-banner-3 bg-cover bg-center bg-no-repeat w-full h-screen"
 ></div>
-<div
-  class="animatecss animatecss-fadeIn container w-screen md:w-[900px] mx-auto pt-44 px-24"
+
+<!-- Go Back Button -->
+<a
+  (click)="goBack()"
+  class="absolute cursor-pointer left-12 top-40 md:w-14 md:h-14 w-10 h-10 flex items-center justify-center md:text-sm text-xs text-white transition-all duration-500 ease-in-out bg-darkBlue-400 rounded-full border-[2px] border-darkBlue-400 shadow-md group"
 >
-  <p
-    class="md:text-6xl text-[10vw] font-extrabold leading-[70px] text-salmon text-center"
-  >
-    <span class="inline-block animatecss animatecss-bounceInDown font-strange"
-      ><span> & </span></span
+  <i
+    class="fa-solid fa-arrow-left md:text-base text-sm text-white lg:group-hover:-translate-x-2 transition-all duration-500 ease-in-out"
+  ></i>
+</a>
+
+<!-- Main title -->
+<div
+  class="animatecss animatecss-fadeIn container max-w-full w-[900px] mx-auto pt-44 px-8"
+>
+  <p class="font-extrabold leading-[70px] text-salmon text-center">
+    <ng-container *ngFor="let genre of genresKeyvalue; trackBy: trackById">
+      <span
+        class="inline-block animatecss animatecss-bounceInDown font-strange md:text-5xl text-3xl"
+        *ngIf="genre.id === +genreId"
+      >
+        {{ genre.name }}
+      </span> </ng-container
     ><span
-      class="text-3xl font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200"
+      class="md:text-3xl text-xl font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200"
     >
       movies</span
     >
   </p>
-  <div class="my-10 text-xs text-darkBlue-300 flex leading-5">
-    <mat-icon class="mr-2 text-sm pr-2">info</mat-icon>
-    <p class="font-medium">
-      In this section, you are able to search for movies by genre and also
-      combine multiple genres. As is explained below, you can change your base
-      genre through the right select and combine it through the left one. Play
-      this "Genre Game" while searching your movies and enjoy!
-    </p>
-  </div>
-  <div class="flex flex-wrap justify-center text-center mt-10">
-    <!--  <form class="md:w-1/2 justify-center" [formGroup]="genresForm">
-      <p class="font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 text-sm">Wanna combine multiple genres?</p>
-
-      <select id="genres" class="appearance-none mt-2 w-fit mb-6 text-xs text-darkBlue-300 font-extrabold rounded-lg bg-darkBlue-400 cursor-pointer py-2 px-4" formControlName="genres">
-        <option value="default" selected disabled>Add genres</option>
-        <option *ngFor="let genre of genres | keyvalue">{{genre.value}}</option>
-      </select>
-      <mat-icon class="absolute right-2 top-1/2 rotate text-salmon">expand_more</mat-icon>
-
-
-    </form> -->
-    <!--    <form class="md:w-1/2" [formGroup]="changeGenreForm">
-      <p class="font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 text-sm">Wanna change your base genre?</p>
-      <select id="genres" class="mt-2 round w-fit text-darkBlue-300 font-extrabold py-2 px-4 mb-6 text-xs text-darkBlue-300 font-bold rounded-lg bg-darkBlue-400 cursor-pointer" formControlName="genres">
-        <option value="default" selected disabled>Change genre</option>
-        <option *ngFor="let genre of genres | keyvalue">{{genre.value}}</option>
-      </select>
-    </form> -->
-  </div>
-
-  <!--  <p *ngIf="genresNames && genresNames.length > 1" class="flex items-center justify-center text-gray-400 mt-10">
-    <a class="text-sm font-medium flex items-center cursor-pointer bg-darkBlue-400 px-4 py-2 rounded-full hover:scale-110 transform transition duration-300 border-2 border-salmon" (click)="clearGenres()"><span class="text-salmon font-bold flex items-center"><mat-icon class="mr-2 scale-90">clear</mat-icon></span> Clear added genres</a>
-  </p> -->
 
   <!-- Filters selects -->
-  <form [formGroup]="filtersForm" class="mt-14">
+  <form [formGroup]="filtersForm" class="md:mt-14 mt-7">
     <div
-      class="flex flex-col w-full justify-center items-center p-10 border-[2px] border-darkBlue-400 rounded-xl"
+      class="flex flex-col w-full justify-center items-center p-5 border-[2px] border-darkBlue-400 rounded-xl"
     >
       <div class="flex justify-center items-center text-darkBlue-300 font-bold">
         <i class="fa-solid fa-filter text-base mr-2"></i>
         <p class="text-sm font-bold">FILTERS</p>
       </div>
 
-      <div class="w-full flex flex-wrap justify-between items-center p-5">
+      <div class="w-full flex flex-wrap justify-center items-center pt-5">
         <select
-          class="block w-fit py-2 px-4 mb-6 text-xs text-darkBlue-300 font-bold rounded-lg bg-darkBlue-400 cursor-pointer"
-          formControlName="genres"
+          class="block w-fit py-2 px-4 text-xs text-darkBlue-300 font-bold bg-darkBlue-500 border-[2px] border-darkBlue-400 rounded-xl cursor-pointer m-2"
+          formControlName="with_genres"
         >
-          <option
-            class="text-sm font-medium text-white"
-            selected
-            value="default"
-          >
-            Add genres
-          </option>
+          <option selected disabled value="">Add multiple genres</option>
 
           <option
-            *ngFor="let genre of genreNames; trackBy: trackById"
+            *ngFor="let genre of genresKeyvalue; trackBy: trackById"
             [value]="genre.id"
           >
             {{ genre.name }}
@@ -81,44 +57,36 @@
         </select>
 
         <select
-          class="block w-fit py-2 px-4 mb-6 text-xs text-darkBlue-300 font-bold rounded-lg bg-darkBlue-400 cursor-pointer"
-          formControlName="year"
+          class="block w-fit py-2 px-4 text-xs text-darkBlue-300 font-bold bg-darkBlue-500 border-[2px] border-darkBlue-400 rounded-xl cursor-pointer m-2"
+          formControlName="primary_release_date.lte"
         >
-          <option
-            class="text-sm font-medium text-white"
-            selected
-            value="default"
-          >
-            Year
-          </option>
+          <option selected value="" disabled>Select release date</option>
 
-          <optgroup label="2020-2024" class="border-b-2">
-            <option value="2024">2024</option>
-            <option value="2023">2023</option>
-            <option value="2022">2022</option>
-            <option value="2021">2021</option>
-            <option value="2020">2020</option>
-          </optgroup>
+          <option value="2024-01-01">2024 or less</option>
+          <option value="2015-01-01">2015 or less</option>
+          <option value="2010-01-01">2010 or less</option>
+          <option value="2000-01-01">2000 or less</option>
+          <option value="1950-01-01">1950 or less</option>
         </select>
 
         <select
-          class="block w-fit py-2 px-4 mb-6 text-xs text-darkBlue-300 font-bold rounded-lg bg-darkBlue-400 cursor-pointer"
-          formControlName="runtime"
+          class="block w-fit py-2 px-4 text-xs text-darkBlue-300 font-bold bg-darkBlue-500 border-[2px] border-darkBlue-400 rounded-xl cursor-pointer m-2"
+          formControlName="with_runtime.lte"
         >
-          <option selected value="default">Duration</option>
+          <option selected disabled value="">Select duration</option>
 
-          <option value="200">200 min</option>
-          <option value="160">160 min</option>
-          <option value="130">130 min</option>
-          <option value="100">100 min</option>
-          <option value="60">60 min</option>
+          <option value="200">200' or less</option>
+          <option value="160">160' or less</option>
+          <option value="130">130' or less</option>
+          <option value="100">100' or less</option>
+          <option value="60">60' or less</option>
         </select>
 
         <select
-          class="block w-fit py-2 px-4 mb-6 text-xs text-darkBlue-300 font-bold rounded-lg bg-darkBlue-400 cursor-pointer"
-          formControlName="language"
+          class="block w-fit py-2 px-4 text-xs text-darkBlue-300 font-bold bg-darkBlue-500 border-[2px] border-darkBlue-400 rounded-xl cursor-pointer m-2"
+          formControlName="with_original_language"
         >
-          <option selected value="default">Language</option>
+          <option selected disabled value="">Select V.O</option>
 
           <option value="en">English</option>
           <option value="pt">Portuguese</option>
@@ -127,44 +95,173 @@
         </select>
 
         <select
-          class="block w-fit py-2 px-4 mb-6 text-xs text-darkBlue-300 font-bold rounded-lg bg-darkBlue-400 cursor-pointer"
-          formControlName="vote_average"
+          class="block w-fit py-2 px-4 text-xs text-darkBlue-300 font-bold bg-darkBlue-500 border-[2px] border-darkBlue-400 rounded-xl cursor-pointer m-2"
+          formControlName="vote_average.gte"
         >
-          <option selected value="default">Puntuation</option>
-          <option value="8">8</option>
-          <option value="7">7</option>
-          <option value="6">6</option>
+          <option selected disabled value="">Select puntuation</option>
+          <option data-icon="fa fa-graduation-cap" value="3">3 or more</option>
+          <option value="5">5 or more</option>
+          <option value="6">6 or more</option>
+          <option value="8">8 or more</option>
+          <option value="10">10</option>
         </select>
+
+        <select
+          class="block w-fit py-2 px-4 text-xs text-darkBlue-300 font-bold bg-darkBlue-500 border-[2px] border-darkBlue-400 rounded-xl cursor-pointer m-2"
+          formControlName="include_adult"
+        >
+          <option selected disabled value="">Parental control</option>
+          <option value="true">Include adult</option>
+          <option value="false">Exclude adult (default)</option>
+        </select>
+      </div>
+
+      <!-- Badges -->
+      <div class="flex flex-wrap justify-center items-center mt-5">
+        <span
+          *ngIf="
+            filters.with_genres && filters.with_genres.split(',').length > 1
+          "
+          class="bg-white text-darkBlue-400 text-xs font-medium px-2.5 py-0.5 rounded-xl m-2"
+          >Added genres:
+          <ng-container
+            *ngFor="let genre of genresKeyvalue; trackBy: trackById"
+          >
+            <span
+              *ngIf="
+                filters.with_genres?.includes(genre.id.toString()) &&
+                genre.id.toString() !== genreId
+              "
+              >{{ genre.name }}
+            </span>
+          </ng-container>
+          <button
+            (click)="clearGenreAdded()"
+            type="button"
+            class="inline-flex items-center p-1 ms-2 text-sm text-darkBlue-300 bg-transparent rounded-sm"
+          >
+            <i
+              class="fa-regular fa-circle-xmark text-darkBlue-400 hover:text-salmon"
+            ></i></button
+        ></span>
+        <span
+          *ngIf="filters['primary_release_date.lte']"
+          class="bg-white text-darkBlue-400 text-xs font-medium px-2.5 py-0.5 rounded-xl m-2"
+          >Date: ≥
+          {{ filters["primary_release_date.lte"] | date : "yyyy" }}
+          <button
+            (click)="removeFilter('primary_release_date.lte')"
+            type="button"
+            class="inline-flex items-center p-1 ms-2 text-sm text-darkBlue-300 bg-transparent rounded-sm"
+          >
+            <i
+              class="fa-regular fa-circle-xmark text-darkBlue-400 hover:text-salmon"
+            ></i></button
+        ></span>
+        <span
+          *ngIf="filters['with_runtime.lte']"
+          class="bg-white text-darkBlue-400 text-xs font-medium px-2.5 py-0.5 rounded-xl m-2"
+          >Duration: ≥ {{ filters["with_runtime.lte"] }} min
+          <button
+            (click)="removeFilter('with_runtime.lte')"
+            type="button"
+            class="inline-flex items-center p-1 ms-2 text-sm text-darkBlue-300 bg-transparent rounded-sm"
+          >
+            <i
+              class="fa-regular fa-circle-xmark text-darkBlue-400 hover:text-salmon"
+            ></i></button
+        ></span>
+        <span
+          *ngIf="filters.with_original_language"
+          class="bg-white text-darkBlue-400 text-xs font-medium px-2.5 py-0.5 rounded-xl m-2"
+          >V.O: {{ filters.with_original_language }}
+          <button
+            (click)="removeFilter('with_original_language')"
+            type="button"
+            class="inline-flex items-center p-1 ms-2 text-sm text-darkBlue-300 bg-transparent rounded-sm"
+          >
+            <i
+              class="fa-regular fa-circle-xmark text-darkBlue-400 hover:text-salmon"
+            ></i></button
+        ></span>
+        <span
+          *ngIf="filters['vote_average.gte']"
+          class="bg-white text-darkBlue-400 text-xs font-medium px-2.5 py-0.5 rounded-xl m-2"
+          >Puntuation: ≤ {{ filters["vote_average.gte"] }}
+          <button
+            (click)="removeFilter('vote_average.gte')"
+            type="button"
+            class="inline-flex items-center p-1 ms-2 text-sm text-darkBlue-300 bg-transparent rounded-sm"
+          >
+            <i
+              class="fa-regular fa-circle-xmark text-darkBlue-400 hover:text-salmon"
+            ></i></button
+        ></span>
+        <span
+          *ngIf="filters.include_adult"
+          class="bg-white text-darkBlue-400 text-xs font-medium px-2.5 py-0.5 rounded-xl m-2"
+          >Parental control: {{ filters.include_adult }}
+          <button
+            (click)="removeFilter('include_adult')"
+            type="button"
+            class="inline-flex items-center p-1 ms-2 text-sm text-darkBlue-300 bg-transparent rounded-sm"
+          >
+            <i
+              class="fa-regular fa-circle-xmark text-darkBlue-400 hover:text-salmon"
+            ></i></button
+        ></span>
       </div>
     </div>
   </form>
 </div>
 
 <div
-  *ngIf="genreMovies && genreMovies?.length !== 0"
-  class="flex items-center justify-center mt-20"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="onScroll()"
 >
-  <div class="flex justify-center items-center text-darkBlue-300 font-bold">
-    <i class="fa-solid fa-filter text-base mr-2"></i>
-    <p class="text-sm font-bold">FILTER RESULTS ({{ totalResults }})</p>
-  </div>
-</div>
-
-<!-- Movie results list-->
-<app-results-list
-  *ngIf="!skeleton; else showSkeleton"
-  [results]="genreMovies"
-></app-results-list>
-<ng-template #showSkeleton
-  ><app-search-list-skeleton></app-search-list-skeleton
-></ng-template>
-
-<div
-  *ngIf="genreMovies && genreMovies?.length === 0"
-  class="flex justify-center items-center pb-20"
->
-  <i class="fa-solid fa-face-frown text-darkBlue-300 text-base mr-2"></i>
-  <span class="text-darkBlue-300 text-sm font-medium"
-    >No movies matched with this filters</span
+  <div
+    id="searchResults"
+    *ngIf="genreMovies.length >= 1 && totalResults"
+    class="flex items-center justify-center mt-20"
   >
+    <div class="flex justify-center items-center text-darkBlue-300 font-bold">
+      <i class="fa-solid fa-filter text-base mr-2"></i>
+      <p class="text-sm font-bold">FILTER RESULTS ({{ totalResults }})</p>
+    </div>
+  </div>
+
+  <!-- Search results text fixed on scroll -->
+  <div
+    *ngIf="genreMovies && totalResults"
+    class="w-full opacity-0 z-50 fixed top-28 cursor-pointer flex justify-center transition-all duration-300 ease-in-out"
+    [ngClass]="{ 'show-scrollTop': windowScrolled }"
+    (click)="scrollToTop()"
+  >
+    <a
+      class="flex justify-center items-center text-darkBlue-300 font-bold p-4 bg-darkBlue-400 rounded-full"
+    >
+      <i class="fa-solid fa-magnifying-glass text-sm mr-2"></i>
+      <p class="text-sm font-bold">
+        {{ genreMovies.length }} / {{ totalResults }} results
+      </p>
+      <i class="fa-solid fa-chevron-up text-sm ml-2"></i>
+    </a>
+  </div>
+
+  <!-- Movie results list-->
+  <app-results-list [results]="genreMovies"></app-results-list>
+
+  <app-results-skeleton *ngIf="skeleton"></app-results-skeleton>
+
+  <div
+    *ngIf="genreMovies && genreMovies.length === 0"
+    class="flex justify-center items-center pb-20"
+  >
+    <i class="fa-solid fa-face-frown text-darkBlue-300 text-base mr-2"></i>
+    <span class="text-darkBlue-300 text-sm font-medium"
+      >No movies matched with this filters</span
+    >
+  </div>
 </div>

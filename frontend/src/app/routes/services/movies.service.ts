@@ -71,6 +71,7 @@ export class MoviesService {
   //Discover movies - movies by genre and filters
 
   getDiscoverMovies(filters?: FiltersDTO): Observable<SearchResultDTO> {
+    this.skeleton.next(true);
     const params = new HttpParams({
       fromObject: { ...filters },
     });

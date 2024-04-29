@@ -6,7 +6,7 @@ import { MovieDetailsService } from '../../routes/services/movie-details.service
 @Injectable({
   providedIn: 'root',
 })
-export class customtitleResolver implements Resolve<string> {
+export class movieTitleResolver implements Resolve<string> {
   constructor(private movieDetailsService: MovieDetailsService) {}
   resolve(
     route: ActivatedRouteSnapshot
