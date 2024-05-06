@@ -88,23 +88,24 @@
   </div>
 
   <!-- Search results text fixed on scroll -->
-  <div
-    *ngIf="results && totalResults"
-    class="w-full opacity-0 z-50 fixed top-28 cursor-pointer flex justify-center transition-all duration-300 ease-in-out"
-    [ngClass]="{ 'show-scrollTop': windowScrolled }"
-    (click)="scrollToTop()"
-  >
-    <a
-      class="flex justify-center items-center text-darkBlue-300 font-bold p-4 bg-darkBlue-400 rounded-full"
+  <div class="w-full flex justify-center items-center">
+    <div
+      *ngIf="results && totalResults"
+      class="w-fit opacity-0 z-50 fixed top-28 cursor-pointer flex justify-center transition-all duration-300 ease-in-out"
+      [ngClass]="{ 'show-scrollTop': windowScrolled }"
+      (click)="scrollToTop()"
     >
-      <i class="fa-solid fa-magnifying-glass text-sm mr-2"></i>
-      <p class="text-sm font-bold">
-        {{ results.length }} / {{ totalResults }} results
-      </p>
-      <i class="fa-solid fa-chevron-up text-sm ml-2"></i>
-    </a>
+      <a
+        class="flex justify-center items-center text-darkBlue-300 font-bold p-4 bg-darkBlue-400 rounded-full"
+      >
+        <i class="fa-solid fa-magnifying-glass text-sm mr-2"></i>
+        <p class="text-sm font-bold">
+          {{ results.length }} / {{ totalResults }} results
+        </p>
+        <i class="fa-solid fa-chevron-up text-sm ml-2"></i>
+      </a>
+    </div>
   </div>
-
   <!-- Result list -->
   <app-results-list [results]="results"></app-results-list>
 

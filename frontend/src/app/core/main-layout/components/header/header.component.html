@@ -25,52 +25,40 @@
           >Lists</a
         >
       </li>
+      <!-- User avatar and absolute menu item -->
       <li
-        class="text-darkBlue-300 py-3 px-3 rounded-full text-base font-medium transition-all ease-in-out duration-200 group/dropdown hover:bg-darkBlue-400"
+        class="flex justify-center text-darkBlue-300 p-3 rounded-full text-base font-medium transition-all ease-in-out duration-200 group/dropdown hover:bg-darkBlue-400"
       >
-        <span class="rounded-md shadow-sm">
-          <button
-            type="button"
-            class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-white rounded-full"
-          >
-            <span class="font-medium text-darkBlue-500">{{
-              userNameLetter
-            }}</span>
-          </button>
-        </span>
+        <button
+          type="button"
+          class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[url('/assets/icons/user.svg')] bg-center rounded-full"
+        ></button>
 
         <div
           class="invisible opacity-0 group-focus-within/dropdown:visible group-focus-within/dropdown:opacity-100"
         >
           <div
-            class="absolute top-14 right-0 w-56 mt-2 origin-top-right bg-white border border-darkBlue-300 divide-y divide-gray-100 rounded-md shadow-lg text-gray-700 outline-none"
+            class="absolute top-20 right-2 w-56 origin-top-right bg-white border border-darkBlue-300 divide-y divide-gray-100 rounded-md shadow-lg text-gray-700 outline-none"
           >
-            <div class="px-4 py-3">
-              <p class="text-sm leading-5">Signed in as</p>
-              <p class="text-sm font-bold leading-5 truncate">
-                {{ userData.email }}
-              </p>
-            </div>
-
-            <div class="py-1">
+            <div>
               <a
-                class="flex w-full px-4 py-2 text-sm leading-5 text-left hover:bg-darkBlue-300 group/navitem"
+                class="flex justify-start items-center w-full h-10 px-4 py-2 text-sm leading-5 rounded-md hover:bg-gray-100 group/navitem"
                 routerLink="/user/profile"
-                routerLinkActive="text-salmon font-bold"
+                routerLinkActive="text-salmon font-bold bg-gray-100"
                 >Profile</a
               >
               <span
                 tabindex="-1"
-                class="flex justify-between w-full px-4 py-2 text-sm leading-5 text-left text-darkBlue-300 cursor-not-allowed opacity-50"
+                class="flex justify-start w-full h-10 px-4 py-2 text-sm leading-5 text-darkBlue-300 rounded-md cursor-not-allowed opacity-50"
                 aria-disabled="true"
                 >Change user (soon)</span
               >
             </div>
 
-            <div class="py-1">
+            <div>
               <button
                 type="button"
-                class="flex justify-center items-center w-full h-12 px-4 py-2 text-sm leading-5 text-left cursor-pointer hover:bg-darkBlue-300 group/navitem"
+                class="flex justify-start items-center w-full h-10 px-4 py-2 text-sm leading-5 rounded-md cursor-pointer hover:bg-gray-100 group/navitem"
                 (click)="logout()"
               >
                 <span *ngIf="!spinner">Sign out</span
@@ -130,8 +118,8 @@
 
           <p class="p-2 mt-12 text-lg text-white">
             <span class="font-extrabold"
-              >Welcome <span class="text-salmon">{{ userData.name }}</span
-              >!</span
+              >Welcome
+              <span class="text-salmon"><!-- {{ user.name }} --></span>!</span
             >
           </p>
           <p class="p-2 mb-12 mt-5 text-lg text-darkBlue-300">

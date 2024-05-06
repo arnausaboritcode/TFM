@@ -4,12 +4,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
 import { genreTitleResolver } from './core/resolvers/genre-title.resolver';
 import { movieTitleResolver } from './core/resolvers/movie-title.resolver';
+import { userDataResolver } from './core/resolvers/user-data.resolver';
 import { LoginComponent } from './routes/auth/pages/login/login.component';
 import { RegisterComponent } from './routes/auth/pages/register/register.component';
 import { GenrePageComponent } from './routes/pages/genre-page/genre-page.component';
 import { LandingPageComponent } from './routes/pages/landing-page/landing-page.component';
 import { MovieDetailPageComponent } from './routes/pages/movie-detail-page/movie-detail-page.component';
 import { MovieListsPageComponent } from './routes/pages/movie-lists-page/movie-lists-page.component';
+import { ProfilePageComponent } from './routes/pages/profile-page/profile-page.component';
 import { WelcomePageComponent } from './routes/pages/welcome-page/welcome-page.component';
 
 const routes: Routes = [
@@ -24,6 +26,13 @@ const routes: Routes = [
     path: 'user/register',
     component: RegisterComponent,
     title: 'PopCorn - Register',
+  },
+  {
+    path: 'user/profile',
+    component: ProfilePageComponent,
+    canActivate: [AuthGuard],
+    resolve: { userData: userDataResolver },
+    title: 'PopCorn - Profile',
   },
   {
     path: 'movies/search',

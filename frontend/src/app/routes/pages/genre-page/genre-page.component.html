@@ -1,3 +1,4 @@
+<!-- Background image -->
 <div
   class="absolute -z-10 bg-tech-banner-3 bg-cover bg-center bg-no-repeat w-full h-screen"
 ></div>
@@ -233,21 +234,23 @@
   </div>
 
   <!-- Search results text fixed on scroll -->
-  <div
-    *ngIf="genreMovies && totalResults"
-    class="w-full opacity-0 z-50 fixed top-28 cursor-pointer flex justify-center transition-all duration-300 ease-in-out"
-    [ngClass]="{ 'show-scrollTop': windowScrolled }"
-    (click)="scrollToTop()"
-  >
-    <a
-      class="flex justify-center items-center text-darkBlue-300 font-bold p-4 bg-darkBlue-400 rounded-full"
+  <div class="w-full flex justify-center items-center">
+    <div
+      *ngIf="genreMovies && totalResults"
+      class="w-fit opacity-0 z-50 fixed top-28 cursor-pointer flex justify-center transition-all duration-300 ease-in-out"
+      [ngClass]="{ 'show-scrollTop': windowScrolled }"
+      (click)="scrollToTop()"
     >
-      <i class="fa-solid fa-magnifying-glass text-sm mr-2"></i>
-      <p class="text-sm font-bold">
-        {{ genreMovies.length }} / {{ totalResults }} results
-      </p>
-      <i class="fa-solid fa-chevron-up text-sm ml-2"></i>
-    </a>
+      <a
+        class="flex justify-center items-center text-darkBlue-300 font-bold p-4 bg-darkBlue-400 rounded-full"
+      >
+        <i class="fa-solid fa-magnifying-glass text-sm mr-2"></i>
+        <p class="text-sm font-bold">
+          {{ genreMovies.length }} / {{ totalResults }} results
+        </p>
+        <i class="fa-solid fa-chevron-up text-sm ml-2"></i>
+      </a>
+    </div>
   </div>
 
   <!-- Movie results list-->

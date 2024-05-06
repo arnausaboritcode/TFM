@@ -1,0 +1,21 @@
+//Edit and close icons animation
+.defaultIcon{
+  transition: opacity .3s, transform .3s;
+}
+
+.animateIcon {
+  transition: opacity .3s, transform .3s;
+  transform: rotate(-180deg) scale(.5);
+  opacity: 0;
+}
+
+.toggleAnimation {
+		.animateIcon {
+			transform: rotate(0deg) scale(1);
+			opacity: 1;
+		}
+		.defaultIcon {
+			transform: rotate(180deg) scale(.5);
+			opacity: 0;
+		}
+}

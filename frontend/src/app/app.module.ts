@@ -40,6 +40,7 @@ import { MovieDetailPageComponent } from './routes/pages/movie-detail-page/movie
 import { DescriptionLimitPipe } from './shared/pipes/description-limit.pipe';
 import { MovieDetailSkeletonComponent } from './routes/pages/components/movie-detail-skeleton/movie-detail-skeleton.component';
 import { GenrePageComponent } from './routes/pages/genre-page/genre-page.component';
+import { ProfilePageComponent } from './routes/pages/profile-page/profile-page.component';
 register();
 
 @NgModule({
@@ -70,6 +71,7 @@ register();
     DescriptionLimitPipe,
     MovieDetailSkeletonComponent,
     GenrePageComponent,
+    ProfilePageComponent,
   ],
   imports: [
     BrowserModule,
