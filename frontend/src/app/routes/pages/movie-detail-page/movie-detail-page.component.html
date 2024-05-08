@@ -20,29 +20,41 @@
     <div class="lg:w-4/5 lg:px-0 px-6 mx-auto flex flex-wrap">
       <!--  Movie image in lg screens -->
       <div
-        class="hidden lg:block lg:w-1/3 w-full lg:h-auto h-64 overflow-hidden inline-block rounded-lg"
+        class="hidden lg:block lg:w-1/3 w-full lg:h-fit h-64 overflow-hidden inline-block rounded-lg group relative"
       >
         <img
           alt="Movie poster image"
-          class="object-cover object-center rounded hover:scale-110 transition transform duration-500"
+          class="object-cover object-center rounded group-hover:scale-110 group-hover:filter group-hover:grayscale transition transform duration-500"
           ngSrc="{{ movieDetails.poster_path | imageUrl : 'w500' }}"
           width="500"
           height="750"
           priority
         />
+        <div
+          class="hidden group-hover:flex absolute top-0 right-0 left-0 w-full h-full flex-col items-center justify-center"
+        >
+          <i class="fa-solid fa-video-slash text-5xl text-salmon"></i>
+          <p class="text-sm font-bold text-salmon">soon</p>
+        </div>
       </div>
       <!--  Movie image in md and sm screens -->
       <div
-        class="lg:hidden w-full lg:h-auto h-64 overflow-hidden inline-block rounded-lg"
+        class="lg:hidden w-full lg:h-auto h-64 overflow-hidden inline-block rounded-lg group relative"
       >
         <img
           alt="Movie backdrop image"
-          class="object-cover object-center rounded"
+          class="object-cover object-center rounded group-hover:scale-110 group-hover:filter group-hover:grayscale transition transform duration-500"
           ngSrc="{{ movieDetails.backdrop_path | imageUrl : 'w780' }}"
           width="780"
           height="439"
           priority
         />
+        <div
+          class="hidden group-hover:flex absolute top-0 right-0 left-0 w-full h-full flex-col items-center justify-center"
+        >
+          <i class="fa-solid fa-video-slash text-4xl text-salmon"></i>
+          <p class="text-sm font-bold text-salmon">soon</p>
+        </div>
       </div>
 
       <!--  Movie text content-->
@@ -122,25 +134,68 @@
           >
         </div>
 
-        <!-- play and favourite buttons -->
+        <!-- favorite system -->
         <div
-          class="flex mt-14 items-center justify-between pb-5 border-b-2 border-gray-100 mb-5"
+          class="flex mt-14 items-center justify-start pb-5 border-b-2 border-gray-100 mb-5"
         >
-          <!-- play -->
-          <button
-            class="flex justify-center items-center p-4 bg-salmon text-black rounded-full w-28"
-          >
-            <i class="fa-solid fa-video-slash text-xl"></i>
-          </button>
-
           <!-- favourite -->
 
           <div class="flex justify-center items-center">
+            <!-- If movie is favorite -->
             <button
-              class="rounded-full p-4 bg-white flex items-center justify-center w-16"
+              *ngIf="isFavorite"
+              class="rounded-full p-4 bg-white flex items-center justify-center w-16 h-16"
+              (click)="removeToFavorite()"
             >
-              <i class="fa-solid fa-heart-circle-plus text-xl text-salmon"></i>
+              <i
+                *ngIf="!spinner"
+                class="fa-solid fa-heart text-2xl text-salmon"
+              ></i>
+              <app-spinner *ngIf="spinner" class="scale-[0.2]"></app-spinner>
             </button>
+            <!-- If movie is not favorite -->
+            <button
+              *ngIf="!isFavorite"
+              class="rounded-full p-4 bg-white flex items-center justify-center w-16 h-16"
+              (click)="addToFavorite()"
+            >
+              <i
+                *ngIf="!spinner"
+                class="fa-regular fa-heart text-2xl text-salmon"
+              ></i>
+              <app-spinner *ngIf="spinner" class="scale-[0.2]"></app-spinner>
+            </button>
+          </div>
+          <!-- Users also liked -->
+          <div class="flex justify-center items-center ml-3">
+            <div
+              [ngClass]="{
+              'w-14': usersSpinner,
+            }"
+              class="flex flex-col justify-center items-center"
+            >
+              <div
+                *ngIf="usersNamesFav && usersNamesFav.length > 0"
+                class="flex flex-col justify-center items-start"
+              >
+                <p *ngIf="!usersSpinner" class="text-sm font-bold text-salmon">
+                  {{ usersNamesFav.length }}
+                  <span *ngIf="usersNamesFav.length === 1">like</span
+                  ><span *ngIf="usersNamesFav.length > 1">likes</span>
+                </p>
+                <p
+                  *ngIf="!usersSpinner"
+                  class="text-xs font-bold text-darkBlue-300"
+                >
+                  {{ usersNamesFav | genresLimit : 2 }}
+                </p>
+              </div>
+              <app-spinner
+                spinnerColor="#ff903c"
+                *ngIf="usersSpinner"
+                class="scale-[0.2]"
+              ></app-spinner>
+            </div>
           </div>
         </div>
 

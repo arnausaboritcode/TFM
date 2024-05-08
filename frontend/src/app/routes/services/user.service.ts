@@ -56,4 +56,20 @@ export class UserService {
       withCredentials: true,
     });
   }
+
+  getAllUsersInfo(): Observable<any> {
+    this.spinner.next(true);
+    const headers = {
+      Authorization: 'Bearer ' + this.localStorageService.getToken(),
+    };
+    return this.http
+      .get<UserDataDTO>(`${environment.api_url}/auth/users`, {
+        headers,
+        withCredentials: true,
+      })
+      .pipe(
+        /* delay(2000), */
+        finalize(() => this.spinner.next(false))
+      );
+  }
 }

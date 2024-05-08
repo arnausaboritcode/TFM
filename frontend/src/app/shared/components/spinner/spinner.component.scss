@@ -1,6 +1,6 @@
 .loading-wave {
   width: 300px;
-  height: 100px;
+  height: 30px;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -10,7 +10,7 @@
   width: 20px;
   height: 10px;
   margin: 0 5px;
-  background-color: #00020f;
+ /*  background-color: #00020f; */
   border-radius: 5px;
   animation: loading-wave-animation 1s ease-in-out infinite;
 }

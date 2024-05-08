@@ -1,12 +1,22 @@
-<a routerLink="/movies/{{ movie.id }}">
+<a [routerLink]="isEditing ? null : ['/movies', movie.id]">
   <div class="w-full">
-    <img
-      class="w-full rounded-xl hover:border-solid hover:border-2 hover:border-white"
-      ngSrc="{{ movie.poster_path | imageUrl : 'w185' }}"
-      width="185"
-      height="278"
-      alt="Movie poster image"
-    />
+    <div class="w-fit relative">
+      <img
+        class="w-full rounded-xl hover:border-solid hover:border-2 hover:border-white"
+        ngSrc="{{ movie.poster_path | imageUrl : 'w185' }}"
+        width="185"
+        height="278"
+        alt="Movie poster image"
+      />
+      <div
+        *ngIf="isEditing"
+        class="w-full h-full z-50 flex items-center justify-center absolute right-0 left-0 top-0 bg-[rgba(0,2,15,0.8)]"
+      >
+        <button (click)="removeToFavorite()">
+          <i class="fa-solid fa-circle-xmark text-4xl text-darkBlue-300"></i>
+        </button>
+      </div>
+    </div>
     <div class="w-full mt-4">
       <p class="text-sm text-white font-bold">{{ movie.title }}</p>
       <p

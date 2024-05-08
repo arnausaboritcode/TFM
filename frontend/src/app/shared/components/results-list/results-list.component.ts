@@ -7,9 +7,8 @@ import { MovieDTO } from '../../../core/models/movie.dto';
   styleUrl: './results-list.component.scss',
 })
 export class ResultsListComponent {
-  @Input({ required: true }) results: MovieDTO[];
+  @Input({ required: true }) results!: MovieDTO[];
+  @Input({ required: false }) isEditing!: boolean;
 
-  constructor() {
-    this.results = [];
-  }
+  constructor() {}
 }

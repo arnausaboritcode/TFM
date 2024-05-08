@@ -251,7 +251,7 @@
 
 <!-- Favourites section -->
 <div
-  class="flex justify-center gap-[10vw] w-full py-12 lg:text-3xl md:text-xl text-sm"
+  class="flex justify-center md:gap-x-36 gap-x-20 w-full pt-12 lg:text-3xl md:text-xl"
 >
   <a
     routerLink="./"
@@ -259,6 +259,17 @@
     class="group font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200"
   >
     Favourites
+    <div
+      class="bg-salmon h-[2px] w-0 group-hover:w-full transition-all duration-500 mt-2"
+    ></div>
+  </a>
+
+  <a
+    routerLink="./reviews"
+    routerLinkActive="underline decoration-salmon underline-offset-[13px]"
+    class="group font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 opacity-50"
+  >
+    Reviews (soon)
     <div
       class="bg-salmon h-[2px] w-0 group-hover:w-full transition-all duration-500 mt-2"
     ></div>

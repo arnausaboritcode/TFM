@@ -7,6 +7,7 @@ import { movieTitleResolver } from './core/resolvers/movie-title.resolver';
 import { userDataResolver } from './core/resolvers/user-data.resolver';
 import { LoginComponent } from './routes/auth/pages/login/login.component';
 import { RegisterComponent } from './routes/auth/pages/register/register.component';
+import { FavoriteLibraryComponent } from './routes/pages/components/favorite-library/favorite-library.component';
 import { GenrePageComponent } from './routes/pages/genre-page/genre-page.component';
 import { LandingPageComponent } from './routes/pages/landing-page/landing-page.component';
 import { MovieDetailPageComponent } from './routes/pages/movie-detail-page/movie-detail-page.component';
@@ -32,6 +33,7 @@ const routes: Routes = [
     component: ProfilePageComponent,
     canActivate: [AuthGuard],
     resolve: { userData: userDataResolver },
+    children: [{ path: '', component: FavoriteLibraryComponent }],
     title: 'PopCorn - Profile',
   },
   {
