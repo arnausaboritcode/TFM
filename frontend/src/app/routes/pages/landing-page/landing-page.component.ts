@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  distinctUntilChanged,
-  startWith,
-  switchMap,
-  takeUntil,
-  tap,
-} from 'rxjs';
+import { distinctUntilChanged, switchMap, takeUntil, tap } from 'rxjs';
 import { MovieDTO } from '../../../core/models/movie.dto';
 import { AutoDestroyService } from '../../../core/services/utils/auto-destroy.service';
 import { HeaderService } from '../../services/header.service';
@@ -43,12 +37,11 @@ export class LandingPageComponent implements OnInit {
     this.totalResults = 0;
     this.windowScrolled = false;
 
-    // Reset search results on route change
+    // Resets search results on reenter page after route change
     this.subscribeToInputChanges();
   }
 
   ngOnInit(): void {
-    //Initialize header
     this.headerService.show();
 
     //Get results of searched query
@@ -56,6 +49,7 @@ export class LandingPageComponent implements OnInit {
       .pipe(
         takeUntil(this.destroy$),
         distinctUntilChanged(),
+        //Before we full new results, we empty the previous ones
         tap(() => (this.results = [])),
         switchMap((query: string) =>
           this.movieSearchService.searchMovies(query)
@@ -71,19 +65,15 @@ export class LandingPageComponent implements OnInit {
 
     //Skeleton
     this.movieSearchService.skeleton$
-      .pipe(
-        takeUntil(this.destroy$),
-        startWith(this.skeleton),
-        distinctUntilChanged()
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((value) => {
         this.skeleton = value;
       });
 
-    //Get "Search Results" element scroll position to show fixed section
+    //Get "Search Results count" element scroll position for showing instead fixed section
     if (typeof window !== 'undefined') {
       window.addEventListener('scroll', () => {
-        const element = document.getElementById('searchResults');
+        const element = document.getElementById('searchResultsCount');
         if (element) {
           const rect = element.getBoundingClientRect();
           this.windowScrolled =
@@ -93,12 +83,12 @@ export class LandingPageComponent implements OnInit {
     }
   }
 
-  //Notify that query has changed and assigning query params on route
+  //Notifies that query has changed and assigns query params on route
   subscribeToInputChanges(): void {
     this.movieSearchService.setQueryString(this.query);
   }
 
-  //Define levenshteinDistance for lately find the most similar query match
+  //Defines levenshteinDistance method for finding the most similar query match
   levenshteinDistance(a: string, b: string): number {
     const dp: number[][] = Array.from(Array(a.length + 1), () =>
       Array(b.length + 1).fill(0)
@@ -121,7 +111,7 @@ export class LandingPageComponent implements OnInit {
     return dp[a.length][b.length];
   }
 
-  //Suggested query through levenshteinDistance
+  //Suggested query through levenshteinDistance method
   getClosestMatchedQuery(movies: MovieDTO[]): void {
     let minDistance: number = Infinity;
     movies.forEach((data) => {
@@ -159,7 +149,4 @@ export class LandingPageComponent implements OnInit {
   scrollToTop(): void {
     window.scrollTo(0, 0);
   }
-
-  //Get number of results already viewed by user on scroll
-  viewedResults(): void {}
 }

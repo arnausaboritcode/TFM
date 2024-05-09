@@ -28,7 +28,7 @@ export class MovieSearchService {
       this.skeleton.next(true);
       return this.http
         .get<SearchResultDTO>(
-          `${environment.BASE_API_URL}search/movie?query=${title}&page=${nextPage}`
+          `${environment.BASE_API_URL_FRONTEND}search/movie?query=${title}&page=${nextPage}`
         )
         .pipe(
           delay(500),
@@ -41,7 +41,7 @@ export class MovieSearchService {
 
     return this.http
       .get<SearchResultDTO>(
-        `${environment.BASE_API_URL}search/movie?query=${title}`
+        `${environment.BASE_API_URL_FRONTEND}search/movie?query=${title}`
       )
       .pipe(
         delay(500),

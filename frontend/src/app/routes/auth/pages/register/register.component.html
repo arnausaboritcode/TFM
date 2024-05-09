@@ -1,17 +1,16 @@
 <section
-  class="text-white bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-darkBlue-400 to-darkBlue-500"
+  class="bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-darkBlue-400 to-darkBlue-500"
 >
   <!-- Go Back Button -->
   <a
     (click)="goBack()"
-    class="absolute cursor-pointer md:left-12 md:top-40 left-10 top-11 md:w-14 md:h-14 w-10 h-10 flex items-center justify-center md:text-sm text-xs text-white transition-all duration-500 ease-in-out bg-darkBlue-400 rounded-full border-[2px] border-darkBlue-400 shadow-md group"
+    class="absolute z-50 cursor-pointer md:left-12 md:top-40 left-10 top-11 md:w-14 md:h-14 w-10 h-10 flex items-center justify-center md:text-sm text-xs lg:hover:-translate-x-2 hover:bg-salmon text-white transition-all duration-500 ease-in-out bg-darkBlue-400 rounded-full border-2 border-darkBlue-400 shadow-md"
   >
-    <i
-      class="fa-solid fa-arrow-left md:text-base text-sm text-white lg:group-hover:-translate-x-2 transition-all duration-500 ease-in-out"
-    ></i>
+    <i class="fa-solid fa-arrow-left md:text-base text-sm"></i>
   </a>
-  <!-- Form -->
-  <div class="h-screen w-screen p-5 flex flex-col justify-center items-center">
+
+  <!-- Register form -->
+  <div class="h-screen w-screen flex flex-col justify-center items-center">
     <object
       class="md:w-36 w-20 m-4"
       data="assets/icons/logo.svg"
@@ -27,6 +26,7 @@
       >
         Sign up <span class="text-salmon font-strange">Now</span>
       </p>
+
       <div class="relative mb-4">
         <input
           type="text"
@@ -34,7 +34,7 @@
           name="name"
           placeholder="Name"
           formControlName="name"
-          class="w-full bg-darkBlue-400 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 md:text-sm text-xs outline-none text-white py-1 px-3 !leading-8 transition-colors duration-200 ease-in-out"
+          class="w-full bg-darkBlue-400 rounded-lg focus:ring-2 focus:ring-salmon md:text-sm text-xs outline-none text-white py-1 px-3 !leading-8"
         />
         <div
           class="mt-2"
@@ -45,15 +45,15 @@
           "
         >
           <div *ngIf="name.errors['required']">
-            <small class="text-xs text-red-600">Username is required</small>
+            <small class="text-xs text-salmon">Username is required</small>
           </div>
           <div *ngIf="name.errors['minlength']">
-            <small class="text-xs text-red-600"
+            <small class="text-xs text-salmon"
               >Username must be greater than 5 characters</small
             >
           </div>
           <div *ngIf="name.errors['maxlength']">
-            <small class="text-xs text-red-600"
+            <small class="text-xs text-salmon"
               >Username must be lower than 25 characters</small
             >
           </div>
@@ -67,7 +67,7 @@
           name="email"
           placeholder="Email"
           formControlName="email"
-          class="w-full bg-darkBlue-400 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 md:text-sm text-xs outline-none text-white py-1 px-3 !leading-8 transition-colors duration-200 ease-in-out"
+          class="w-full bg-darkBlue-400 rounded-lg focus:ring-2 focus:ring-salmon md:text-sm text-xs outline-none text-white py-1 px-3 !leading-8"
         />
         <div
           class="mt-2"
@@ -78,10 +78,10 @@
           "
         >
           <div *ngIf="email.errors['required']">
-            <small class="text-xs text-red-600">Email is required</small>
+            <small class="text-xs text-salmon">Email is required</small>
           </div>
           <div *ngIf="email.errors['pattern']">
-            <small class="text-xs text-red-600"
+            <small class="text-xs text-salmon"
               >Email address not well formed</small
             >
           </div>
@@ -95,7 +95,7 @@
           name="password"
           placeholder="Password"
           formControlName="password"
-          class="w-full bg-darkBlue-400 pr-12 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 md:text-sm text-xs outline-none text-white py-1 pl-3 !leading-8 transition-colors duration-200 ease-in-out"
+          class="w-full bg-darkBlue-400 pr-12 rounded-lg focus:ring-2 focus:ring-salmon md:text-sm text-xs outline-none text-white py-1 pl-3 !leading-8"
         />
 
         <div
@@ -124,10 +124,10 @@
           "
         >
           <div *ngIf="password.errors['required']">
-            <small class="text-xs text-red-600">Password is required</small>
+            <small class="text-xs text-salmon">Password is required</small>
           </div>
           <div *ngIf="password.errors['pattern']">
-            <small class="text-xs text-red-600"
+            <small class="text-xs text-salmon"
               >Password must have eight characters, at least one uppercase
               letter, one lowercase letter and one number</small
             >
@@ -142,7 +142,7 @@
           name="confirmPassword"
           placeholder="Confirm Password"
           formControlName="confirmPassword"
-          class="w-full bg-darkBlue-400 pr-12 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 md:text-sm text-xs outline-none text-white py-1 pl-3 !leading-8 transition-colors duration-200 ease-in-out"
+          class="w-full bg-darkBlue-400 pr-12 rounded-lg focus:ring-2 focus:ring-salmon md:text-sm text-xs outline-none text-white py-1 pl-3 !leading-8"
         />
 
         <div
@@ -177,22 +177,22 @@
           "
         >
           <div *ngIf="confirmPassword.errors['required']">
-            <small class="text-xs text-red-600"
+            <small class="text-xs text-salmon"
               >Password confirmation is required</small
             >
           </div>
           <div *ngIf="confirmPassword.errors['mismatch']">
-            <small class="text-xs text-red-600">Passwords must match</small>
+            <small class="text-xs text-salmon">Passwords must match</small>
           </div>
         </div>
       </div>
       <button
         type="submit"
-        class="flex h-12 justify-center items-center bg-salmon border-0 py-2 px-8 focus:outline-none hover:bg-white group rounded-lg mt-4 md:text-lg text-base"
+        class="flex h-12 justify-center items-center bg-salmon border-0 py-2 px-8 focus:outline-none hover:bg-white group rounded-lg mt-4 md:text-lg text-base transition-all duration-300 ease-in-out"
       >
         <span
           *ngIf="!spinner"
-          class="font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 group-hover:text-salmon"
+          class="font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 group-hover:text-salmon transition-all duration-300 ease-in-out"
           >Register</span
         ><app-spinner *ngIf="spinner" class="scale-[0.2]"></app-spinner>
       </button>

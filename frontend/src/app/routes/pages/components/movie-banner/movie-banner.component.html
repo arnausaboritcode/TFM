@@ -10,11 +10,11 @@
   >
     <swiper-slide *ngFor="let movie of movies; let isFirst = first">
       <a
-        class="opacity-100 hover:opacity-80 transition-all duration-200"
+        class="opacity-100 hover:opacity-80 transition-all ease-in-out duration-200"
         routerLink="/movies/{{ movie.id }}"
       >
         <div class="w-full h-full relative">
-          <!-- Banner image acting like a background image. Is not a bg image because of loading lazy -->
+          <!-- Banner image acting like a background image. It's not a bg image because of lazy loading -->
           <img
             *ngIf="isFirst; else noPriority"
             class="object-cover object-top"
@@ -41,13 +41,11 @@
           <div
             class="absolute w-full h-full bg-gradient-to-t from-black via-transparent to-transparent"
           ></div>
-
-          <!-- Banner text content -->
           <div
             class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,0%,0.4)] bg-fixed"
           >
+            <!-- Banner text content -->
             <div class="flex flex-col w-full h-full">
-              <!-- Banner movie content -->
               <div class="flex justify-center items-end w-full h-full">
                 <div
                   class="flex flex-col justify-center items-center w-full mb-20"

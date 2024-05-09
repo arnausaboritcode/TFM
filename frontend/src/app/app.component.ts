@@ -8,10 +8,10 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'frontend';
   isLoading = true;
-  //Show global spinner firs time user enter to page
+  //Show global spinner first time user enter to page
   constructor() {
     setTimeout(() => {
       this.isLoading = false;
-    }, 3500);
+    }, 1500);
   }
 }

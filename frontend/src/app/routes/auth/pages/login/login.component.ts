@@ -1,14 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { distinctUntilChanged, finalize, startWith, takeUntil } from 'rxjs';
-
 import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { finalize, takeUntil } from 'rxjs';
 import { AuthDTO } from '../../../../core/models/auth.dto';
 import { AutoDestroyService } from '../../../../core/services/utils/auto-destroy.service';
 import { AuthService } from '../../../services/auth.service';
@@ -71,7 +70,6 @@ export class LoginComponent implements OnInit {
   login(): void {
     this.isValidForm = false;
     let responseOK: boolean = false;
-    let errorResponse: any;
 
     if (this.loginForm.invalid) {
       return;
@@ -83,6 +81,7 @@ export class LoginComponent implements OnInit {
     this.authService
       .login(this.loginUser)
       .pipe(
+        takeUntil(this.destroy$),
         finalize(() => {
           if (responseOK) {
             this.notificationService.showSuccess(
@@ -99,7 +98,6 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: (authToken: any) => {
           responseOK = true;
-          console.log(authToken.message);
           //Save token because of logout
           this.LocalStorageService.setToken(
             authToken.token,
@@ -114,11 +112,7 @@ export class LoginComponent implements OnInit {
 
     //Spinner
     this.authService.spinner$
-      .pipe(
-        takeUntil(this.destroy$),
-        startWith(this.spinner),
-        distinctUntilChanged()
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((value) => {
         this.spinner = value;
       });

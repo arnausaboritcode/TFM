@@ -1,8 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { distinctUntilChanged, startWith, takeUntil } from 'rxjs';
-
 import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -10,6 +7,8 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { takeUntil } from 'rxjs';
 import { UserDTO } from '../../../../core/models/user.dto';
 import { AutoDestroyService } from '../../../../core/services/utils/auto-destroy.service';
 import { HeaderService } from '../../../services/header.service';
@@ -96,8 +95,6 @@ export class RegisterComponent implements OnInit {
 
   register(): void {
     this.isValidForm = false;
-    let responseOK: boolean = false;
-    let errorResponse: any;
 
     if (this.registerForm.invalid) {
       return;
@@ -106,30 +103,27 @@ export class RegisterComponent implements OnInit {
     this.isValidForm = true;
     this.registerUser = this.registerForm.value;
 
-    this.userService.register(this.registerUser).subscribe({
-      next: (response: any) => {
-        responseOK = true;
-        console.log(response.message);
-      },
-      error: (error) => {
-        responseOK = false;
-        console.error(error);
-      },
-      complete: () => {
-        this.notificationService.showSuccess(
-          `<p class="text-xs">Registered as ${this.registerUser.email}</p>`
-        );
-        this.router.navigateByUrl('/user/login');
-      },
-    });
+    this.userService
+      .register(this.registerUser)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (response: any) => {
+          console.log(response.message);
+        },
+        error: (error) => {
+          console.error(error);
+        },
+        complete: () => {
+          this.notificationService.showSuccess(
+            `<p class="text-xs">Registered as ${this.registerUser.email}</p>`
+          );
+          this.router.navigateByUrl('/user/login');
+        },
+      });
 
     //Spinner
     this.userService.spinner$
-      .pipe(
-        takeUntil(this.destroy$),
-        startWith(this.spinner),
-        distinctUntilChanged()
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((value) => (this.spinner = value));
   }
 

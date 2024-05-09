@@ -20,7 +20,7 @@ export class MovieDetailsService {
   movieDetailsById(id: number): Observable<MovieDetailsDTO> {
     this.skeleton.next(true);
     return this.http
-      .get<MovieDetailsDTO>(`${environment.BASE_API_URL}movie/${id}`)
+      .get<MovieDetailsDTO>(`${environment.BASE_API_URL_FRONTEND}movie/${id}`)
       .pipe(
         delay(500),
         finalize(() => this.skeleton.next(false))
@@ -29,7 +29,7 @@ export class MovieDetailsService {
 
   movieListSimilar(id: number): Observable<SearchResultDTO> {
     return this.http.get<SearchResultDTO>(
-      `${environment.BASE_API_URL}movie/${id}/similar`
+      `${environment.BASE_API_URL_FRONTEND}movie/${id}/similar`
     );
   }
 }

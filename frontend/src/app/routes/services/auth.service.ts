@@ -23,7 +23,7 @@ export class AuthService {
   login(auth: AuthDTO): Observable<AuthDTO> {
     this.spinner.next(true);
     return this.http
-      .post<AuthDTO>(`${environment.api_url}/auth/login`, auth)
+      .post<AuthDTO>(`${environment.BASE_API_URL_BACKEND}/auth/login`, auth)
       .pipe(
         delay(3000),
         finalize(() => this.spinner.next(false))
@@ -37,7 +37,7 @@ export class AuthService {
     this.spinner.next(true);
     return this.http
       .post(
-        `${environment.api_url}/auth/logout`,
+        `${environment.BASE_API_URL_BACKEND}/auth/logout`,
         {},
         { headers, withCredentials: true }
       )

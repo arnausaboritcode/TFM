@@ -1,8 +1,9 @@
 <nav
   *ngIf="showNav"
-  class="w-full flex items-center py-5 px-6 fixed top-0 z-50 bg-darkBlue-500 border-b-[2px] border-darkBlue-400"
+  class="w-full flex items-center py-5 px-6 fixed top-0 z-[100] bg-darkBlue-500 border-b-2 border-darkBlue-400"
 >
   <div class="w-full flex justify-between items-center">
+    <!-- PopCorn logo -->
     <a
       class="flex items-center p-3 rounded-full hover:bg-darkBlue-400 transition-all ease-in-out duration-200"
       [ngClass]="{ 'hover:scale-125': !isActive('/movies/search') }"
@@ -12,10 +13,11 @@
       <img src="assets/icons/logo.svg" alt="Popcorn logo" class="w-18 h-9" />
     </a>
 
-    <!-- Menu md and lg screens -->
+    <!-- Menu on medium and large screens -->
     <ul class="list-none hidden lg:flex items-center gap-6">
+      <!-- Movie lists item -->
       <li
-        class="text-darkBlue-300 hover:text-white hover:bg-darkBlue-400 py-2 rounded-lg text-md font-medium cursor-pointer transition-all ease-in-out duration-200"
+        class="text-darkBlue-300 hover:text-white hover:bg-darkBlue-400 py-2 rounded-lg text-base font-medium cursor-pointer transition-all ease-in-out duration-200"
         [ngClass]="{ 'hover:scale-125': !isActive('/movies/lists') }"
       >
         <a
@@ -25,7 +27,7 @@
           >Lists</a
         >
       </li>
-      <!-- User avatar and absolute menu item -->
+      <!-- Avatar and dropdwon item -->
       <li
         class="flex justify-center text-darkBlue-300 p-3 rounded-full text-base font-medium transition-all ease-in-out duration-200 group/dropdown hover:bg-darkBlue-400"
       >
@@ -38,11 +40,11 @@
           class="invisible opacity-0 group-focus-within/dropdown:visible group-focus-within/dropdown:opacity-100"
         >
           <div
-            class="absolute top-20 right-2 w-56 origin-top-right bg-white border border-darkBlue-300 divide-y divide-gray-100 rounded-md shadow-lg text-gray-700 outline-none"
+            class="absolute top-20 right-2 w-56 origin-top-right bg-white border border-darkBlue-300 divide-y divide-gray-100 rounded-md shadow-lg text-darkBlue-500 outline-none"
           >
             <div>
               <a
-                class="flex justify-start items-center w-full h-10 px-4 py-2 text-sm leading-5 rounded-md hover:bg-gray-100 group/navitem"
+                class="flex justify-start items-center w-full h-10 px-4 py-2 text-sm leading-5 rounded-md hover:bg-gray-100"
                 routerLink="/user/profile"
                 routerLinkActive="text-salmon font-bold bg-gray-100"
                 >Profile</a
@@ -57,8 +59,11 @@
 
             <div>
               <button
+                [ngClass]="{
+                '!w-20 !justify-center': spinner,
+              }"
                 type="button"
-                class="flex justify-start items-center w-full h-10 px-4 py-2 text-sm leading-5 rounded-md cursor-pointer hover:bg-gray-100 group/navitem"
+                class="flex justify-start items-center w-full h-10 px-4 py-2 text-sm leading-5 rounded-md cursor-pointer hover:bg-gray-100"
                 (click)="logout()"
               >
                 <span *ngIf="!spinner">Sign out</span
@@ -70,13 +75,13 @@
       </li>
     </ul>
 
-    <!-- Menu sm screens -->
+    <!-- Menu on small screens -->
     <div class="lg:hidden flex flex-1 justify-end items-center">
+      <!--Toggle button item -->
       <button class="w-fit" (click)="toggleNavbar()">
         <i class="fa-solid fa-bars text-white text-xl"></i>
       </button>
-
-      <!-- RESPONSIVE MENU-->
+      <!-- Blur -->
       <div
         [ngClass]="{
           'absolute backdrop-blur-sm bg-[hsla(0,0%,7%,.36)]': showMenu,
@@ -85,6 +90,7 @@
         (click)="toggleNavbar()"
         class="w-screen h-screen inset-0 overflow-x-hidden lg:hidden"
       ></div>
+      <!-- Menu -->
       <div
         [ngClass]="{
           'animatecss-fadeOutRightBig': !showMenu,
@@ -118,10 +124,10 @@
 
           <p class="p-2 mt-12 text-lg text-white">
             <span class="font-extrabold"
-              >Welcome
-              <span class="text-salmon"><!-- {{ user.name }} --></span>!</span
+              >Welcome to <span class="text-salmon">PopCorn</span></span
             >
           </p>
+
           <p class="p-2 mb-12 mt-5 text-lg text-darkBlue-300">
             Explore our exclusive <span class="font-bold">collection</span> of
             movies by searching for your
@@ -132,14 +138,20 @@
 
           <li class="p-2 w-full flex items-center justify-between">
             <a
+              [ngClass]="{
+              '!w-20': spinner,
+            }"
               (click)="logout()"
               class="ml-2 h-12 flex items-center justify-center font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 text-2xl"
               ><span *ngIf="!spinner">Sign out</span
               ><app-spinner
+                spinnerColor="#ffff"
                 *ngIf="spinner"
-                class="scale-[0.2] bg-white p-2 rounded-full"
-              ></app-spinner
-            ></a>
+                class="scale-[0.2]"
+              ></app-spinner></a
+            ><i
+              class="fa-solid fa-arrow-right-from-bracket text-salmon text-xl"
+            ></i>
           </li>
         </ul>
 
@@ -150,7 +162,7 @@
           <li>
             <a
               href="https://www.instagram.com/arnausaborit3/?hl=es"
-              class="text-gray-500 text-darkBlue-300 hover:text-salmon"
+              class="text-darkBlue-300 hover:text-salmon"
             >
               <i
                 class="fa-brands fa-instagram lg:hover:scale-150 transform transition duration-300"
@@ -170,7 +182,7 @@
           <li>
             <a
               href="https://es.linkedin.com/in/arnau-saborit-valencia-937269235?trk=public_profile_browsemap"
-              class="text-gray-500 text-darkBlue-300 hover:text-salmon"
+              class="text-darkBlue-300 hover:text-salmon"
             >
               <i
                 class="fa-brands fa-linkedin lg:hover:scale-150 transform transition duration-300"

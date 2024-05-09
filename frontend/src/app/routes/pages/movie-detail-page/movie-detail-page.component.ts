@@ -23,12 +23,11 @@ export class MovieDetailPageComponent implements OnInit {
   //Similar movies list
   similarMovies: MovieDTO[];
 
-  //skeleton
+  //Loading elements
   skeleton: boolean;
   spinner: boolean;
   usersSpinner: boolean;
 
-  //Favorite boolean
   isFavorite!: boolean;
 
   //Users mthat have favorite movie

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { distinctUntilChanged, startWith, takeUntil } from 'rxjs';
+import { takeUntil } from 'rxjs';
 import { AuthService } from '../../../../routes/services/auth.service';
 import { HeaderService } from '../../../../routes/services/header.service';
 import { LocalStorageService } from '../../../../routes/services/local-storage.service';
-import { UserService } from '../../../../routes/services/user.service';
+import { NotificationService } from '../../../../routes/services/notification.service';
 import { AutoDestroyService } from '../../../services/utils/auto-destroy.service';
 
 @Component({
@@ -14,33 +14,32 @@ import { AutoDestroyService } from '../../../services/utils/auto-destroy.service
 })
 export class HeaderComponent implements OnInit {
   showNav: boolean;
+  showMenu: boolean;
 
   spinner: boolean;
 
-  showMenu: boolean;
-
   constructor(
-    private navbarService: HeaderService,
+    private headerService: HeaderService,
     private destroy$: AutoDestroyService,
     private router: Router,
     private localStorageService: LocalStorageService,
-    private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private notificationService: NotificationService
   ) {
     this.showNav = true;
-    this.spinner = false;
     this.showMenu = false;
+    this.spinner = false;
   }
 
   ngOnInit(): void {
-    //Show/Hide full navbar
-    this.navbarService.showNavbar$
+    //Show or hide navbar
+    this.headerService.showNavbar$
       .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
         this.showNav = data;
       });
 
-    //Detect route change for hiding responsive menu on change route
+    //Hiding responsive menu on route change
     this.router.events.pipe(takeUntil(this.destroy$)).subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.showMenu = false;
@@ -53,23 +52,23 @@ export class HeaderComponent implements OnInit {
       .logout()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (response: any) => {
-          console.log(response.message);
+        next: () => {
           this.localStorageService.clearToken();
-          this.router.navigate(['/user/login']);
         },
         error: (error) => {
           console.error(error);
+        },
+        complete: () => {
+          this.notificationService.showSuccess(
+            `<p class="text-xs">Logged out succesfully</p>`
+          );
+          this.router.navigate(['/user/login']);
         },
       });
 
     //Spinner
     this.authService.spinner$
-      .pipe(
-        takeUntil(this.destroy$),
-        startWith(this.spinner),
-        distinctUntilChanged()
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((value) => {
         this.spinner = value;
       });

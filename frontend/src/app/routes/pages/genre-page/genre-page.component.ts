@@ -2,15 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import {
-  Subject,
-  distinctUntilChanged,
-  map,
-  startWith,
-  switchMap,
-  takeUntil,
-  tap,
-} from 'rxjs';
+import { Subject, map, switchMap, takeUntil, tap } from 'rxjs';
 import { FiltersDTO } from '../../../core/models/filters.dto';
 import { GenreDTO } from '../../../core/models/movie-details.dto';
 import { MovieDTO } from '../../../core/models/movie.dto';
@@ -23,21 +15,20 @@ import { MoviesService } from '../../services/movies.service';
   styleUrl: './genre-page.component.scss',
 })
 export class GenrePageComponent implements OnInit {
-  //Movie list
   genreMovies: MovieDTO[];
   totalResults: number;
   totalPages: number;
-  //Genre id
+
+  //Some necessary variables to assign and compare
   genreId: string;
   genresIds: string[];
-  genresKeyvalue: GenreDTO[] = [];
+  genresKeyvalue: GenreDTO[];
 
   //Default filters
   filters: FiltersDTO = {
     page: 1,
   };
 
-  //filters form and inputs
   filtersForm: FormGroup;
   year: FormControl;
   vote_average: FormControl;
@@ -46,7 +37,7 @@ export class GenrePageComponent implements OnInit {
   with_genres: FormControl;
   control: FormControl;
 
-  //Subject to observe select value changes
+  //Subject to observe selects value changes
   onFilterChange$: Subject<FiltersDTO> = new Subject<FiltersDTO>();
 
   //Skeleton
@@ -63,6 +54,7 @@ export class GenrePageComponent implements OnInit {
   ) {
     this.genreMovies = [];
     this.genresIds = [];
+    this.genresKeyvalue = [];
     this.totalResults = 0;
     this.totalPages = 1;
     this.genreId = '0';
@@ -80,7 +72,7 @@ export class GenrePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //Getting id from url params and doing the subscriptions
+    //Getting actual genre id from url params
     this.route.params
       .pipe(
         takeUntil(this.destroy$),
@@ -90,12 +82,12 @@ export class GenrePageComponent implements OnInit {
         })
       )
       .subscribe(() => {
-        //Assigning genreId to filter
+        //Assigning actual genre to filters
         this.filters = {
           ...this.filters,
           with_genres: this.genresIds.join(','),
         };
-        //Getting movie detailed information
+        //Getting results
         this.moviesService.getDiscoverMovies(this.filters).subscribe((data) => {
           this.genreMovies = data.results;
           this.totalResults = data.total_results;
@@ -103,8 +95,10 @@ export class GenrePageComponent implements OnInit {
         });
       });
 
-    //Initialize form and filter changes logic
+    //Initialize form
     this.initForm();
+
+    //Notifies filter changes
     this.subscribeToFiltersChanges();
 
     //Get all genres
@@ -112,19 +106,15 @@ export class GenrePageComponent implements OnInit {
 
     //skeleton
     this.moviesService.skeleton$
-      .pipe(
-        takeUntil(this.destroy$),
-        startWith(this.skeleton),
-        distinctUntilChanged()
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((value) => {
         this.skeleton = value;
       });
 
-    //Get "Search Results" element scroll position to show fixed section
+    //Get "Filter Results count" element scroll position for showing instead fixed section
     if (typeof window !== 'undefined') {
       window.addEventListener('scroll', () => {
-        const element = document.getElementById('searchResults');
+        const element = document.getElementById('searchResultsCount');
         if (element) {
           const rect = element.getBoundingClientRect();
           this.windowScrolled = rect.bottom <= 0;
@@ -133,6 +123,7 @@ export class GenrePageComponent implements OnInit {
     }
   }
 
+  //Initializes form
   initForm(): void {
     this.filtersForm = this.formBuilder.group({
       'primary_release_date.lte': this.year,
@@ -146,6 +137,7 @@ export class GenrePageComponent implements OnInit {
     this.subscribeToFormChanges();
   }
 
+  //Assigns new form values to filters
   subscribeToFormChanges(): void {
     this.filtersForm.valueChanges
       .pipe(takeUntil(this.destroy$))
@@ -164,7 +156,6 @@ export class GenrePageComponent implements OnInit {
           this.genresIds.push(newGenreId);
         }
 
-        //Add new filters
         this.filters = {
           ...this.filters,
           'primary_release_date.lte': year,
@@ -175,14 +166,17 @@ export class GenrePageComponent implements OnInit {
           include_adult,
         };
 
+        //Notifies that filters changed
         this.onFilterChange$.next(this.filters);
       });
   }
 
+  //Get results of new filters
   subscribeToFiltersChanges(): void {
     this.onFilterChange$
       .pipe(
         takeUntil(this.destroy$),
+        //Before we full new results, we empty the previous ones
         tap(() => (this.genreMovies = [])),
         switchMap((filters: FiltersDTO) =>
           this.moviesService.getDiscoverMovies(filters)
@@ -196,6 +190,7 @@ export class GenrePageComponent implements OnInit {
       });
   }
 
+  //Fulls the list of all genres for comparisions
   getAllGenres(): void {
     this.moviesService
       .getMovieGenres()
@@ -230,14 +225,14 @@ export class GenrePageComponent implements OnInit {
     this.location.back();
   }
 
-  //remove filter parameter and reinitialize select
+  //Remove some filter parameter and reinitialize his select
   removeFilter(property: keyof FiltersDTO): void {
     delete this.filters[property];
     this.filtersForm.controls[property].setValue('');
     this.onFilterChange$.next(this.filters);
   }
 
-  //clear genres added
+  //Remove genres added and reinitialize his select
   clearGenreAdded(): void {
     this.genresIds.splice(1);
     this.filters.with_genres = this.filters

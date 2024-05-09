@@ -1,12 +1,12 @@
-<!-- Banner Section -->
+<!-- BANNER SECTION -->
 <div class="w-full h-screen relative">
-  <!-- Banner image acting like a background image. Is not a bg image because of loading lazy -->
+  <!-- Banner image acting like a background image. I'ts not a bg image because of lazy loading -->
   <img
     *ngIf="movies && movies.length > 0"
     class="object-cover"
     ngSrc="{{ movies[0].backdrop_path | imageUrl : 'original' }}"
     fill="true"
-    alt="Movie backdrop image"
+    alt="Random movie backdrop image"
     priority
   />
   <!-- Banner gradients -->
@@ -22,28 +22,24 @@
   <!-- Bounced arrow -->
   <a
     class="absolute z-10 w-5 h-5 m-auto left-0 right-0 bottom-16 scale-150 cursor-pointer"
-    (click)="scroll(first)"
+    (click)="scroll(firstContent)"
     ><i
       class="fa-solid fa-chevron-down text-white md:text-base text-sm animate-bounce"
     ></i
   ></a>
   <!-- Scroll to top arrow -->
   <a
-    class="fixed opacity-0 z-50 w-5 h-5 right-12 bottom-20 cursor-pointer transition-all duration-500 ease-in-out group"
+    class="fixed opacity-0 z-50 md:w-11 md:h-11 w-9 h-9 right-12 bottom-20 cursor-pointer transition-all duration-500 ease-in-out hover:-translate-y-1 hover:bg-salmon rounded-full bg-darkBlue-400 flex items-center justify-center shadow-md text-white"
     [ngClass]="{ 'show-scrollTop': windowScrolled }"
     (click)="scrollToTop()"
-    ><div
-      class="md:w-9 md:h-9 w-6 h-6 rounded-full bg-darkBlue-400 flex items-center justify-center shadow-md"
-    >
-      <i
-        class="fa-solid fa-chevron-up text-white md:text-sm text-xs lg:group-hover:-translate-y-1 transition-all duration-500 ease-in-out"
-      ></i></div
+  >
+    <i class="fa-solid fa-arrow-up text-xs"></i
   ></a>
   <!-- Banner content -->
   <div
     class="absolute bottom-0 left-0 right-0 top-0 h-full w-full overflow-hidden bg-[hsla(0,0%,0%,0.4)] bg-fixed"
   >
-    <div class="flex justify-center items-center w-full h-full p-[6vw]">
+    <div class="flex justify-center items-center w-full h-full p-[6dvw]">
       <div class="flex-col text-center lg:w-6/12 md:w-10/12 w-3/4">
         <h1
           class="lg:text-6xl md:text-5xl text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 mb-6"
@@ -87,7 +83,7 @@
               ></object>
             </div>
             <p
-              class="md:text-[12px] text-[8px] text-darkBlue-300 leading-loose font-medium md:mt-20 mt-10"
+              class="md:text-xs text-[8px] text-darkBlue-300 !leading-loose font-medium md:mt-20 mt-10"
             >
               *Content is provided by third-party services. There is a slight
               possibility that some content may not be displayed as expected.
@@ -99,12 +95,13 @@
   </div>
 </div>
 
-<!-- Find Section -->
+<!-- MAIN CONTENT SECTION -->
+<!-- Find subsection -->
 <div
-  #first
-  class="customScrollAnimation flex flex-col justify-center w-full h-full p-[6vw]"
+  class="customScrollAnimation flex flex-col justify-center w-full h-full p-[6dvw]"
 >
   <h2
+    #firstContent
     class="w-full h-full lg:text-[16rem] md:text-[9rem] text-center text-[6rem] font-extrabold text-salmon z-10 opacity-30 md:mb-10 mb-4 font-strange"
   >
     Find
@@ -119,7 +116,7 @@
         ngSrc="assets/images/find.webp"
         width="1000"
         height="500"
-        alt="Movie search system"
+        alt="Movie search system representation"
       />
     </div>
     <div class="flex lg:w-1/2 w-full flex-col p-4">
@@ -141,18 +138,13 @@
         >
         and presents the movie with the closest match in terms of characters.
       </p>
-      <a
-        class="rightToLeftScrollAnimation px-4 py-2 bg-salmon text-darkBlue-500 md:text-base text-xs text-center font-bold w-fit rounded-full mt-5 transition-all duration-300 ease-in-out hover:text-salmon hover:bg-white"
-        href="https://developer.themoviedb.org/reference/intro/getting-started"
-        >Our server</a
-      >
     </div>
   </div>
 </div>
 
-<!-- Fuse Section -->
+<!-- Fuse subsection -->
 <div
-  class="customScrollAnimation flex flex-col justify-center w-full h-full p-[6vw]"
+  class="customScrollAnimation flex flex-col justify-center w-full h-full p-[6dvw]"
 >
   <h2
     class="w-full h-full lg:text-[16rem] md:text-[9rem] text-center text-[6rem] font-extrabold text-blue-500 opacity-30 md:mb-10 mb-4 font-strange"
@@ -191,15 +183,15 @@
         ngSrc="assets/images/fuse.webp"
         width="1000"
         height="500"
-        alt="Genre filters system"
+        alt="Genre filters system representation"
       />
     </div>
   </div>
 </div>
 
-<!-- Scan Section -->
+<!-- Scan subsection -->
 <div
-  class="customScrollAnimation relative flex flex-col justify-center w-full h-full p-[6vw] !pb-0"
+  class="customScrollAnimation relative flex flex-col justify-center w-full h-full p-[6dvw] !pb-0"
 >
   <h2
     class="w-full h-full lg:text-[16rem] md:text-[9rem] text-center text-[6rem] font-extrabold text-yellow-500 opacity-30 md:mb-10 mb-4 font-strange"
@@ -227,19 +219,19 @@
     </div>
   </div>
 </div>
-<div class="w-dvw pb-[6vw] mt-5">
+<div class="w-dvw pb-[6dvw] mt-5">
   <img
     class="w-full downToUpScrollAnimation"
     ngSrc="assets/images/scan.webp"
     width="1920"
     height="600"
-    alt="Movie carrousel system"
+    alt="Movie carrousel system representation"
   />
 </div>
 
-<!-- View section -->
+<!-- View subsection -->
 <div
-  class="customScrollAnimation flex flex-col justify-center w-full h-full p-[6vw]"
+  class="customScrollAnimation flex flex-col justify-center w-full h-full p-[6dvw]"
 >
   <h2
     class="w-full h-full lg:text-[16rem] md:text-[9rem] text-center text-[6rem] font-extrabold text-green-500 z-10 opacity-30 md:mb-10 mb-4 font-strange"
@@ -256,7 +248,7 @@
         ngSrc="assets/images/view.webp"
         width="1000"
         height="500"
-        alt="Movie information system"
+        alt="Movie information system representation"
       />
     </div>
     <div class="flex lg:w-1/2 w-full flex-col p-4">
@@ -280,9 +272,9 @@
   </div>
 </div>
 
-<!-- Mold Section -->
+<!-- Mold subsection -->
 <div
-  class="customScrollAnimation flex flex-col justify-center w-full h-full p-[6vw]"
+  class="customScrollAnimation flex flex-col justify-center w-full h-full p-[6dvw]"
 >
   <h2
     class="w-full h-full lg:text-[16rem] md:text-[9rem] text-center text-[6rem] font-extrabold text-red-500 opacity-30 md:mb-10 mb-4 font-strange"
@@ -319,15 +311,15 @@
         ngSrc="assets/images/mold.webp"
         width="1000"
         height="500"
-        alt="Favourite system"
+        alt="Favourite system representation"
       />
     </div>
   </div>
 </div>
 
-<!-- Coming soon section -->
+<!-- COMING SOON SECTION -->
 <div
-  class="customScrollAnimation flex flex-col justify-center w-full h-full p-[6vw]"
+  class="customScrollAnimation flex flex-col justify-center w-full h-full p-[6dvw]"
 >
   <h2
     class="w-full h-full lg:text-[6rem] md:text-[3rem] text-center text-[2rem] font-extrabold text-darkBlue-300 z-10 opacity-30 mb-6 font-strange"
@@ -346,7 +338,7 @@
         ngSrc="assets/images/media.webp"
         width="200"
         height="200"
-        alt="Play button"
+        alt="Play system icon"
       />
       <h3
         class="text-darkBlue-300 font-extrabold leading-9 lg:text-3xl md:text-2xl text-md"
@@ -363,7 +355,7 @@
         ngSrc="assets/images/review.webp"
         width="200"
         height="200"
-        alt="Review representation"
+        alt="Review system icon"
       />
       <h3
         class="text-darkBlue-300 font-extrabold leading-9 lg:text-3xl md:text-2xl text-md"
@@ -374,8 +366,8 @@
   </div>
 </div>
 
-<!-- FAQ Section -->
-<div class="flex flex-col justify-center w-full h-full p-[6vw]">
+<!-- FAQ SECTION -->
+<div class="flex flex-col justify-center w-full h-full p-[6dvw]">
   <h1
     class="w-full h-full lg:text-6xl md:text-4xl text-3xl text-center font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 mb-6"
   >
@@ -438,8 +430,8 @@
   </div>
 </div>
 
-<!-- Devices Section -->
-<div class="flex flex-col justify-center w-full h-full p-[6vw]">
+<!-- AVAILABLE DEVICES SECTION -->
+<div class="flex flex-col justify-center w-full h-full p-[6dvw]">
   <h1
     class="w-full h-full lg:text-6xl md:text-4xl text-3xl text-center font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 mb-6"
   >

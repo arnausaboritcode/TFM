@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  Observable,
-  distinctUntilChanged,
-  forkJoin,
-  startWith,
-  takeUntil,
-} from 'rxjs';
+import { Observable, forkJoin, takeUntil } from 'rxjs';
 import { GenreDTO } from '../../../core/models/genres.dto';
 import { MovieDTO } from '../../../core/models/movie.dto';
 import { AutoDestroyService } from '../../../core/services/utils/auto-destroy.service';
@@ -23,7 +17,7 @@ export class MovieListsPageComponent implements OnInit {
   getTopRatedMovies: MovieDTO[];
   getUpcomingMovies: MovieDTO[];
 
-  //Array of Observables
+  //Array of Observables (will be fulled with all movie lists requests)
   sources: Observable<any>[];
 
   //Genres list
@@ -63,11 +57,7 @@ export class MovieListsPageComponent implements OnInit {
       });
 
     this.moviesService.skeleton$
-      .pipe(
-        takeUntil(this.destroy$),
-        startWith(this.skeleton),
-        distinctUntilChanged()
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((value) => {
         this.skeleton = value;
       });

@@ -24,7 +24,7 @@ export class UserService {
   register(user: UserDTO): Observable<UserDTO> {
     this.spinner.next(true);
     return this.http
-      .post<UserDTO>(`${environment.api_url}/auth/register`, user)
+      .post<UserDTO>(`${environment.BASE_API_URL_BACKEND}/auth/register`, user)
       .pipe(
         delay(2000),
         finalize(() => this.spinner.next(false))
@@ -37,10 +37,14 @@ export class UserService {
       Authorization: 'Bearer ' + this.localStorageService.getToken(),
     };
     return this.http
-      .put<UserDTO>(`${environment.api_url}/auth/update`, updatedUserData, {
-        headers,
-        withCredentials: true,
-      })
+      .put<UserDTO>(
+        `${environment.BASE_API_URL_BACKEND}/auth/update`,
+        updatedUserData,
+        {
+          headers,
+          withCredentials: true,
+        }
+      )
       .pipe(
         delay(2000),
         finalize(() => this.spinner.next(false))
@@ -51,10 +55,13 @@ export class UserService {
     const headers = {
       Authorization: 'Bearer ' + this.localStorageService.getToken(),
     };
-    return this.http.get<UserDataDTO>(`${environment.api_url}/auth/user`, {
-      headers,
-      withCredentials: true,
-    });
+    return this.http.get<UserDataDTO>(
+      `${environment.BASE_API_URL_BACKEND}/auth/user`,
+      {
+        headers,
+        withCredentials: true,
+      }
+    );
   }
 
   getAllUsersInfo(): Observable<any> {
@@ -63,7 +70,7 @@ export class UserService {
       Authorization: 'Bearer ' + this.localStorageService.getToken(),
     };
     return this.http
-      .get<UserDataDTO>(`${environment.api_url}/auth/users`, {
+      .get<UserDataDTO>(`${environment.BASE_API_URL_BACKEND}/auth/users`, {
         headers,
         withCredentials: true,
       })

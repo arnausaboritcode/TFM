@@ -23,7 +23,9 @@ export class MoviesService {
   getNowPlayingMovies(): Observable<SearchResultDTO> {
     this.skeleton.next(true);
     return this.http
-      .get<SearchResultDTO>(`${environment.BASE_API_URL}movie/now_playing`)
+      .get<SearchResultDTO>(
+        `${environment.BASE_API_URL_FRONTEND}movie/now_playing`
+      )
       .pipe(
         delay(500),
         finalize(() => this.skeleton.next(false))
@@ -33,7 +35,7 @@ export class MoviesService {
   getPopularMovies(): Observable<SearchResultDTO> {
     this.skeleton.next(true);
     return this.http
-      .get<SearchResultDTO>(`${environment.BASE_API_URL}movie/popular`)
+      .get<SearchResultDTO>(`${environment.BASE_API_URL_FRONTEND}movie/popular`)
       .pipe(
         delay(500),
         finalize(() => this.skeleton.next(false))
@@ -43,7 +45,9 @@ export class MoviesService {
   getTopRatedMovies(): Observable<SearchResultDTO> {
     this.skeleton.next(true);
     return this.http
-      .get<SearchResultDTO>(`${environment.BASE_API_URL}movie/top_rated`)
+      .get<SearchResultDTO>(
+        `${environment.BASE_API_URL_FRONTEND}movie/top_rated`
+      )
       .pipe(
         delay(500),
         finalize(() => this.skeleton.next(false))
@@ -53,7 +57,9 @@ export class MoviesService {
   getUpcomingMovies(): Observable<SearchResultDTO> {
     this.skeleton.next(true);
     return this.http
-      .get<SearchResultDTO>(`${environment.BASE_API_URL}movie/upcoming`)
+      .get<SearchResultDTO>(
+        `${environment.BASE_API_URL_FRONTEND}movie/upcoming`
+      )
       .pipe(
         delay(500),
         finalize(() => this.skeleton.next(false))
@@ -64,7 +70,7 @@ export class MoviesService {
 
   getMovieGenres(): Observable<GenresDTO> {
     return this.http.get<GenresDTO>(
-      `${environment.BASE_API_URL}genre/movie/list`
+      `${environment.BASE_API_URL_FRONTEND}genre/movie/list`
     );
   }
 
@@ -77,7 +83,7 @@ export class MoviesService {
     });
     return this.http
       .get<SearchResultDTO>(
-        `${environment.BASE_API_URL}discover/movie?${params}`
+        `${environment.BASE_API_URL_FRONTEND}discover/movie?${params}`
       )
       .pipe(
         delay(500),

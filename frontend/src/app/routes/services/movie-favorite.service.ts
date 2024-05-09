@@ -37,7 +37,7 @@ export class MovieFavoriteService {
     this.spinner.next(true);
     this.movieRemovedOrAdded.next(false);
     return this.http
-      .post<any>(`${environment.api_url}/favorites/add`, body, {
+      .post<any>(`${environment.BASE_API_URL_BACKEND}/favorites/add`, body, {
         headers,
         withCredentials: true,
       })
@@ -60,7 +60,7 @@ export class MovieFavoriteService {
     this.spinner.next(true);
     this.movieRemovedOrAdded.next(false);
     return this.http
-      .delete<any>(`${environment.api_url}/favorites/remove`, {
+      .delete<any>(`${environment.BASE_API_URL_BACKEND}/favorites/remove`, {
         headers,
         body,
         withCredentials: true,
@@ -80,10 +80,13 @@ export class MovieFavoriteService {
       Authorization: 'Bearer ' + this.localStorageService.getToken(),
     };
     this.spinner.next(true);
-    return this.http.get<Observable<any>>(`${environment.api_url}/favorites`, {
-      headers,
-      withCredentials: true,
-    });
+    return this.http.get<Observable<any>>(
+      `${environment.BASE_API_URL_BACKEND}/favorites`,
+      {
+        headers,
+        withCredentials: true,
+      }
+    );
   }
 
   //Get all favorite movies from all users
@@ -93,10 +96,13 @@ export class MovieFavoriteService {
     };
     this.spinner.next(true);
     return this.http
-      .get<Observable<any>>(`${environment.api_url}/favorites/all`, {
-        headers,
-        withCredentials: true,
-      })
+      .get<Observable<any>>(
+        `${environment.BASE_API_URL_BACKEND}/favorites/all`,
+        {
+          headers,
+          withCredentials: true,
+        }
+      )
       .pipe(
         /* delay(500), */
         finalize(() => this.spinner.next(false))

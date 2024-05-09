@@ -1,6 +1,8 @@
 <div
   class="absolute -z-10 bg-tech-banner-1 bg-cover bg-center bg-no-repeat w-full h-screen"
 ></div>
+
+<!-- Main title -->
 <div class="text-center mx-auto pt-44 px-10 text-white">
   <div
     class="animatecss animatecss-backInDown md:text-3xl text-xl font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200"
@@ -22,10 +24,11 @@
     >?
   </div>
 
-  <!-- Input search -->
+  <!-- SEARCH SECTION -->
   <div class="max-w-md mx-auto mt-14 animatecss animatecss-fadeIn">
+    <!-- Search input -->
     <div
-      class="border-2 border-solid border-darkBlue-400 flex items-center w-full h-12 bg-darkBlue-400 rounded-2xl focus-within:shadow-lg overflow-hidden animatecss focus-within:animatecss-rubberBand focus-within:border-darkBlue-300 transition-all duration-500 hover:border-darkBlue-300 hover:shadow-[0_0_118px_0px_rgba(255,255,255,0.4)] focus-within:shadow-[0_0_118px_0px_rgba(255,255,255,0.4)]"
+      class="flex items-center w-full h-12 bg-darkBlue-400 rounded-2xl shadow-lg overflow-hidden animatecss focus-within:animatecss-rubberBand focus-within:border-2 focus-within:border-darkBlue-300 transition-shadow ease-in-out duration-500 hover:border-darkBlue-300 hover:border-2 hover:shadow-[0_0_118px_0px_rgba(255,255,255,0.4)] focus-within:shadow-[0_0_118px_0px_rgba(255,255,255,0.4)]"
     >
       <div class="grid place-items-center h-full w-12">
         <i class="fa-solid fa-magnifying-glass text-salmon text-lg"></i>
@@ -40,7 +43,7 @@
       />
     </div>
 
-    <!-- Did you mean 'xxxx'? -->
+    <!-- Supposed query "Did you mean ***?" -->
     <div
       *ngIf="
         results &&
@@ -68,16 +71,16 @@
   </div>
 </div>
 
-<!-- Movies list section -->
+<!-- SEARCH RESULTS SECTION -->
 <div
   infiniteScroll
   [infiniteScrollDistance]="2"
   [infiniteScrollThrottle]="50"
   (scrolled)="onScroll()"
 >
-  <!--   Search results text  -->
+  <!-- Results title and count -->
   <div
-    id="searchResults"
+    id="searchResultsCount"
     *ngIf="results.length >= 1 && totalResults"
     class="w-full flex justify-center mt-20"
   >
@@ -87,7 +90,7 @@
     </div>
   </div>
 
-  <!-- Search results text fixed on scroll -->
+  <!-- Results count fixed on scroll -->
   <div class="w-full flex justify-center items-center">
     <div
       *ngIf="results && totalResults"
@@ -106,17 +109,45 @@
       </a>
     </div>
   </div>
-  <!-- Result list -->
+
+  <!-- Results list -->
   <app-results-list [results]="results"></app-results-list>
 
   <app-results-skeleton *ngIf="skeleton"></app-results-skeleton>
 
+  <!-- No results text -->
   <div
     *ngIf="this.results.length === 0 && query.trim().length !== 0"
-    class="flex justify-center items-center pb-20"
+    class="flex flex-col justify-center items-center py-10 md:text-sm text-xs"
   >
-    <i class="fa-solid fa-face-frown text-darkBlue-300 text-base mr-2"></i>
+    <div class="flex justify-center items-center">
+      <span class="text-darkBlue-300 font-medium"
+        >The search for "{{ this.query }}" has no results.</span
+      >
+      <i class="fa-solid fa-face-frown text-darkBlue-300 text-base ml-2"></i>
+    </div>
 
-    <span class="text-darkBlue-300 text-sm font-medium">Not found</span>
+    <div class="flex flex-col justify-center items-start">
+      <p class="text-darkBlue-300 font-medium mt-5">Suggerencies:</p>
+      <ul class="ml-10 list-none">
+        <li class="text-darkBlue-300 font-medium pl-5 mt-2">
+          Try to use different words
+        </li>
+        <li class="text-darkBlue-300 font-medium pl-5 mt-2">
+          Try to change movie title language
+        </li>
+        <li
+          class="flex items-center gap-2 text-darkBlue-300 font-medium pl-5 mt-2"
+        >
+          More info:
+          <a
+            class="underline hover:text-salmon"
+            href="https://developer.themoviedb.org/reference/search-movie"
+          >
+            themoviedb.org</a
+          >
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
