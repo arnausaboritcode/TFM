@@ -59,28 +59,31 @@
 
       <!-- Movie text content -->
       <div class="lg:w-1/2 w-full lg:pl-10 lg:mt-0 mt-6">
-        <!-- date and time -->
+        <!-- date and time items -->
         <h2 class="text-sm text-darkBlue-300 tracking-widest mb-4">
           <span>{{ movieDetails.release_date | date : "yyyy" }}</span> ·
           <span>{{ movieDetails.runtime }} min</span>
         </h2>
-        <!-- genres -->
-        <h2 class="text-sm text-darkBlue-300 tracking-widest">
+
+        <!-- genres item -->
+        <h2 class="text-sm tracking-widest">
           <span *ngFor="let genre of movieDetails.genres; let last = last"
             ><a
               [routerLink]="['/movies/genres', genre.id]"
-              class="hover:underline hover:underline-offset-8 hover:decoration-salmon hover:text-salmon"
+              class="text-darkBlue-300 hover:underline hover:underline-offset-8 hover:decoration-salmon hover:text-salmon transition-all duration-200 ease-in-out"
               >{{ genre.name }}</a
             ><span *ngIf="!last"> · </span></span
           >
         </h2>
-        <!-- title -->
+
+        <!-- title item -->
         <h1
           class="text-3xl font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 mb-4 mt-2"
         >
           {{ movieDetails.title }}
         </h1>
-        <!-- reviews -->
+
+        <!-- reviews item -->
         <div class="flex mb-4">
           <span class="flex items-center text-salmon scale-90">
             <div class="flex items-center">
@@ -106,7 +109,7 @@
             class="flex items-center ml-3 pl-3 py-2 border-l-2 border-darkBlue-300 space-x-2s"
           >
             <object
-              data="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg"
+              data="assets/icons/tmdb.svg"
               type="image/svg+xml"
               class="w-10"
             ></object>
@@ -119,16 +122,18 @@
           </span>
         </div>
 
-        <!-- description -->
+        <!-- description item -->
         <div class="leading-relaxed text-darkBlue-300 mt-14">
           {{
             showMoreToggle
               ? movieDetails.overview
-              : (movieDetails.overview | descriptionLimit : 170)
+              : (movieDetails.overview | descriptionLimit : descriptionLimit)
           }}
           <a
             class="cursor-pointer text-xs text-salmon font-bold"
-            *ngIf="!showMoreToggle && movieDetails.overview.length > 170"
+            *ngIf="
+              !showMoreToggle && movieDetails.overview.length > descriptionLimit
+            "
             (click)="onShow()"
             >...more</a
           >
@@ -136,37 +141,24 @@
 
         <!-- favorite system -->
         <div
-          class="flex mt-14 items-center justify-start pb-5 border-b-2 border-gray-100 mb-5"
+          class="flex mt-14 items-center justify-start pb-5 border-b-2 border-darkBlue-300 mb-5"
         >
           <div class="flex justify-center items-center">
-            <!-- If movie is favorite -->
             <button
-              *ngIf="isFavorite"
-              class="rounded-full p-4 bg-white flex items-center justify-center w-16 h-16"
-              (click)="removeToFavorite()"
+              class="rounded-full bg-white flex items-center justify-center w-16 h-16"
+              (click)="isFavorite ? removeToFavorite() : addToFavorite()"
             >
               <i
                 *ngIf="!spinner"
-                class="fa-solid fa-heart text-2xl text-salmon"
-              ></i>
-              <app-spinner *ngIf="spinner" class="scale-[0.2]"></app-spinner>
-            </button>
-
-            <!-- If movie is not favorite -->
-            <button
-              *ngIf="!isFavorite"
-              class="rounded-full p-4 bg-white flex items-center justify-center w-16 h-16"
-              (click)="addToFavorite()"
-            >
-              <i
-                *ngIf="!spinner"
-                class="fa-regular fa-heart text-2xl text-salmon"
+                class="fa-{{
+                  isFavorite ? 'solid' : 'regular'
+                }} fa-heart text-2xl text-salmon"
               ></i>
               <app-spinner *ngIf="spinner" class="scale-[0.2]"></app-spinner>
             </button>
           </div>
 
-          <!-- Liked by "users names" -->
+          <!-- likes system -->
           <div class="flex justify-center items-center ml-3">
             <div
               [ngClass]="{
@@ -175,21 +167,20 @@
               class="flex flex-col justify-center items-center"
             >
               <div
-                *ngIf="usersNamesFav && usersNamesFav.length > 0"
+                *ngIf="
+                  usersNamesFav && usersNamesFav.length > 0 && !usersSpinner
+                "
                 class="flex flex-col justify-center items-start"
               >
-                <p *ngIf="!usersSpinner" class="text-sm font-bold text-salmon">
+                <p class="text-sm font-bold text-salmon">
                   {{ usersNamesFav.length }}
-                  <span *ngIf="usersNamesFav.length === 1">like</span
-                  ><span *ngIf="usersNamesFav.length > 1">likes</span>
+                  {{ usersNamesFav.length === 1 ? "like" : "likes" }}
                 </p>
-                <p
-                  *ngIf="!usersSpinner"
-                  class="text-xs font-bold text-darkBlue-300"
-                >
+                <p class="text-xs font-bold text-darkBlue-300">
                   {{ usersNamesFav | genresLimit : 2 }}
                 </p>
               </div>
+
               <app-spinner
                 spinnerColor="#ff903c"
                 *ngIf="usersSpinner"
@@ -204,7 +195,7 @@
           <!-- companies -->
           <h1
             *ngIf="movieDetails.production_companies.length > 0"
-            class="text-sm tracking-widest text-white mb-6 leading-9"
+            class="text-sm tracking-widest mb-6 leading-9"
           >
             <i class="fa-solid fa-sack-dollar text-salmon text-lg mr-4"></i>
             <span
@@ -216,10 +207,11 @@
               >{{ production.name }}<span *ngIf="!last"> · </span></span
             >
           </h1>
+
           <!-- languages -->
           <h1
             *ngIf="movieDetails.spoken_languages.length > 0"
-            class="text-sm text-white tracking-widest leading-9"
+            class="text-sm tracking-widest leading-9"
           >
             <i class="fa-solid fa-language text-salmon text-lg mr-4"></i
             ><span

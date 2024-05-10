@@ -1,9 +1,9 @@
 <div class="flex flex-col justify-center items-center h-full w-full">
   <div
     *ngIf="this.favoriteMovies.length !== 0"
-    class="lg:w-[550px] md:w-[400px] w-96 flex justify-center items-center mt-16 relative"
+    class="lg:w-[580px] md:w-[450px] w-80 flex justify-center items-center mt-16 relative"
   >
-    <!-- Favourite results text -->
+    <!-- Favorites title and count -->
     <div id="searchResults" class="w-full flex justify-center">
       <div class="flex justify-center items-center text-darkBlue-300 font-bold">
         <i class="fa-regular fa-heart text-base mr-2"></i>
@@ -12,33 +12,30 @@
         </p>
       </div>
     </div>
+
     <!-- Clear icon -->
     <button
       [ngClass]="{
-            'w-10': !isEditing,
-            'w-24': isEditing,
+            'md:!w-24': isEditing,
           }"
-      class="h-10 rounded-full bg-darkBlue-400 hover:bg-gray-100 transition-all duration-500 ease-in-out absolute right-0"
+      class="w-10 h-10 rounded-full bg-darkBlue-400 hover:bg-salmon transition-all duration-500 ease-in-out absolute right-0 text-white"
       (click)="editingToggle()"
     >
-      <i
-        *ngIf="!isEditing"
-        class="fa-solid fa-trash-can text-base text-darkBlue-300"
-      ></i>
-      <p *ngIf="isEditing" class="text-xs font-bold text-darkBlue-300 p-2">
-        Back
-      </p>
+      <i *ngIf="!isEditing" class="fa-solid fa-trash-can text-base"></i>
+      <p *ngIf="isEditing" class="hidden md:block text-xs font-bold">Back</p>
+      <i *ngIf="isEditing" class="fa-solid fa-xmark text-base md:hidden"></i>
     </button>
   </div>
 </div>
-<!-- Favourite movies list -->
+
+<!-- Favorites list -->
 <app-results-skeleton *ngIf="skeleton"></app-results-skeleton>
 <app-results-list
   [isEditing]="isEditing"
   [results]="favoriteMovies"
 ></app-results-list>
 
-<!-- No favorites -->
+<!-- No favorites text -->
 <div
   *ngIf="this.favoriteMovies.length === 0"
   class="flex justify-center items-center pb-20"

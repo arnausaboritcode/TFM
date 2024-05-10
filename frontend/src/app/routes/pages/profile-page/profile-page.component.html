@@ -2,8 +2,17 @@
   class="absolute -z-10 bg-tech-banner-4 bg-cover bg-center bg-no-repeat w-full h-screen"
 ></div>
 
-<!-- Main user info -->
+<!-- Go Back Button -->
+<a
+  (click)="goBack()"
+  class="absolute z-50 cursor-pointer md:left-12 md:top-40 left-10 top-11 md:w-14 md:h-14 w-10 h-10 flex items-center justify-center md:text-sm text-xs lg:hover:-translate-x-2 hover:bg-salmon text-white transition-all duration-500 ease-in-out bg-darkBlue-400 rounded-full border-2 border-darkBlue-400 shadow-md"
+>
+  <i class="fa-solid fa-arrow-left md:text-base text-sm"></i>
+</a>
+
+<!-- USER INFO SECTION -->
 <div class="flex justify-center text-center pt-44">
+  <!-- Main user info -->
   <div class="p-4">
     <div
       class="relative inline-flex items-center justify-center w-52 h-52 overflow-hidden bg-[url('/assets/icons/user.svg')] bg-center rounded-full"
@@ -17,7 +26,7 @@
       {{ user.email }}
     </h3>
 
-    <!-- Edit and close icons -->
+    <!-- Edit and close icons for updating user data -->
     <div
       [ngClass]="{ toggleAnimation: showEditForm }"
       class="relative inline-flex items-center justify-center"
@@ -44,12 +53,12 @@
   </div>
 </div>
 
-<!-- Update User form -->
+<!-- UPDATE USER FORM SECTION -->
 <div class="w-full h-fit flex mt-5 justify-center">
   <div class="relative flex justify-center">
     <div
       *ngIf="showEditForm"
-      class="p-5 border-[2px] border-darkBlue-400 rounded-xl"
+      class="p-5 border-2 border-darkBlue-400 rounded-xl"
     >
       <form [formGroup]="updateForm" (ngSubmit)="update()">
         <div class="flex flex-row flex-wrap justify-center items-start mt-2">
@@ -61,7 +70,7 @@
               name="name"
               placeholder="Name"
               formControlName="name"
-              class="w-full bg-darkBlue-400 pl-12 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-sm outline-none text-white py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              class="w-full bg-darkBlue-400 pl-12 rounded-lg focus:ring-2 focus:ring-salmon text-sm outline-none text-white py-1 px-3 !leading-8"
             />
 
             <div
@@ -73,15 +82,15 @@
               "
             >
               <div *ngIf="name.errors['required']">
-                <small class="text-xs text-red-600">Username is required</small>
+                <small class="text-xs text-salmon">Username is required</small>
               </div>
               <div *ngIf="name.errors['minlength']">
-                <small class="text-xs text-red-600"
+                <small class="text-xs text-salmon"
                   >Username must be greater than 5 characters</small
                 >
               </div>
               <div *ngIf="name.errors['maxlength']">
-                <small class="text-xs text-red-600"
+                <small class="text-xs text-salmon"
                   >Username must be lower than 25 characters</small
                 >
               </div>
@@ -96,9 +105,9 @@
               name="password"
               placeholder="Password"
               formControlName="password"
-              class="w-full bg-darkBlue-400 px-12 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-sm outline-none text-white py-1 leading-8 transition-colors duration-200 ease-in-out"
+              class="w-full bg-darkBlue-400 px-12 rounded-lg focus:ring-2 focus:ring-salmon text-sm outline-none text-white py-1 !leading-8"
             />
-            <!-- Show/Hide password -->
+
             <div
               *ngIf="password.value"
               class="absolute z-10 top-0 right-0 p-2 mr-1 rounded-lg bg-darkBlue-400 flex items-center text-sm leading-5"
@@ -130,10 +139,10 @@
               "
             >
               <div *ngIf="password.errors['required']">
-                <small class="text-xs text-red-600">Password is required</small>
+                <small class="text-xs text-salmon">Password is required</small>
               </div>
               <div *ngIf="password.errors['pattern']">
-                <small class="text-xs text-red-600"
+                <small class="text-xs text-salmon"
                   >Password must have eight characters, at least one uppercase
                   letter, one lowercase letter and one number</small
                 >
@@ -153,7 +162,7 @@
               name="email"
               placeholder="Email"
               formControlName="email"
-              class="w-full bg-darkBlue-400 pl-12 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-sm outline-none text-white py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              class="w-full bg-darkBlue-400 pl-12 rounded-lg focus:ring-2 focus:ring-salmon text-sm outline-none text-white py-1 px-3 !leading-8"
             />
             <div
               class="mt-2"
@@ -164,10 +173,10 @@
               "
             >
               <div *ngIf="email.errors['required']">
-                <small class="text-xs text-red-600">Email is required</small>
+                <small class="text-xs text-salmon">Email is required</small>
               </div>
               <div *ngIf="email.errors['pattern']">
-                <small class="text-xs text-red-600"
+                <small class="text-xs text-salmon"
                   >Email address not well formed</small
                 >
               </div>
@@ -184,9 +193,9 @@
               name="confirmPassword"
               placeholder="Confirm Password"
               formControlName="confirmPassword"
-              class="w-full bg-darkBlue-400 px-12 rounded-lg focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-sm outline-none text-white py-1 leading-8 transition-colors duration-200 ease-in-out"
+              class="w-full bg-darkBlue-400 px-12 rounded-lg focus:ring-2 focus:ring-salmon text-sm outline-none text-white py-1 !leading-8"
             />
-            <!-- Show/Hide password confirmation -->
+
             <div
               *ngIf="this.confirmPassword.value"
               class="absolute z-10 top-0 right-0 p-2 mr-1 rounded-lg bg-darkBlue-400 flex items-center text-sm leading-5"
@@ -220,12 +229,12 @@
               "
             >
               <div *ngIf="confirmPassword.errors['required']">
-                <small class="text-xs text-red-600"
+                <small class="text-xs text-salmon"
                   >Password confirmation is required</small
                 >
               </div>
               <div *ngIf="confirmPassword.errors['mismatch']">
-                <small class="text-xs text-red-600">Passwords must match</small>
+                <small class="text-xs text-salmon">Passwords must match</small>
               </div>
             </div>
           </div>
@@ -248,9 +257,9 @@
   </div>
 </div>
 
-<!-- Favourites section -->
+<!-- FAVORITES SECTION -->
 <div
-  class="flex justify-center md:gap-x-36 gap-x-20 w-full pt-12 lg:text-3xl md:text-xl"
+  class="flex justify-center md:gap-x-36 gap-x-20 w-full pt-12 lg:text-3xl md:text-xl text-base"
 >
   <a
     routerLink="./"
@@ -258,19 +267,16 @@
     class="group font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200"
   >
     Favourites
-    <div
-      class="bg-salmon h-[2px] w-0 group-hover:w-full transition-all duration-500 mt-2"
-    ></div>
   </a>
 
   <a
     routerLink="./reviews"
     routerLinkActive="underline decoration-salmon underline-offset-[13px]"
-    class="group font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 opacity-50"
+    class="group font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200 opacity-50 pointer-events-none"
   >
     Reviews (soon)
     <div
-      class="bg-salmon h-[2px] w-0 group-hover:w-full transition-all duration-500 mt-2"
+      class="bg-salmon h-0.5 w-0 group-hover:w-full transition-all duration-500 mt-2"
     ></div>
   </a>
 </div>

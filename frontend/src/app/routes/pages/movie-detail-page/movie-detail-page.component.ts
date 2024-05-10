@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { distinctUntilChanged, map, startWith, takeUntil } from 'rxjs';
+import { map, takeUntil } from 'rxjs';
 import { MovieDetailsDTO } from '../../../core/models/movie-details.dto';
 import { MovieDTO, SearchResultDTO } from '../../../core/models/movie.dto';
 import { AutoDestroyService } from '../../../core/services/utils/auto-destroy.service';
@@ -18,23 +18,25 @@ import { UserService } from '../../services/user.service';
 export class MovieDetailPageComponent implements OnInit {
   movieDetails!: MovieDetailsDTO;
   movieId: number;
-  showMoreToggle: boolean;
 
   //Similar movies list
   similarMovies: MovieDTO[];
+
+  //Checks if movie is favorite
+  isFavorite!: boolean;
+
+  //Description limit pipe
+  showMoreToggle: boolean;
+  descriptionLimit: number = 170;
 
   //Loading elements
   skeleton: boolean;
   spinner: boolean;
   usersSpinner: boolean;
 
-  isFavorite!: boolean;
-
-  //Users mthat have favorite movie
+  //Some users info
   usersIdsFav: number[];
   usersNamesFav: string[];
-
-  //Actual user id
   actualUserId: number;
 
   constructor(
@@ -58,15 +60,14 @@ export class MovieDetailPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //Getting id from url params and doing the subscriptions
+    //Getting id from url params. Also, detect changes of this params
     this.route.params
       .pipe(
         takeUntil(this.destroy$),
         map((params) => {
-          //Getting id params from url. Also, detect changes of this params
           let moveIdString = params['id'];
           this.movieId = +moveIdString!;
-          //Initialize variables as empty every time params changed
+          //Empty variables every time params changed
           this.isFavorite = false;
           this.usersIdsFav = [];
           this.usersNamesFav = [];
@@ -78,14 +79,14 @@ export class MovieDetailPageComponent implements OnInit {
           .movieDetailsById(this.movieId)
           .subscribe((data: MovieDetailsDTO) => (this.movieDetails = data));
 
-        //Getting similar movies list information
+        //Getting similar movies list
         this.movieDetailsService
           .movieListSimilar(this.movieId)
           .subscribe(
             (data: SearchResultDTO) => (this.similarMovies = data.results)
           );
 
-        //check if actual movie are favourite or not
+        //Check if actual movie is favorite
         this.getUserFavMovies();
 
         //Getting all favorite movies
@@ -97,94 +98,29 @@ export class MovieDetailPageComponent implements OnInit {
         //Getting all users info
         this.getAllUsersInfo();
 
-        //Update likes count and users names when favorite is added or removed
-        this.movieFavoriteService.movieRemovedOrAdded$.subscribe((changed) => {
-          if (changed) {
-            this.getAllFavMovies();
-            this.getAllUsersInfo();
-          }
-        });
+        //Update likes count and users names when favorite list is changed
+        this.subscribeToChanges();
       });
 
     //skeleton
     this.movieDetailsService.skeleton$
-      .pipe(
-        takeUntil(this.destroy$),
-        startWith(this.skeleton),
-        distinctUntilChanged()
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((value) => {
         this.skeleton = value;
       });
 
     //spinner
     this.movieFavoriteService.spinner$
-      .pipe(
-        takeUntil(this.destroy$),
-        startWith(this.spinner),
-        distinctUntilChanged()
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((value) => {
         this.spinner = value;
       });
 
     //users spinner
     this.userService.spinner$
-      .pipe(
-        takeUntil(this.destroy$),
-        startWith(this.usersSpinner),
-        distinctUntilChanged()
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((value) => {
         this.usersSpinner = value;
-      });
-  }
-
-  onShow(): void {
-    this.showMoreToggle = !this.showMoreToggle;
-  }
-
-  goBack(): void {
-    this.location.back();
-  }
-
-  addToFavorite(): void {
-    this.movieFavoriteService
-      .addToFavorite(this.movieId)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (response: any) => {
-          console.log(response.message);
-          this.isFavorite = !this.isFavorite;
-        },
-        error: (error) => {
-          console.error(error);
-        },
-        complete: () => {
-          this.notificationService.showSuccess(
-            `<p class="text-xs">Added succesfully</p>`
-          );
-        },
-      });
-  }
-
-  removeToFavorite(): void {
-    this.movieFavoriteService
-      .removeToFavorite(this.movieId)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (response: any) => {
-          console.log(response.message);
-          this.isFavorite = !this.isFavorite;
-        },
-        error: (error) => {
-          console.error(error);
-        },
-        complete: () => {
-          this.notificationService.showSuccess(
-            `<p class="text-xs">Removed succesfully</p>`
-          );
-        },
       });
   }
 
@@ -217,6 +153,17 @@ export class MovieDetailPageComponent implements OnInit {
       });
   }
 
+  subscribeToChanges(): void {
+    this.movieFavoriteService.movieRemovedOrAdded$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((changed) => {
+        if (changed) {
+          this.getAllFavMovies();
+          this.getAllUsersInfo();
+        }
+      });
+  }
+
   getUserInfo(): void {
     //Getting actual user id
     this.userService
@@ -245,5 +192,55 @@ export class MovieDetailPageComponent implements OnInit {
           });
         });
       });
+  }
+
+  //Adds actual movie to favorites
+  addToFavorite(): void {
+    this.movieFavoriteService
+      .addToFavorite(this.movieId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
+          this.isFavorite = !this.isFavorite;
+        },
+        error: (error) => {
+          console.error(error);
+        },
+        complete: () => {
+          this.notificationService.showSuccess(
+            `<p class="text-xs">Added succesfully</p>`
+          );
+        },
+      });
+  }
+
+  //Removes actual movie from favorites
+  removeToFavorite(): void {
+    this.movieFavoriteService
+      .removeToFavorite(this.movieId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
+          this.isFavorite = !this.isFavorite;
+        },
+        error: (error) => {
+          console.error(error);
+        },
+        complete: () => {
+          this.notificationService.showSuccess(
+            `<p class="text-xs">Removed succesfully</p>`
+          );
+        },
+      });
+  }
+
+  //Show/Hide full movie description
+  onShow(): void {
+    this.showMoreToggle = !this.showMoreToggle;
+  }
+
+  //Go back page
+  goBack(): void {
+    this.location.back();
   }
 }

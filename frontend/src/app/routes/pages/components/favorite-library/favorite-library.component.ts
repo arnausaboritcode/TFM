@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  concatMap,
-  distinctUntilChanged,
-  forkJoin,
-  startWith,
-  takeUntil,
-} from 'rxjs';
+import { forkJoin, takeUntil } from 'rxjs';
 import { MovieDTO } from '../../../../core/models/movie.dto';
 import { AutoDestroyService } from '../../../../core/services/utils/auto-destroy.service';
 import { MovieDetailsService } from '../../../services/movie-details.service';
@@ -18,13 +12,12 @@ import { MovieDetailsDTO } from './../../../../core/models/movie-details.dto';
   styleUrl: './favorite-library.component.scss',
 })
 export class FavoriteLibraryComponent implements OnInit {
-  movieIds: number[];
   favoriteMovies: MovieDTO[];
 
   //Skeleton
   skeleton: boolean;
 
-  //Animation toggle
+  //User is changing his favorite movies catalog
   isEditing: boolean;
 
   constructor(
@@ -33,54 +26,46 @@ export class FavoriteLibraryComponent implements OnInit {
     private movieDetailsService: MovieDetailsService
   ) {
     this.favoriteMovies = [];
-    this.movieIds = [];
     this.skeleton = false;
     this.isEditing = false;
   }
 
   ngOnInit(): void {
-    //Initially get all user fav movies
+    //Initially, gets all user favorite movies
     this.getFavoriteMovies();
 
-    //Get new fav movies when some are deleted
-    this.movieFavoriteService.movieRemovedOrAdded$.subscribe((removed) => {
-      if (removed) {
-        this.getFavoriteMovies();
-      }
-    });
+    //Gets updated favorite movies when are changed
+    this.subscribeToChanges();
 
-    //spinner
+    //skeleton
     this.movieFavoriteService.spinner$
-      .pipe(
-        takeUntil(this.destroy$),
-        startWith(this.skeleton),
-        distinctUntilChanged()
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((value) => {
         this.skeleton = value;
       });
   }
 
   getFavoriteMovies(): void {
-    this.movieFavoriteService
-      .getFavoriteMovies()
-      .pipe(
-        takeUntil(this.destroy$),
-        concatMap((data: any) => {
-          if (data.favorites.length !== 0) {
-            this.movieIds = data.favorites.map(
-              (favorite: any) => favorite.movie_id
-            );
-            const movieObservables = this.movieIds.map((id) =>
-              this.movieDetailsService.movieDetailsById(id)
-            );
-            return forkJoin(movieObservables);
-          } else {
-            return (this.favoriteMovies = []);
-          }
-        })
-      )
-      .subscribe((data) => {
+    this.movieFavoriteService.getFavoriteMovies().subscribe((data: any) => {
+      if (data.favorites.length !== 0) {
+        const movieIds = data.favorites.map(
+          (favorite: any) => favorite.movie_id
+        );
+        this.getMoviesDetails(movieIds);
+      } else {
+        this.favoriteMovies = [];
+        this.skeleton = false;
+      }
+    });
+  }
+
+  getMoviesDetails(movieIds: number[]): void {
+    const movieObservables = movieIds.map((id) =>
+      this.movieDetailsService.movieDetailsById(id)
+    );
+    forkJoin(movieObservables)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data: MovieDetailsDTO[]) => {
         this.favoriteMovies = data.map((details) =>
           this.mapToMovieDTO(details)
         );
@@ -88,7 +73,17 @@ export class FavoriteLibraryComponent implements OnInit {
       });
   }
 
-  // Have to map data for passing it to results list in template
+  subscribeToChanges(): void {
+    this.movieFavoriteService.movieRemovedOrAdded$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((changed) => {
+        if (changed) {
+          this.getFavoriteMovies();
+        }
+      });
+  }
+
+  // Have to map data to MovieDTO model for passing it to results list in template
   private mapToMovieDTO(details: MovieDetailsDTO): MovieDTO {
     return {
       adult: details.adult,
@@ -108,6 +103,7 @@ export class FavoriteLibraryComponent implements OnInit {
     };
   }
 
+  //Editing toogle
   editingToggle(): void {
     this.isEditing = !this.isEditing;
   }

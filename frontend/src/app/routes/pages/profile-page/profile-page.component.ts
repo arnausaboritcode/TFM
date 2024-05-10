@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   AbstractControl,
@@ -7,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { distinctUntilChanged, startWith, takeUntil } from 'rxjs';
+import { takeUntil } from 'rxjs';
 import { UserDataDTO } from '../../../core/models/user-data.dto';
 import { UserDTO } from '../../../core/models/user.dto';
 import { AutoDestroyService } from '../../../core/services/utils/auto-destroy.service';
@@ -20,7 +21,6 @@ import { UserService } from '../../services/user.service';
   styleUrl: './profile-page.component.scss',
 })
 export class ProfilePageComponent implements OnInit {
-  //Update form
   updatedUser: UserDTO;
   name: FormControl;
   email: FormControl;
@@ -43,7 +43,8 @@ export class ProfilePageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private destroy$: AutoDestroyService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private location: Location
   ) {
     this.updatedUser = new UserDTO('', '', '', '');
     this.isValidForm = null;
@@ -84,12 +85,11 @@ export class ProfilePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.data.pipe(takeUntil(this.destroy$)).subscribe((data) => {
-      console.log(data);
       this.user.email = data['userData'].email;
       this.user.name = data['userData'].name;
       this.user.created_at = data['userData'].created_at;
 
-      //Full existing user data before edit
+      //Full existing user data in update form
       this.name.setValue(this.user.name);
       this.email.setValue(this.user.email);
     });
@@ -116,37 +116,35 @@ export class ProfilePageComponent implements OnInit {
     this.isValidForm = true;
     this.updatedUser = this.updateForm.value;
 
-    this.userService.updateUser(this.updatedUser).subscribe({
-      next: (response: any) => {
-        console.log(response.message);
-        //We assign new updated values to the template
-        this.user.name = this.updatedUser.name;
-        this.user.email = this.updatedUser.email;
-        //We reset form
-        this.updateForm.reset({
-          name: this.user.name,
-          email: this.user.email,
-          password: '',
-          confirmPassword: '',
-        });
-      },
-      error: (error) => {
-        console.error(error);
-      },
-      complete: () => {
-        this.notificationService.showSuccess(
-          `<p class="text-xs">Updated user succesfully</p>`
-        );
-      },
-    });
+    this.userService
+      .updateUser(this.updatedUser)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
+          //Assigns new updated values to the template
+          this.user.name = this.updatedUser.name;
+          this.user.email = this.updatedUser.email;
+          //Resets form
+          this.updateForm.reset({
+            name: this.user.name,
+            email: this.user.email,
+            password: '',
+            confirmPassword: '',
+          });
+        },
+        error: (error) => {
+          console.error(error);
+        },
+        complete: () => {
+          this.notificationService.showSuccess(
+            `<p class="text-xs">Updated user succesfully</p>`
+          );
+        },
+      });
 
     //Spinner
     this.userService.spinner$
-      .pipe(
-        takeUntil(this.destroy$),
-        startWith(this.spinner),
-        distinctUntilChanged()
-      )
+      .pipe(takeUntil(this.destroy$))
       .subscribe((value) => (this.spinner = value));
   }
 
@@ -162,5 +160,10 @@ export class ProfilePageComponent implements OnInit {
   //Show/Hide edit form
   toggleEditForm(): void {
     this.showEditForm = !this.showEditForm;
+  }
+
+  //Go back page
+  goBack(): void {
+    this.location.back();
   }
 }
