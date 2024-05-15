@@ -65,11 +65,11 @@ h2 {
 }
 
 @keyframes translate-left {
-	to { transform:translateX(250%); }
+	to { transform:translateX(0); }
 }
 
 @keyframes on-right {
-	to { transform:translateX(0); }
+	to { transform:translateX(250%); }
 }
 
 .leftToRightScrollAnimation {
@@ -83,7 +83,7 @@ h2 {
 
 .rightToLeftScrollAnimation{
   animation:
-  translate-left both ease-in-out, on-right both ease-in-out;
+ on-right both ease-in-out, translate-left both ease-in-out;
 	animation-timeline: --scroll;
 	 animation-range:
    0% 10%,
@@ -102,21 +102,23 @@ h2 {
 
   .rightToLeftScrollAnimation {
     animation:
-    translate-left both ease-in-out, on-right both ease-in-out;
+    on-right both ease-in-out, translate-left both ease-in-out;
     animation-timeline: --scroll;
      animation-range:
      0% 10%,
      0% 30% !important;
   }
+
+
 }
 
 //Images onscroll
-@keyframes on-down {
-	to { transform:translateY(100%); }
-}
-
 @keyframes translate-up {
 	to { transform:translateY(0); }
+}
+
+@keyframes on-down {
+	to { transform:translateY(100%); }
 }
 
 .downToUpScrollAnimation {

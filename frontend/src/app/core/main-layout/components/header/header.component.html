@@ -96,13 +96,15 @@
           'animatecss-fadeOutRightBig': !showMenu,
           'animatecss-slideInRight': showMenu
         }"
-        class="absolute overflow-y-hidden w-screen md:w-[60vw] h-screen right-0 top-0 bg-darkBlue-400 animatecss animatecss-duration-2s"
+        class="absolute overflow-y-hidden w-dvw md:w-[60vw] h-dvh right-0 top-0 bg-darkBlue-400 animatecss animatecss-duration-2s"
       >
         <button
           class="absolute right-4 top-3 w-fit m-5 flex justify-center items-center"
           (click)="toggleNavbar()"
         >
-          <i class="fa-solid fa-circle-xmark text-white text-4xl"></i>
+          <i
+            class="fa-solid fa-circle-xmark text-white hover:text-salmon text-4xl"
+          ></i>
         </button>
         <ul class="flex flex-col justify-center items-start p-5 mt-28">
           <li class="p-2 w-full flex items-center justify-between">

@@ -83,8 +83,11 @@ export class GenreCarrouselComponent implements AfterViewInit {
             bottom:auto;
 
           }
-          .swiper:hover .swiper-horizontal > .swiper-pagination-bullets, .swiper:hover .swiper-pagination-bullets.swiper-pagination-horizontal{
-            opacity:1;
+
+          @media (min-width: 1024px) {
+            .swiper:hover .swiper-horizontal > .swiper-pagination-bullets, .swiper:hover .swiper-pagination-bullets.swiper-pagination-horizontal{
+              opacity:1;
+            }
           }
 
       `,
