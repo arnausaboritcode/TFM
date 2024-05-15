@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { distinctUntilChanged, switchMap, takeUntil, tap } from 'rxjs';
-import { MovieDTO } from '../../../core/models/movie.dto';
-import { AutoDestroyService } from '../../../core/services/utils/auto-destroy.service';
-import { HeaderService } from '../../services/header.service';
+import { MovieDTO } from '../../../../core/models/movie.dto';
+import { HeaderService } from '../../../../core/services/common/header.service';
+import { AutoDestroyService } from '../../../../core/services/utils/auto-destroy.service';
 import { MovieSearchService } from '../../services/movie-search.service';
 
 @Component({

@@ -2,10 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs';
 import { GenreDTO } from '../../../core/models/genres.dto';
 import { MovieDTO } from '../../../core/models/movie.dto';
+import { NotificationService } from '../../../core/services/common/notification.service';
 import { AutoDestroyService } from '../../../core/services/utils/auto-destroy.service';
+import { MoviesService } from '../../../features/movies/services/movies.service';
 import { MovieFavoriteService } from '../../../routes/services/movie-favorite.service';
-import { MoviesService } from '../../../routes/services/movies.service';
-import { NotificationService } from '../../../routes/services/notification.service';
 
 @Component({
   selector: 'app-results-card',

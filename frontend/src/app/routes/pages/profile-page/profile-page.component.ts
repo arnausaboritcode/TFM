@@ -11,9 +11,9 @@ import { ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs';
 import { UserDataDTO } from '../../../core/models/user-data.dto';
 import { UserDTO } from '../../../core/models/user.dto';
+import { NotificationService } from '../../../core/services/common/notification.service';
 import { AutoDestroyService } from '../../../core/services/utils/auto-destroy.service';
-import { NotificationService } from '../../services/notification.service';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../../features/user/services/user.service';
 
 @Component({
   selector: 'app-profile-page',

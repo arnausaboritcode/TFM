@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { forkJoin, takeUntil } from 'rxjs';
 import { MovieDTO } from '../../../../core/models/movie.dto';
 import { AutoDestroyService } from '../../../../core/services/utils/auto-destroy.service';
-import { MovieDetailsService } from '../../../services/movie-details.service';
+import { MovieDetailsService } from '../../../../features/movies/services/movie-details.service';
 import { MovieFavoriteService } from '../../../services/movie-favorite.service';
 import { MovieDetailsDTO } from './../../../../core/models/movie-details.dto';
 

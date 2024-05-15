@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { takeUntil } from 'rxjs';
-import { AuthService } from '../../../../routes/services/auth.service';
-import { HeaderService } from '../../../../routes/services/header.service';
-import { LocalStorageService } from '../../../../routes/services/local-storage.service';
-import { NotificationService } from '../../../../routes/services/notification.service';
+import { AuthService } from '../../../../features/user/services/auth.service';
+import { HeaderService } from '../../../services/common/header.service';
+import { LocalStorageService } from '../../../services/common/local-storage.service';
+import { NotificationService } from '../../../services/common/notification.service';
 import { AutoDestroyService } from '../../../services/utils/auto-destroy.service';
 
 @Component({

@@ -1,3 +1,8 @@
+export interface UsersDataDTO {
+  status: boolean;
+  users: UserDataDTO[];
+}
+
 export class UserDataDTO {
   id: number;
   name: string;

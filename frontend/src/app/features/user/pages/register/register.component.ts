@@ -10,10 +10,10 @@ import {
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs';
 import { UserDTO } from '../../../../core/models/user.dto';
+import { HeaderService } from '../../../../core/services/common/header.service';
+import { NotificationService } from '../../../../core/services/common/notification.service';
 import { AutoDestroyService } from '../../../../core/services/utils/auto-destroy.service';
-import { HeaderService } from '../../../services/header.service';
-import { NotificationService } from '../../../services/notification.service';
-import { UserService } from '../../../services/user.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-register',

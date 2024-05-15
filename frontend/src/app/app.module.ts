@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, isDevMode } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -8,31 +8,20 @@ import {
 } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { ServiceWorkerModule } from '@angular/service-worker';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ToastrModule } from 'ngx-toastr';
 import { register } from 'swiper/element/bundle';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { authInterceptor } from './core/interceptors/auth.interceptor';
-import { FooterComponent } from './core/main-layout/components/footer/footer.component';
-import { HeaderComponent } from './core/main-layout/components/header/header.component';
-import { MainLayoutComponent } from './core/main-layout/main-layout.component';
+import { CoreModule } from './core/core.module';
 import { WelcomePageComponent } from './routes/pages/welcome-page/welcome-page.component';
-import { SharedModule } from './shared.module';
-import { PopcornSpinnerComponent } from './shared/components/popcorn-spinner/popcorn-spinner.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
+import { SharedModule } from './shared/shared.module';
 register();
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    MainLayoutComponent,
-    WelcomePageComponent,
-    PopcornSpinnerComponent,
-  ],
+  declarations: [AppComponent, WelcomePageComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -45,22 +34,16 @@ register();
     BrowserAnimationsModule,
     FontAwesomeModule,
     SharedModule,
+    CoreModule,
     ToastrModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: authInterceptor,
-      multi: true,
-    },
-    provideClientHydration(),
-  ],
+  providers: [provideClientHydration()],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
 })

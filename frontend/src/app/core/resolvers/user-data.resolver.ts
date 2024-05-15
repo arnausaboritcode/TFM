@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { Observable, catchError, of, takeUntil } from 'rxjs';
-import { UserService } from '../../routes/services/user.service';
+import { UserService } from '../../features/user/services/user.service';
 import { AutoDestroyService } from '../services/utils/auto-destroy.service';
 
 @Injectable({

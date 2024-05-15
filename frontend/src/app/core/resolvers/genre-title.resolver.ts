@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Observable, map, takeUntil } from 'rxjs';
-import { MoviesService } from '../../routes/services/movies.service';
+import { MoviesService } from '../../features/movies/services/movies.service';
 import { AutoDestroyService } from '../services/utils/auto-destroy.service';
 
 @Injectable({

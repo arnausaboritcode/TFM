@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, delay, finalize } from 'rxjs';
-import { environment } from '../../../environments/environment.development';
-import { AuthDTO } from '../../core/models/auth.dto';
-import { LocalStorageService } from './local-storage.service';
+import { environment } from '../../../../environments/environment.development';
+import { AuthDTO } from '../../../core/models/auth.dto';
+import { LocalStorageService } from '../../../core/services/common/local-storage.service';
 
 @Injectable({
   providedIn: 'root',

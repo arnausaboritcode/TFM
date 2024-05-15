@@ -12,11 +12,13 @@ const routes: Routes = [
   },
   {
     path: 'movies',
-    loadChildren: () => import('./movie.module').then((m) => m.MovieModule),
+    loadChildren: () =>
+      import('./features/movies/movie.module').then((m) => m.MovieModule),
   },
   {
     path: 'user',
-    loadChildren: () => import('./user.module').then((m) => m.UserModule),
+    loadChildren: () =>
+      import('./features/user/user.module').then((m) => m.UserModule),
   },
   { path: '**', redirectTo: 'user/register' },
 ];

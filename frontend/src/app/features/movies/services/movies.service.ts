@@ -2,10 +2,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, delay, finalize } from 'rxjs';
 
-import { environment } from '../../../environments/environment';
-import { FiltersDTO } from '../../core/models/filters.dto';
-import { GenresDTO } from '../../core/models/genres.dto';
-import { SearchResultDTO } from '../../core/models/movie.dto';
+import { environment } from '../../../../environments/environment';
+import { FiltersDTO } from '../../../core/models/filters.dto';
+import { GenresDTO } from '../../../core/models/genres.dto';
+import { SearchResultDTO } from '../../../core/models/movie.dto';
 
 @Injectable({
   providedIn: 'root',

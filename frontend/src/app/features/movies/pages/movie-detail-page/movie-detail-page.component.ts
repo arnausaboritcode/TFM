@@ -2,13 +2,18 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map, takeUntil } from 'rxjs';
-import { MovieDetailsDTO } from '../../../core/models/movie-details.dto';
-import { MovieDTO, SearchResultDTO } from '../../../core/models/movie.dto';
-import { AutoDestroyService } from '../../../core/services/utils/auto-destroy.service';
+import { FavoritesDTO } from '../../../../core/models/favorites.dto';
+import { MovieDetailsDTO } from '../../../../core/models/movie-details.dto';
+import { MovieDTO, SearchResultDTO } from '../../../../core/models/movie.dto';
+import {
+  UserDataDTO,
+  UsersDataDTO,
+} from '../../../../core/models/user-data.dto';
+import { NotificationService } from '../../../../core/services/common/notification.service';
+import { AutoDestroyService } from '../../../../core/services/utils/auto-destroy.service';
+import { MovieFavoriteService } from '../../../../routes/services/movie-favorite.service';
+import { UserService } from '../../../user/services/user.service';
 import { MovieDetailsService } from '../../services/movie-details.service';
-import { MovieFavoriteService } from '../../services/movie-favorite.service';
-import { NotificationService } from '../../services/notification.service';
-import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-movie-detail-page',
@@ -129,7 +134,7 @@ export class MovieDetailPageComponent implements OnInit {
     this.movieFavoriteService
       .getFavoriteMovies()
       .pipe(takeUntil(this.destroy$))
-      .subscribe((data) => {
+      .subscribe((data: FavoritesDTO) => {
         data.favorites.forEach((movie: any) => {
           if (movie.movie_id === this.movieId) {
             this.isFavorite = true;
@@ -143,7 +148,7 @@ export class MovieDetailPageComponent implements OnInit {
     this.movieFavoriteService
       .getAllFavoriteMovies()
       .pipe(takeUntil(this.destroy$))
-      .subscribe((data) => {
+      .subscribe((data: FavoritesDTO) => {
         this.usersIdsFav = [];
         data.favorites.forEach((movie: any) => {
           if (movie.movie_id === this.movieId) {
@@ -169,7 +174,7 @@ export class MovieDetailPageComponent implements OnInit {
     this.userService
       .getUserInfo()
       .pipe(takeUntil(this.destroy$))
-      .subscribe((data) => {
+      .subscribe((data: UserDataDTO) => {
         this.actualUserId = data.id;
       });
   }
@@ -179,7 +184,7 @@ export class MovieDetailPageComponent implements OnInit {
     this.userService
       .getAllUsersInfo()
       .pipe(takeUntil(this.destroy$))
-      .subscribe((data) => {
+      .subscribe((data: UsersDataDTO) => {
         this.usersNamesFav = [];
         data.users.forEach((user: any) => {
           this.usersIdsFav.forEach((id) => {

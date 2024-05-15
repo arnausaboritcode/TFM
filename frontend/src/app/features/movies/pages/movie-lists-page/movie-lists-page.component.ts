@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, forkJoin, takeUntil } from 'rxjs';
-import { GenreDTO } from '../../../core/models/genres.dto';
-import { MovieDTO } from '../../../core/models/movie.dto';
-import { AutoDestroyService } from '../../../core/services/utils/auto-destroy.service';
+import { GenreDTO } from '../../../../core/models/genres.dto';
+import { MovieDTO } from '../../../../core/models/movie.dto';
+import { AutoDestroyService } from '../../../../core/services/utils/auto-destroy.service';
 import { MoviesService } from '../../services/movies.service';
 
 @Component({

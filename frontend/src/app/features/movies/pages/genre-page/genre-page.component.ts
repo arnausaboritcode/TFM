@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, map, switchMap, takeUntil, tap } from 'rxjs';
-import { FiltersDTO } from '../../../core/models/filters.dto';
-import { GenreDTO } from '../../../core/models/movie-details.dto';
-import { MovieDTO } from '../../../core/models/movie.dto';
-import { AutoDestroyService } from '../../../core/services/utils/auto-destroy.service';
+import { FiltersDTO } from '../../../../core/models/filters.dto';
+import { GenreDTO } from '../../../../core/models/movie-details.dto';
+import { MovieDTO } from '../../../../core/models/movie.dto';
+import { AutoDestroyService } from '../../../../core/services/utils/auto-destroy.service';
 import { MoviesService } from '../../services/movies.service';
 
 @Component({

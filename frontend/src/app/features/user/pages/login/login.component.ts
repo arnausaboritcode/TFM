@@ -9,11 +9,11 @@ import {
 import { Router } from '@angular/router';
 import { finalize, takeUntil } from 'rxjs';
 import { AuthDTO } from '../../../../core/models/auth.dto';
+import { HeaderService } from '../../../../core/services/common/header.service';
+import { LocalStorageService } from '../../../../core/services/common/local-storage.service';
+import { NotificationService } from '../../../../core/services/common/notification.service';
 import { AutoDestroyService } from '../../../../core/services/utils/auto-destroy.service';
-import { AuthService } from '../../../services/auth.service';
-import { HeaderService } from '../../../services/header.service';
-import { LocalStorageService } from '../../../services/local-storage.service';
-import { NotificationService } from '../../../services/notification.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',

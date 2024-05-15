@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './core/guards/auth.guard';
-import { userDataResolver } from './core/resolvers/user-data.resolver';
-import { LoginComponent } from './routes/auth/pages/login/login.component';
-import { RegisterComponent } from './routes/auth/pages/register/register.component';
-import { FavoriteLibraryComponent } from './routes/pages/components/favorite-library/favorite-library.component';
-import { ProfilePageComponent } from './routes/pages/profile-page/profile-page.component';
+import { AuthGuard } from '../../core/guards/auth.guard';
+import { userDataResolver } from '../../core/resolvers/user-data.resolver';
+import { FavoriteLibraryComponent } from '../../routes/pages/components/favorite-library/favorite-library.component';
+import { ProfilePageComponent } from '../../routes/pages/profile-page/profile-page.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, title: 'PopCorn - Login' },
