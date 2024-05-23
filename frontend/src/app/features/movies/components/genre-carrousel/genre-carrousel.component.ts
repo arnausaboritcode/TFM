@@ -15,12 +15,11 @@ import { GenreDTO } from '../../../../core/models/genres.dto';
   styleUrl: './genre-carrousel.component.scss',
 })
 export class GenreCarrouselComponent implements AfterViewInit {
-  @Input({ required: true }) genres: GenreDTO[];
+  @Input({ required: true }) genres!: GenreDTO[];
   @Input({ required: true }) title: string;
   @ViewChild('swiperRef', { static: true }) protected _swiperRef!: ElementRef;
 
   constructor() {
-    this.genres = [];
     this.title = '';
   }
 
@@ -33,28 +32,30 @@ export class GenreCarrouselComponent implements AfterViewInit {
 
     const swiperParams = {
       slidesPerView: 2,
-      slidesPerGroup: 2,
-      initialSlide: 1,
+      slidesPerGroup: 1,
       spaceBetween: 5,
-      centeredSlides: true,
       loop: true,
+      loopAddBlankSlides: false,
+      centeredSlides: false,
       injectStyles: [
         `
           .swiper-button-next,
           .swiper-button-prev {
+            background-color: rgba(20,20,20,0.9);
+            background-position: center;
+            background-size: 40px;
+            background-repeat: no-repeat;
+            padding: 8px 20px;
             color: white;
             opacity: 0;
-            transition: opacity 0.6s ease 0s, box-shadow 0.3s ease 0s;
+            transition: opacity 0.2s ease 0s, box-shadow 0.4s ease 0s;
+            box-shadow: 0px 0px 0px 0px rgba(20,20,20,0.9);
           }
           .swiper:hover .swiper-button-next,
           .swiper:hover .swiper-button-prev {
             opacity: 1;
-            background-color: rgba(20,20,20,0.9);
-            transition: opacity 0.6s ease 0s, box-shadow 0.3s ease 0s;
-
-            -webkit-box-shadow:0px 0px 75px 105px rgba(20,20,20,0.9);
-            -moz-box-shadow: 0px 0px 75px 105px rgba(20,20,20,0.9);
-            box-shadow: 0px 0px 75px 105px rgba(20,20,20,0.9);
+            transition: opacity 0.2s ease 0s, box-shadow 0.4s ease 0s;
+            box-shadow: 0px 0px 65px 80px rgba(20,20,20,0.9);
           }
 
           @media (max-width: 1024px) {
@@ -83,13 +84,11 @@ export class GenreCarrouselComponent implements AfterViewInit {
             bottom:auto;
 
           }
-
           @media (min-width: 1024px) {
-            .swiper:hover .swiper-horizontal > .swiper-pagination-bullets, .swiper:hover .swiper-pagination-bullets.swiper-pagination-horizontal{
-              opacity:1;
-            }
+          .swiper:hover .swiper-horizontal > .swiper-pagination-bullets, .swiper:hover .swiper-pagination-bullets.swiper-pagination-horizontal{
+            opacity:1;
           }
-
+        }
       `,
       ],
       breakpoints: {
@@ -97,29 +96,17 @@ export class GenreCarrouselComponent implements AfterViewInit {
           slidesPerView: 3,
           slidesPerGroup: 3,
           spaceBetween: 5,
-          centeredSlides: true,
-        },
-        900: {
-          slidesPerView: 4,
-          slidesPerGroup: 4,
-          spaceBetween: 5,
-          centeredSlides: true,
-        },
-        1200: {
-          slidesPerView: 5,
-          slidesPerGroup: 5,
-          spaceBetween: 5,
           centeredSlides: false,
         },
-        1500: {
+        1200: {
           slidesPerView: 6,
-          slidesPerGroup: 6,
+          slidesPerGroup: 3,
           spaceBetween: 5,
           centeredSlides: false,
         },
         1800: {
           slidesPerView: 7,
-          slidesPerGroup: 7,
+          slidesPerGroup: 3,
           spaceBetween: 5,
           centeredSlides: false,
         },

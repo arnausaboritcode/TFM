@@ -1,27 +1,35 @@
 <div *ngIf="!skeleton; else showSkeleton">
-  <app-movie-banner [movies]="getPopularMovies"></app-movie-banner>
+  <app-movie-banner
+    *ngIf="getPopularMovies && getPopularMovies.length > 0"
+    [movies]="getPopularMovies"
+  ></app-movie-banner>
 
   <app-movie-carrousel
+    *ngIf="nowPlayingMovies && nowPlayingMovies.length > 0"
     [title]="'Playing on Cinema'"
     [movies]="nowPlayingMovies"
   ></app-movie-carrousel>
 
   <app-genre-carrousel
+    *ngIf="getGenres && getGenres.length > 0"
     [title]="'Categories'"
     [genres]="getGenres"
   ></app-genre-carrousel>
 
   <app-movie-carrousel
+    *ngIf="getPopularMovies && getPopularMovies.length > 0"
     [title]="'Popular'"
     [movies]="getPopularMovies"
   ></app-movie-carrousel>
 
   <app-movie-carrousel
+    *ngIf="getTopRatedMovies && getTopRatedMovies.length > 0"
     [title]="'Best by viewers'"
     [movies]="getTopRatedMovies"
   ></app-movie-carrousel>
 
   <app-movie-carrousel
+    *ngIf="getUpcomingMovies && getUpcomingMovies.length > 0"
     [title]="'Next Movies'"
     [movies]="getUpcomingMovies"
   ></app-movie-carrousel>

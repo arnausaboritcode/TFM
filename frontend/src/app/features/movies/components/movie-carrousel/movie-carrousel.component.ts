@@ -15,12 +15,11 @@ import { MovieDTO } from '../../../../core/models/movie.dto';
   styleUrl: './movie-carrousel.component.scss',
 })
 export class MovieCarrouselComponent implements AfterViewInit {
-  @Input({ required: true }) movies: MovieDTO[];
+  @Input({ required: true }) movies!: MovieDTO[];
   @Input({ required: true }) title: string;
   @ViewChild('swiperRef', { static: true }) protected _swiperRef!: ElementRef;
 
   constructor() {
-    this.movies = [];
     this.title = '';
   }
 
@@ -36,7 +35,6 @@ export class MovieCarrouselComponent implements AfterViewInit {
       slidesPerGroup: 2,
       initialSlide: 1,
       spaceBetween: 5,
-      centeredSlides: true,
       loop: true,
       injectStyles: [
         `
@@ -97,29 +95,17 @@ export class MovieCarrouselComponent implements AfterViewInit {
           slidesPerView: 5,
           slidesPerGroup: 5,
           spaceBetween: 5,
-          centeredSlides: true,
-        },
-        900: {
-          slidesPerView: 6,
-          slidesPerGroup: 6,
-          spaceBetween: 5,
-          centeredSlides: true,
-        },
-        1200: {
-          slidesPerView: 7,
-          slidesPerGroup: 7,
-          spaceBetween: 5,
           centeredSlides: false,
         },
-        1500: {
+        1200: {
           slidesPerView: 8,
-          slidesPerGroup: 8,
+          slidesPerGroup: 4,
           spaceBetween: 5,
           centeredSlides: false,
         },
         1800: {
-          slidesPerView: 9,
-          slidesPerGroup: 9,
+          slidesPerView: 10,
+          slidesPerGroup: 5,
           spaceBetween: 5,
           centeredSlides: false,
         },
