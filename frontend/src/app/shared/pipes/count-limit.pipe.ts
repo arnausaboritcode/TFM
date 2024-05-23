@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'genresLimit',
+  name: 'countLimit',
 })
-export class GenresLimitPipe implements PipeTransform {
+export class CountLimitPipe implements PipeTransform {
   transform(genresArr: string[], limit: number): any {
     if (genresArr.length <= limit) {
       return `${genresArr.join(' · ')}`;

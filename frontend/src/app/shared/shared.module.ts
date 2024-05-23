@@ -6,7 +6,7 @@ import { ResultsCardComponent } from './components/results-card/results-card.com
 import { ResultsListComponent } from './components/results-list/results-list.component';
 import { ResultsSkeletonComponent } from './components/results-skeleton/results-skeleton.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
-import { GenresLimitPipe } from './pipes/genres-limit.pipe';
+import { CountLimitPipe } from './pipes/count-limit.pipe';
 import { ImageUrlPipe } from './pipes/image-url.pipe';
 
 @NgModule({
@@ -15,7 +15,7 @@ import { ImageUrlPipe } from './pipes/image-url.pipe';
     ResultsListComponent,
     ResultsCardComponent,
     ResultsSkeletonComponent,
-    GenresLimitPipe,
+    CountLimitPipe,
     ImageUrlPipe,
   ],
   imports: [CommonModule, NgOptimizedImage, RouterModule],
@@ -24,7 +24,7 @@ import { ImageUrlPipe } from './pipes/image-url.pipe';
     ResultsListComponent,
     ResultsCardComponent,
     ResultsSkeletonComponent,
-    GenresLimitPipe,
+    CountLimitPipe,
     ImageUrlPipe,
   ],
 })

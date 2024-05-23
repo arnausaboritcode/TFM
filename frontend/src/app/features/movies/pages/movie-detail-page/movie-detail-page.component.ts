@@ -2,7 +2,10 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map, takeUntil } from 'rxjs';
-import { FavoritesDTO } from '../../../../core/models/favorites.dto';
+import {
+  FavoriteMoviesDTO,
+  FavoritesDTO,
+} from '../../../../core/models/favorites.dto';
 import { MovieDetailsDTO } from '../../../../core/models/movie-details.dto';
 import { MovieDTO, SearchResultDTO } from '../../../../core/models/movie.dto';
 import {
@@ -11,7 +14,7 @@ import {
 } from '../../../../core/models/user-data.dto';
 import { NotificationService } from '../../../../core/services/common/notification.service';
 import { AutoDestroyService } from '../../../../core/services/utils/auto-destroy.service';
-import { MovieFavoriteService } from '../../../../routes/services/movie-favorite.service';
+import { FavoriteService } from '../../../user/services/favorite.service';
 import { UserService } from '../../../user/services/user.service';
 import { MovieDetailsService } from '../../services/movie-details.service';
 
@@ -49,7 +52,7 @@ export class MovieDetailPageComponent implements OnInit {
     private route: ActivatedRoute,
     private destroy$: AutoDestroyService,
     private location: Location,
-    private movieFavoriteService: MovieFavoriteService,
+    private favoriteService: FavoriteService,
     private notificationService: NotificationService,
     private userService: UserService
   ) {
@@ -115,7 +118,7 @@ export class MovieDetailPageComponent implements OnInit {
       });
 
     //spinner
-    this.movieFavoriteService.spinner$
+    this.favoriteService.spinner$
       .pipe(takeUntil(this.destroy$))
       .subscribe((value) => {
         this.spinner = value;
@@ -131,11 +134,11 @@ export class MovieDetailPageComponent implements OnInit {
 
   getUserFavMovies(): void {
     //check if actual movie are favourite or not
-    this.movieFavoriteService
+    this.favoriteService
       .getFavoriteMovies()
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: FavoritesDTO) => {
-        data.favorites.forEach((movie: any) => {
+        data.favorites.forEach((movie: FavoriteMoviesDTO) => {
           if (movie.movie_id === this.movieId) {
             this.isFavorite = true;
           }
@@ -145,12 +148,12 @@ export class MovieDetailPageComponent implements OnInit {
 
   getAllFavMovies(): void {
     //Find users id that also liked the movie
-    this.movieFavoriteService
+    this.favoriteService
       .getAllFavoriteMovies()
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: FavoritesDTO) => {
         this.usersIdsFav = [];
-        data.favorites.forEach((movie: any) => {
+        data.favorites.forEach((movie: FavoriteMoviesDTO) => {
           if (movie.movie_id === this.movieId) {
             this.usersIdsFav.push(movie.user_id);
           }
@@ -159,7 +162,7 @@ export class MovieDetailPageComponent implements OnInit {
   }
 
   subscribeToChanges(): void {
-    this.movieFavoriteService.movieRemovedOrAdded$
+    this.favoriteService.movieRemovedOrAdded$
       .pipe(takeUntil(this.destroy$))
       .subscribe((changed) => {
         if (changed) {
@@ -186,7 +189,7 @@ export class MovieDetailPageComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe((data: UsersDataDTO) => {
         this.usersNamesFav = [];
-        data.users.forEach((user: any) => {
+        data.users.forEach((user: UserDataDTO) => {
           this.usersIdsFav.forEach((id) => {
             if (user.id === id) {
               if (user.id === this.actualUserId) {
@@ -201,7 +204,7 @@ export class MovieDetailPageComponent implements OnInit {
 
   //Adds actual movie to favorites
   addToFavorite(): void {
-    this.movieFavoriteService
+    this.favoriteService
       .addToFavorite(this.movieId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
@@ -221,7 +224,7 @@ export class MovieDetailPageComponent implements OnInit {
 
   //Removes actual movie from favorites
   removeToFavorite(): void {
-    this.movieFavoriteService
+    this.favoriteService
       .removeToFavorite(this.movieId)
       .pipe(takeUntil(this.destroy$))
       .subscribe({

@@ -1,7 +1,5 @@
-import { NgOptimizedImage } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, isDevMode } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   BrowserModule,
   provideClientHydration,
@@ -10,31 +8,29 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { ToastrModule } from 'ngx-toastr';
 import { register } from 'swiper/element/bundle';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { WelcomePageComponent } from './routes/pages/welcome-page/welcome-page.component';
+import { UserModule } from './features/user/user.module';
+import { WelcomeModule } from './features/welcome/welcome.module';
 import { SharedModule } from './shared/shared.module';
 register();
 
 @NgModule({
-  declarations: [AppComponent, WelcomePageComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule,
     AppRoutingModule,
-    ReactiveFormsModule,
     RouterModule,
-    InfiniteScrollModule,
-    NgOptimizedImage,
     BrowserAnimationsModule,
     FontAwesomeModule,
     SharedModule,
     CoreModule,
+    UserModule,
+    WelcomeModule,
     ToastrModule.forRoot(),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),

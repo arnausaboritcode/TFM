@@ -5,7 +5,7 @@ import { MovieDTO } from '../../../core/models/movie.dto';
 import { NotificationService } from '../../../core/services/common/notification.service';
 import { AutoDestroyService } from '../../../core/services/utils/auto-destroy.service';
 import { MoviesService } from '../../../features/movies/services/movies.service';
-import { MovieFavoriteService } from '../../../routes/services/movie-favorite.service';
+import { FavoriteService } from '../../../features/user/services/favorite.service';
 
 @Component({
   selector: 'app-results-card',
@@ -20,7 +20,7 @@ export class ResultsCardComponent implements OnInit {
 
   constructor(
     private moviesService: MoviesService,
-    private movieFavoriteService: MovieFavoriteService,
+    private favoriteService: FavoriteService,
     private destroy$: AutoDestroyService,
     private notificationService: NotificationService
   ) {}
@@ -43,7 +43,7 @@ export class ResultsCardComponent implements OnInit {
   }
 
   removeToFavorite(): void {
-    this.movieFavoriteService
+    this.favoriteService
       .removeToFavorite(this.movie.id)
       .pipe(takeUntil(this.destroy$))
       .subscribe({

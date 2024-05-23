@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Subject, map, switchMap, takeUntil, tap } from 'rxjs';
+import { Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { FiltersDTO } from '../../../../core/models/filters.dto';
 import { GenreDTO } from '../../../../core/models/movie-details.dto';
 import { MovieDTO } from '../../../../core/models/movie.dto';
@@ -73,27 +73,21 @@ export class GenrePageComponent implements OnInit {
 
   ngOnInit(): void {
     //Getting actual genre id from url params
-    this.route.params
-      .pipe(
-        takeUntil(this.destroy$),
-        map((params) => {
-          this.genreId = params['id'];
-          this.genresIds.push(this.genreId);
-        })
-      )
-      .subscribe(() => {
-        //Assigning actual genre to filters
-        this.filters = {
-          ...this.filters,
-          with_genres: this.genresIds.join(','),
-        };
-        //Getting results
-        this.moviesService.getDiscoverMovies(this.filters).subscribe((data) => {
-          this.genreMovies = data.results;
-          this.totalResults = data.total_results;
-          this.totalPages = data.total_pages;
-        });
-      });
+    this.genreId = this.route.snapshot.params['id'];
+    this.genresIds.push(this.genreId);
+
+    //Assigning actual genre to filters
+    this.filters = {
+      ...this.filters,
+      with_genres: this.genresIds.join(','),
+    };
+
+    //Getting results
+    this.moviesService.getDiscoverMovies(this.filters).subscribe((data) => {
+      this.genreMovies = data.results;
+      this.totalResults = data.total_results;
+      this.totalPages = data.total_pages;
+    });
 
     //Initialize form
     this.initForm();

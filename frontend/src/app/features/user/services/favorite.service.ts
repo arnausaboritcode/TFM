@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, finalize } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { LocalStorageService } from '../../core/services/common/local-storage.service';
+import { environment } from '../../../../environments/environment';
+import { LocalStorageService } from '../../../core/services/common/local-storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class MovieFavoriteService {
+export class FavoriteService {
   //spinner
   private spinner: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false

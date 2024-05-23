@@ -4,13 +4,13 @@
   <!-- Go Back Button -->
   <a
     (click)="goBack()"
-    class="absolute z-50 cursor-pointer left-12 md:top-40 top-11 md:w-14 md:h-14 w-10 h-10 flex items-center justify-center md:text-sm text-xs lg:hover:-translate-x-2 hover:bg-salmon text-white transition-all duration-500 ease-in-out bg-darkBlue-400 rounded-full border-2 border-darkBlue-400 shadow-md"
+    class="absolute z-50 cursor-pointer left-12 md:top-40 top-11 md:w-14 md:h-14 w-10 h-10 flex items-center justify-center md:text-sm text-xs lg:hover:-translate-x-2 lg:hover:bg-salmon text-white transition-all duration-500 ease-in-out bg-darkBlue-400 rounded-full border-2 border-darkBlue-400 shadow-md"
   >
     <i class="fa-solid fa-arrow-left md:text-base text-sm"></i>
   </a>
 
   <!-- Register form -->
-  <div class="h-screen w-screen flex flex-col justify-center items-center">
+  <div class="h-dvh w-dvw flex flex-col justify-center items-center">
     <object
       class="md:w-36 w-20 m-4"
       data="assets/icons/logo.svg"
@@ -19,7 +19,7 @@
     <form
       [formGroup]="registerForm"
       (ngSubmit)="register()"
-      class="rounded-lg bg-darkBlue-500 md:py-20 md:px-12 py-10 px-8 shadow-2xl flex flex-col md:w-[580px] w-[280px] md:mt-10 mt-3"
+      class="rounded-lg bg-darkBlue-500 md:py-20 md:px-12 py-10 px-8 shadow-2xl flex flex-col md:w-[580px] w-8/12 md:mt-10 mt-3"
     >
       <p
         class="md:text-3xl text-xl mb-7 font-extrabold leading-9 bg-clip-text text-transparent bg-gradient-to-r from-slate-200/60 to-50% to-slate-200"

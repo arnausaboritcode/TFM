@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { takeUntil } from 'rxjs';
-import { MovieDTO } from '../../../core/models/movie.dto';
-import { HeaderService } from '../../../core/services/common/header.service';
-import { AutoDestroyService } from '../../../core/services/utils/auto-destroy.service';
-import { MoviesService } from '../../../features/movies/services/movies.service';
+import { MovieDTO } from '../../../../core/models/movie.dto';
+import { HeaderService } from '../../../../core/services/common/header.service';
+import { AutoDestroyService } from '../../../../core/services/utils/auto-destroy.service';
+import { MoviesService } from '../../../movies/services/movies.service';
 
 @Component({
   selector: 'app-home-page',

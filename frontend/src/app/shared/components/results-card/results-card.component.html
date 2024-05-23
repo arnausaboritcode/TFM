@@ -23,7 +23,7 @@
         *ngIf="genresNames && genresNames.length > 0"
         class="text-xs text-gray-400 font-bold"
       >
-        {{ genresNames | genresLimit : 2 }}
+        {{ genresNames | countLimit : 2 }}
       </p>
       <p class="text-xs text-white font-bold">
         {{ movie.release_date | date : "yyyy" }}

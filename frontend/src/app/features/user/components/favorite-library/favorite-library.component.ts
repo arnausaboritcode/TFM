@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { forkJoin, takeUntil } from 'rxjs';
+import {
+  FavoriteMoviesDTO,
+  FavoritesDTO,
+} from '../../../../core/models/favorites.dto';
+import { MovieDetailsDTO } from '../../../../core/models/movie-details.dto';
 import { MovieDTO } from '../../../../core/models/movie.dto';
 import { AutoDestroyService } from '../../../../core/services/utils/auto-destroy.service';
-import { MovieDetailsService } from '../../../../features/movies/services/movie-details.service';
-import { MovieFavoriteService } from '../../../services/movie-favorite.service';
-import { MovieDetailsDTO } from './../../../../core/models/movie-details.dto';
+import { MovieDetailsService } from '../../../movies/services/movie-details.service';
+import { FavoriteService } from '../../services/favorite.service';
 
 @Component({
   selector: 'app-favorite-library',
@@ -21,7 +25,7 @@ export class FavoriteLibraryComponent implements OnInit {
   isEditing: boolean;
 
   constructor(
-    private movieFavoriteService: MovieFavoriteService,
+    private favoriteService: FavoriteService,
     private destroy$: AutoDestroyService,
     private movieDetailsService: MovieDetailsService
   ) {
@@ -38,7 +42,7 @@ export class FavoriteLibraryComponent implements OnInit {
     this.subscribeToChanges();
 
     //skeleton
-    this.movieFavoriteService.spinner$
+    this.favoriteService.spinner$
       .pipe(takeUntil(this.destroy$))
       .subscribe((value) => {
         this.skeleton = value;
@@ -46,10 +50,10 @@ export class FavoriteLibraryComponent implements OnInit {
   }
 
   getFavoriteMovies(): void {
-    this.movieFavoriteService.getFavoriteMovies().subscribe((data: any) => {
+    this.favoriteService.getFavoriteMovies().subscribe((data: FavoritesDTO) => {
       if (data.favorites.length !== 0) {
         const movieIds = data.favorites.map(
-          (favorite: any) => favorite.movie_id
+          (favorite: FavoriteMoviesDTO) => favorite.movie_id
         );
         this.getMoviesDetails(movieIds);
       } else {
@@ -74,7 +78,7 @@ export class FavoriteLibraryComponent implements OnInit {
   }
 
   subscribeToChanges(): void {
-    this.movieFavoriteService.movieRemovedOrAdded$
+    this.favoriteService.movieRemovedOrAdded$
       .pipe(takeUntil(this.destroy$))
       .subscribe((changed) => {
         if (changed) {
