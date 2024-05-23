@@ -17,9 +17,9 @@ export class AuthGuard implements CanActivate {
       console.log('AuthGuard#canActivate authorized to access page');
       return true;
     } else {
-      /* console.log('AuthGuard#canActivate not authorized to access page');
-      this.router.navigate(['/user/login']); */
-      return true;
+      console.log('AuthGuard#canActivate not authorized to access page');
+      this.router.navigate(['/user/login']);
+      return false;
     }
   }
 }
