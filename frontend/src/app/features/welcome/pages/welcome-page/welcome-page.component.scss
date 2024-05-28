@@ -73,8 +73,10 @@ h2 {
 }
 
 .leftToRightScrollAnimation {
-	animation:
-  on-left both ease-in-out, translate-right both ease-in-out;
+	animation-name:
+  on-left, translate-right;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-fill-mode: both, both;
 	animation-timeline: --scroll;
 	 animation-range:
    0% 10%,
@@ -82,8 +84,10 @@ h2 {
 }
 
 .rightToLeftScrollAnimation{
-  animation:
- on-right both ease-in-out, translate-left both ease-in-out;
+  animation-name:
+ on-right, translate-left;
+ animation-timing-function: ease-in-out, ease-in-out;
+  animation-fill-mode: both, both;
 	animation-timeline: --scroll;
 	 animation-range:
    0% 10%,
@@ -92,8 +96,10 @@ h2 {
 
 @media (max-width: 1024px) {
   .leftToRightScrollAnimation {
-    animation:
-    on-left both ease-in-out, translate-right both ease-in-out;
+    animation-name:
+    on-left, translate-right;
+    animation-timing-function: ease-in-out, ease-in-out;
+    animation-fill-mode: both, both;
     animation-timeline: --scroll;
      animation-range:
      0% 10%,
@@ -101,9 +107,11 @@ h2 {
   }
 
   .rightToLeftScrollAnimation {
-    animation:
-    on-right both ease-in-out, translate-left both ease-in-out;
-    animation-timeline: --scroll;
+    animation-name:
+    on-right, translate-left;
+    animation-timing-function: ease-in-out, ease-in-out;
+    animation-fill-mode: both, both;
+	  animation-timeline: --scroll;
      animation-range:
      0% 10%,
      0% 30% !important;
@@ -122,8 +130,10 @@ h2 {
 }
 
 .downToUpScrollAnimation {
-	animation:
-  on-down both ease-in-out, translate-up both ease-in-out;
+	animation-name:
+  on-down, translate-up;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-fill-mode: both, both;
 	animation-timeline: --scroll;
 	 animation-range:
    0% 10%,
