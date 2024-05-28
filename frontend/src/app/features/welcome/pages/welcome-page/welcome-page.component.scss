@@ -96,28 +96,15 @@ h2 {
 
 @media (max-width: 1024px) {
   .leftToRightScrollAnimation {
-    animation-name:
-    on-left, translate-right;
-    animation-timing-function: ease-in-out, ease-in-out;
-    animation-fill-mode: both, both;
-    animation-timeline: --scroll;
      animation-range:
      0% 10%,
      0% 30% !important;
   }
-
   .rightToLeftScrollAnimation {
-    animation-name:
-    on-right, translate-left;
-    animation-timing-function: ease-in-out, ease-in-out;
-    animation-fill-mode: both, both;
-	  animation-timeline: --scroll;
      animation-range:
      0% 10%,
      0% 30% !important;
   }
-
-
 }
 
 //Images onscroll
