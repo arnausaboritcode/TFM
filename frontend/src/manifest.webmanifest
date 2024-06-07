@@ -1,7 +1,7 @@
 {
   "name": "PopCorn",
   "short_name": "PopCorn",
-  "theme_color": "#ff903c",
+  "theme_color": "#00020f",
   "background_color": "#00020f",
   "display": "standalone",
   "scope": "./",

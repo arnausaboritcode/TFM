@@ -15,12 +15,16 @@ export class WelcomePageComponent implements OnInit {
 
   windowScrolled: boolean;
 
+  //skeleton
+  skeleton:boolean;
+
   constructor(
     private moviesService: MoviesService,
     private destroy$: AutoDestroyService,
     private headerService: HeaderService
   ) {
     this.movies = [];
+    this.skeleton = false;
     this.windowScrolled = false;
   }
 
@@ -33,6 +37,13 @@ export class WelcomePageComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe((data) => {
         this.movies = data.results;
+      });
+
+    //skeleton value
+    this.moviesService.skeleton$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((value) => {
+        this.skeleton = value;
       });
 
     //Detect if page was scrolled
