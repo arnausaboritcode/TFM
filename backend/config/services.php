@@ -30,5 +30,13 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
-
+    /*     'http' => [
+        'proxy' => env('FIXIE_SOCKS_HOST'),
+        'request.options' => [
+            'proxy' => [
+                'http'  => env('FIXIE_SOCKS_HOST'),
+                'https' => env('FIXIE_SOCKS_HOST'),
+            ],
+        ],
+    ], */
 ];
